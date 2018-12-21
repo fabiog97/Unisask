@@ -20,7 +20,7 @@ public class UtenteDao
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, utente.getUsername());
 			preparedStatement.setString(2, utente.getPassword());
-			preparedStatement.setInt(3, 0);
+			preparedStatement.setString(3, "docente");
 			preparedStatement.setString(4, utente.getNome());
 			preparedStatement.setString(5, utente.getCognome());
 			preparedStatement.setString(6, utente.getEmail());
