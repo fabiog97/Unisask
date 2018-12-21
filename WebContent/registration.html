@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Unisask</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+	<div class="logo" align="center">
+		<img src="images/LOGO_Unisask.png" width="200">
+	</div>
+  <form action="RegistrationServlet">
+  <div class="container" align="center">
+  
+    <h1>Registrazione</h1>
+    <p>Compila i campi nella form per creare un account.</p>
+    <hr>
+	
+    <label for="nome"><b>Nome</b></label>
+    <input type="text" placeholder="Nome" name="nome" required>
+    
+    <label for="cognome"><b>Cognome</b></label>
+    <input type="text" placeholder="Cognome" name="cognome" required>
+    
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Username" name="username" required>
+    
+    <label for="matricola"><b>Matricola</b></label>
+    <input type="text" placeholder="Matricola" name="matricola" required>
+    
+    <label for="nazionalita"><b>Nazionalità</b></label>
+    <input type="text" placeholder="Nazionalità" name="nazionalita" required>
+    
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Email" name="email" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Password" name="password" required>
+
+    <label for="conferma-password"><b>Conferma Password</b></label>
+    <input type="password" placeholder="Ripeti Password" name="conferma-password" required>
+	
+    <hr>
+
+    <p>Creando un account tu accetti i nostri <a href="#">Termini & Privacy</a>.</p>
+    <button type="submit" class="registerbtn">Registrati</button>
+    
+    <p>Hai già un account? <a href="login.html">Login</a>.</p>
+  </div>
+  </form>
+  <div class="container signin">
+  		&copy; 2018 Unisask Inc. All right reserved<br>  
+  </div>
+
+</body>
+</html>
