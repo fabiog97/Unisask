@@ -14,6 +14,7 @@ public class Utente
 	private String nazionalita;
 	private String password;
 	private String username;
+	private String tipo;
 	
 	/**
 	 *  Costruttore vuoto
@@ -27,19 +28,20 @@ public class Utente
 		nazionalita = null;
 		password = null;
 		username = null;
+		tipo = null;
 	}
 	
 	/**
 	 *  Costruttore con parametri
 	 *  @param nome indica il codice univoco
 	 *  @param cognome indica la risposta data al quesito
-	 *  @param matricola indica la data in cui è stato posto il quesito
+	 *  @param matricola indica la data in cui ï¿½ stato posto il quesito
 	 *  @param email indica la domanda data al quesito
 	 *  @param nazionalita indica la domanda data al quesito
 	 *  @param password indica la domanda data al quesito
 	 *  @param username indica la domanda data al quesito
 	 */
-	public Utente(String nome, String cognome, String matricola, String email, String nazionalita, String password, String username)
+	public Utente(String nome, String cognome, String matricola, String email, String nazionalita, String password, String username, String tipo)
 	{
 		this.nome = nome;
 		this.cognome = cognome;
@@ -48,6 +50,24 @@ public class Utente
 		this.nazionalita = nazionalita;
 		this.password = password;
 		this.username = username;
+		this.tipo = tipo;
+	}
+	
+	/**
+	 * Restituisce il tipo dell'utente
+	 * @return tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * Setta il tipo dell'utente
+	 * @param tipo
+	 * 		indica il nuovo tipo
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	/**
@@ -119,7 +139,7 @@ public class Utente
 	}
 
 	/**
-	 * Restituisce la nazionalità dell'utente
+	 * Restituisce la nazionalitï¿½ dell'utente
 	 * @return nazionalita
 	 */
 	public String getNazionalita() {
@@ -129,7 +149,7 @@ public class Utente
 	/**
 	 * Setta nazionalita dell'utente
 	 * @param nazionalita
-	 * 		indica la nuova nazionalità
+	 * 		indica la nuova nazionalitï¿½
 	 */
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
