@@ -7,6 +7,7 @@ package application_logic_layer;
 
 public class Utente 
 {
+	private int id_utente;
 	private String nome;
 	private String cognome;
 	private String matricola;
@@ -21,6 +22,7 @@ public class Utente
 	 */
 	public Utente()
 	{
+		id_utente = 0;
 		nome = null;
 		cognome = null;
 		matricola = null;
@@ -41,8 +43,9 @@ public class Utente
 	 *  @param password indica la domanda data al quesito
 	 *  @param username indica la domanda data al quesito
 	 */
-	public Utente(String nome, String cognome, String matricola, String email, String nazionalita, String password, String username, String tipo)
+	public Utente(int id, String nome, String cognome, String matricola, String email, String nazionalita, String password, String username, String tipo)
 	{
+		this.id_utente = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.matricola = matricola;
@@ -53,12 +56,13 @@ public class Utente
 		this.tipo = tipo;
 	}
 	
+	
 	/**
-	 * Restituisce il tipo dell'utente
-	 * @return tipo
+	 * Restituisce l'id dell'utente
+	 * @return id
 	 */
-	public String getTipo() {
-		return tipo;
+	public int getId() {
+		return id_utente;
 	}
 
 	/**
@@ -66,10 +70,11 @@ public class Utente
 	 * @param tipo
 	 * 		indica il nuovo tipo
 	 */
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setId(int id) {
+		this.id_utente = id;
 	}
 
+	
 	/**
 	 * Restituisce il nome dell'utente
 	 * @return nome
@@ -189,11 +194,30 @@ public class Utente
 		this.username = username;
 	}
 
+	/**
+	 * Restituisce il tipo dell'utente
+	 * @return tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * Setta il tipo dell'utente
+	 * @param tipo
+	 * 		indica il nuovo tipo
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public String toString() {
-		return "Utente [nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", email=" + email
-				+ ", nazionalita=" + nazionalita + ", password=" + password + ", username=" + username + "]";
+		return "Utente [id_utente=" + id_utente + ", nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola
+				+ ", email=" + email + ", nazionalita=" + nazionalita + ", password=" + password + ", username="
+				+ username + ", tipo=" + tipo + "]";
 	}
+
 	
 
 }

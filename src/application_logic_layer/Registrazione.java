@@ -1,8 +1,11 @@
 package application_logic_layer;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -50,12 +53,45 @@ public class Registrazione extends HttpServlet {
 			user.setEmail(request.getParameter("email"));
 			user.setMatricola(request.getParameter("matricola"));
 			user.setNazionalita(request.getParameter("nazionalita"));
-			user.setPassword(request.getParameter("password"));
-			user.setTipo("non_verificato");
 			
+			
+			String passwordToHash = request.getParameter("password");
+	        String generatedPassword = null;
+	        
+	        try {
+	            // Create MessageDigest instance for MD5
+	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            //Add password bytes to digest
+	            md.update(passwordToHash.getBytes());
+	            //Get the hash's bytes
+	            byte[] bytes = md.digest();
+	            //This bytes[] has bytes in decimal format;
+	            //Convert it to hexadecimal format
+	            StringBuilder sb = new StringBuilder();
+	            for(int i=0; i< bytes.length ;i++)
+	            {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            //Get complete hashed password in hex format
+	            generatedPassword = sb.toString();
+	        }
+	        catch (NoSuchAlgorithmException e)
+	        {
+	            e.printStackTrace();
+	        }
+	        
+			
+	        user.setPassword(generatedPassword);
+			user.setTipo("non_verificato");
+	        
+	        
+			Random random = new Random();
+			
+			int codice = random.nextInt(50000);
+			System.out.println("Codice: "+codice);
 			
 			try {
-				UtenteDao.registraUtente(user);
+				UtenteDao.registraUtente(user,codice);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -63,16 +99,15 @@ public class Registrazione extends HttpServlet {
 			
 			
 			String name = (String)request.getParameter("nome");
+			String username = (String)request.getParameter("username");
 			String surname = (String)request.getParameter("cognome");
 			String mail = (String)request.getParameter("email");
 			
-			
-			int codice = (int)Math.random();
-			
+		
 			
 			try {
 				
-				final String username = "unisaskplatform@gmail.com";
+				final String email = "unisaskplatform@gmail.com";
 				final String password = "Unisask2018";
 
 				Properties props = new Properties();
@@ -83,7 +118,7 @@ public class Registrazione extends HttpServlet {
 				Session session = Session.getInstance(props,
 				  new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
+						return new PasswordAuthentication(email, password);
 					}
 				  });
 			
@@ -91,13 +126,12 @@ public class Registrazione extends HttpServlet {
 				message.setFrom(new InternetAddress(username));
 				message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(mail));
 				message.setSubject("Conferma Registrazione Unisask");
-				message.setText("Ciao "+name+" "+surname+", \n" + 
-						"Grazie per averti registrato, tu che dicevi che c'erano tante guide su come fare la conferma di registrazione per email trovane una e inviacela!\nGrazie!");
+				message.setText("Ciao "+name+", \n" + 
+						"Per confermare la registrazione vai al seguente link: http://localhost:8080/Unisask/ConfermaRegistrazione?codice="+codice+"&username="+username+" \n Grazie!");
 				
-
 				Transport.send(message);
 
-				System.out.println("Done");
+			
 				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/notifica_registrazione.jsp");
 				dispatcher.forward(request, response);

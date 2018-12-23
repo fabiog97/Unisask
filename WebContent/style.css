@@ -1,8 +1,29 @@
 * {box-sizing: border-box}
 
 
+header{
+	margin:2%;	
+}
 
 .container {
+  padding: 49px;  
+}
+
+.container1 
+{
+	margin-top:6%;
+  padding: 49px;  
+}
+
+.container2
+{
+	margin-top:2%;
+  padding: 49px;  
+}
+
+.container3
+{
+	margin-top:5%;
   padding: 49px;  
 }
 
@@ -66,4 +87,155 @@ a {
   font-size: 70%;
 }
 
+.signin1 
+{
+  background-color: #2A85AD;
+  text-align: center;
+  color: white;
+  font-size: 70%;
+}
+
+.signin2
+{
+  background-color: #2A85AD;
+  text-align: center;
+  color: white;
+  font-size: 70%;
+}
+
+.signin3
+{
+  background-color: #2A85AD;
+  text-align: center;
+  color: white;
+  font-size: 70%;
+}
+
+/* Visualizza Corsi */
+
+#corsi_window
+{
+	margin-left: 20%;
+	margin-right: 20%;
+	width:63%;
+	height:50%;
+	overflow: auto;
+	border: 3px solid  #2A85AD;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+li {
+  border-bottom: 1px solid #ccc;
+  background: #FEBF03;
+  padding: 1.5%;
+  margin: 1%;
+}
+
+
+
+li a {
+  text-decoration: none;
+  color: #000;
+  width: 60%;
+}
+
+li:hover {
+  background: white;
+}
+
+
+#racchiudi_facebook_instagram
+{
+	margin-top:-3%;
+}
+
+.tastologout {
+  background-color: #FEBF02;
+  color: white;
+  padding: 16px 20px;
+  margin: 1px 0;
+  border: none;
+  cursor: pointer;
+  width: 60%;
+  opacity: 0.9;
+  font-size: 80%;
+  margin-left:15%;
+}
+
+#Benvenuto
+{
+	margin-top:-10%;
+	margin-left:90%;
+}
+
+#barra_ricerca
+{
+  color: white;
+  margin: 1px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  opacity: 0.9;
+  font-size: 65%;
+  margin-left:42%;
+}
+
+#testo_ricerca
+{
+	text-color:#2A85AD;
+	margin-left:49%;
+	margin-top:-5%;
+}
+
+#contenitore_ricerca
+{
+	margin-top:-5%;
+	margin-bottom:2%;
+}
+
+#contenitore_link
+{
+	margin-left:43%;
+}
+
+#profilo_view
+{
+	margin-left: 30%;
+	margin-right: 20%;
+	width:40%;
+	height:50%;
+	overflow: auto;
+	background-color: #FEBF02;
+}
+
+#nomeProfilo
+{
+	text-size:35px;
+	margin-left:33%;
+}
+
+#generalita
+{
+	text-size:10px;
+	margin-left:33%;
+}
+
+.tastoMostra {
+  background-color: #2A85AD;
+  color: white;
+  padding: 8px 10px;
+  margin: 1px 0;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+  opacity: 0.9;
+  font-size: 80%;
+  margin-left:62%;
+  margin-top:-10%;
+}
 

@@ -7,7 +7,7 @@ package application_logic_layer;
 
 public class Lezione 
 {
-	private int id;
+	private int id_lezione;
 	private String data;
 	private String descrizione;
 	private String valutazione;
@@ -18,7 +18,7 @@ public class Lezione
 	 */
 	public Lezione()
 	{
-		id = -1;
+		id_lezione = -1;
 		data = null;
 		descrizione = null;
 		valutazione = null;
@@ -28,14 +28,14 @@ public class Lezione
 	/**
 	 *  Costruttore con parametri
 	 *  @param id indica il codice univoco
-	 *  @param data indica la data in cui è stata effettuata la lezione
+	 *  @param data indica la data in cui ï¿½ stata effettuata la lezione
 	 *  @param descrizione indica la descrizione della lezione
 	 *  @param valutazione indica la valutazione assegnata alla lezione
 	 *  @param nome indica il nome della lezione
 	 */
 	public Lezione(int id, String data,String descrizione, String valutazione, String nome)
 	{
-		this.id = id;
+		this.id_lezione = id;
 		this.data = data;
 		this.descrizione = descrizione;
 		this.valutazione = valutazione;
@@ -47,7 +47,7 @@ public class Lezione
 	 * @return id
 	 */
 	public int getId() {
-		return id;
+		return id_lezione;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Lezione
 	 * 		indica il nuovo ID
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.id_lezione = id;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Lezione
 
 	@Override
 	public String toString() {
-		return "Lezione [id=" + id + ", data=" + data + ", descrizione=" + descrizione + ", valutazione=" + valutazione
+		return "Lezione [id=" + id_lezione + ", data=" + data + ", descrizione=" + descrizione + ", valutazione=" + valutazione
 				+ ", nome=" + nome + "]";
 	}
 	
