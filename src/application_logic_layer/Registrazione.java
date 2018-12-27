@@ -54,6 +54,7 @@ public class Registrazione extends HttpServlet {
 			user.setMatricola(request.getParameter("matricola"));
 			user.setNazionalita(request.getParameter("nazionalita"));
 			
+			//Codifica in Hash Password
 			
 			String passwordToHash = request.getParameter("password");
 	        String generatedPassword = null;
@@ -91,57 +92,68 @@ public class Registrazione extends HttpServlet {
 			System.out.println("Codice: "+codice);
 			
 			try {
-				UtenteDao.registraUtente(user,codice);
+				if(UtenteDao.registraUtente(user,codice)==false) {
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
+					dispatcher.forward(request, response);
+				}else {
+					
+					String name = (String)request.getParameter("nome");
+					String username = (String)request.getParameter("username");
+					String surname = (String)request.getParameter("cognome");
+					String mail = (String)request.getParameter("email");
+					
+				
+					
+					try {
+						
+						final String email = "unisaskplatform@gmail.com";
+						final String password = "Unisask2018";
+
+						Properties props = new Properties();
+						props.put("mail.smtp.auth", "true");
+						props.put("mail.smtp.starttls.enable", "true");
+						props.put("mail.smtp.host", "smtp.gmail.com");
+						props.put("mail.smtp.port", "587");
+						Session session = Session.getInstance(props,
+						  new javax.mail.Authenticator() {
+							protected PasswordAuthentication getPasswordAuthentication() {
+								return new PasswordAuthentication(email, password);
+							}
+						  });
+					
+						Message message = new MimeMessage(session);
+						message.setFrom(new InternetAddress(username));
+						message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(mail));
+						message.setSubject("Conferma Registrazione Unisask");
+						message.setText("Ciao "+name+", \n" + 
+								"Per confermare la registrazione vai al seguente link: http://localhost:8080/Unisask/ConfermaRegistrazione?codice="+codice+"&username="+username+" \n Grazie!");
+						
+						Transport.send(message);
+
+					
+						
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NotificaRegistrazioneView.jsp");
+						dispatcher.forward(request, response);
+						
+						
+					
+					} catch(Exception e) {}
+					
+					//response.getWriter().write(res);		
+				
+					
+					
+				
+					
+					
+				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} 
 			
 			
-			String name = (String)request.getParameter("nome");
-			String username = (String)request.getParameter("username");
-			String surname = (String)request.getParameter("cognome");
-			String mail = (String)request.getParameter("email");
-			
-		
-			
-			try {
-				
-				final String email = "unisaskplatform@gmail.com";
-				final String password = "Unisask2018";
-
-				Properties props = new Properties();
-				props.put("mail.smtp.auth", "true");
-				props.put("mail.smtp.starttls.enable", "true");
-				props.put("mail.smtp.host", "smtp.gmail.com");
-				props.put("mail.smtp.port", "587");
-				Session session = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(email, password);
-					}
-				  });
-			
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(username));
-				message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(mail));
-				message.setSubject("Conferma Registrazione Unisask");
-				message.setText("Ciao "+name+", \n" + 
-						"Per confermare la registrazione vai al seguente link: http://localhost:8080/Unisask/ConfermaRegistrazione?codice="+codice+"&username="+username+" \n Grazie!");
-				
-				Transport.send(message);
-
-			
-				
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/notifica_registrazione.jsp");
-				dispatcher.forward(request, response);
-				
-				
-			
-			} catch(Exception e) {}
-			
-			//response.getWriter().write(res);		
-		}
+	}
 			
 			
 			

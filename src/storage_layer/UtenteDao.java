@@ -15,51 +15,69 @@ import application_logic_layer.Utente;
 
 public class UtenteDao 
 {
-	public static void registraUtente(Utente utente, int codice) throws SQLException
+	public static boolean registraUtente(Utente utente, int codice) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
 		
 		int id_utente = 0;
+		
 		String insertSQL = "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita, matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // Viene eseguita una query con la quale si va ad inserire nel DB il nuovo utente
 
+		String controlloSQL = "SELECT * FROM utente WHERE username = ?";
 		
 		String insertSQL1 = "INSERT INTO codici_conferma (codice, id_utente) VALUES (?, ?)"; 
 		
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL,Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.setString(1, utente.getUsername());
-			preparedStatement.setString(2, utente.getPassword());
-			preparedStatement.setString(3, utente.getTipo());
-			preparedStatement.setString(4, utente.getNome());
-			preparedStatement.setString(5, utente.getCognome());
-			preparedStatement.setString(6, utente.getEmail());
-			preparedStatement.setString(7, utente.getNazionalita());
-			preparedStatement.setString(8, utente.getMatricola());
+			preparedStatement2 = connection.prepareStatement(controlloSQL);
+			preparedStatement2.setString(1, utente.getUsername());
 			
-			System.out.println("registraUtente: "+ preparedStatement.toString());
-	
-			preparedStatement.executeUpdate();
+			System.out.println("controlloUtenteDoppione: "+ preparedStatement2.toString());
+			ResultSet result_set = preparedStatement2.executeQuery();
+
+			if(result_set.next() == false)  
+			{
 			
-			ResultSet rs = preparedStatement.getGeneratedKeys();
-	        if (rs.next()){
-	            id_utente = rs.getInt(1);
-	        }
-	        rs.close();
-	        
-	        
-	        preparedStatement1 = connection.prepareStatement(insertSQL1);
-	        preparedStatement1.setInt(1, codice);
-	        preparedStatement1.setInt(2, id_utente  );
+				preparedStatement = connection.prepareStatement(insertSQL,Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setString(1, utente.getUsername());
+				preparedStatement.setString(2, utente.getPassword());
+				preparedStatement.setString(3, utente.getTipo());
+				preparedStatement.setString(4, utente.getNome());
+				preparedStatement.setString(5, utente.getCognome());
+				preparedStatement.setString(6, utente.getEmail());
+				preparedStatement.setString(7, utente.getNazionalita());
+				preparedStatement.setString(8, utente.getMatricola());
+				
+				System.out.println("registraUtente: "+ preparedStatement.toString());
+		
+				preparedStatement.executeUpdate();
+				
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+		       
+				if (rs.next()){
+		            id_utente = rs.getInt(1);
+		        }
+		        rs.close();
+		        
+		        
+		        preparedStatement1 = connection.prepareStatement(insertSQL1);
+		        preparedStatement1.setInt(1, codice);
+		        preparedStatement1.setInt(2, id_utente  );
+				
+		        System.out.println("confermaCodiceUtente: "+ preparedStatement1.toString());
+				
+		        preparedStatement1.executeUpdate();
 			
-	        System.out.println("confermaCodiceUtente: "+ preparedStatement1.toString());
-			
-	        preparedStatement1.executeUpdate();
-			
-			connection.commit();
+		        connection.commit();
+		        return true;
+			}
+			else {
+				return false;
+			}
 		}
 		finally 
 		{
@@ -95,11 +113,11 @@ public class UtenteDao
 
 		int result = 0;
 
-		String deleteSQL = "UPDATE utente SET tipo= ? WHERE id = ?";
+		String updateSQL = "UPDATE utente SET tipo= ? WHERE id = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement = connection.prepareStatement(updateSQL);
 			preparedStatement.setString(1, tipo);
 			preparedStatement.setInt(2, id_utente);
 
@@ -186,13 +204,14 @@ public class UtenteDao
 	}
 	public static Utente login(Utente utente) throws SQLException
 	{
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		Utente user = new Utente();
 	
 		String selectSQL = "SELECT * FROM utente WHERE username = ? AND password = ?"; 
-		boolean find = false;
+		
 		
 		try 
 		{
@@ -202,22 +221,26 @@ public class UtenteDao
 			preparedStatement.setString(1, utente.getUsername());
 			preparedStatement.setString(2, utente.getPassword());
 			
-			System.out.println("Login:" + preparedStatement.toString());
+			System.out.println("doLogin: "+ preparedStatement.toString());
 			
-			ResultSet rs = preparedStatement.executeQuery(); 
-			
+			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) 
 			{
 				
 				user.setUsername(rs.getString("username"));
+				user.setNome(rs.getString("nome"));
+				user.setCognome(rs.getString("cognome"));
+				user.setEmail(rs.getString("email"));
+				user.setMatricola(rs.getString("matricola"));
+				user.setNazionalita(rs.getString("nazionalita"));
 				user.setPassword(rs.getString("password"));
 				user.setTipo(rs.getString("tipo"));
 			
-				System.out.println("doLogin: "+ preparedStatement.toString());
-				connection.commit();
-			}
 			
+				connection.commit();
+			
+			}
 		} 
 		finally 
 		{
@@ -237,8 +260,73 @@ public class UtenteDao
 		
 	}
 	
-	public void resetPassword(Utente utente, String password)
+	public static boolean controlloResetPassword(Utente utente) throws SQLException
 	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+	
+		String selectSQL = "SELECT * FROM utente WHERE username = ? AND email = ?"; 
+		
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setString(1, utente.getUsername());
+			preparedStatement.setString(2, utente.getEmail());
+			
+			System.out.println("controlloResetPassword:" + preparedStatement.toString());
+			
+			ResultSet rs = preparedStatement.executeQuery(); 
+			
+			if(rs.next() == false)  
+			{
+				return false;
+			}
+			else {
+				return true;
+			}
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}	
+	}
+	
+	public static void resetPassword(Utente user) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE utente SET password= ? WHERE username = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setString(1, user.getPassword());
+			preparedStatement.setString(2, user.getUsername());
+
+			System.out.println("aggiornaUtente: "+ preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
 		
 	}
 	

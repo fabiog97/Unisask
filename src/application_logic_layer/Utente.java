@@ -7,7 +7,7 @@ package application_logic_layer;
 
 public class Utente 
 {
-	private int id_utente;
+	private int id;
 	private String nome;
 	private String cognome;
 	private String matricola;
@@ -16,13 +16,12 @@ public class Utente
 	private String password;
 	private String username;
 	private String tipo;
-	
 	/**
 	 *  Costruttore vuoto
 	 */
 	public Utente()
 	{
-		id_utente = 0;
+		id = 0;
 		nome = null;
 		cognome = null;
 		matricola = null;
@@ -31,6 +30,7 @@ public class Utente
 		password = null;
 		username = null;
 		tipo = null;
+		
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class Utente
 	 */
 	public Utente(int id, String nome, String cognome, String matricola, String email, String nazionalita, String password, String username, String tipo)
 	{
-		this.id_utente = id;
+		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.matricola = matricola;
@@ -55,25 +55,24 @@ public class Utente
 		this.username = username;
 		this.tipo = tipo;
 	}
-	
+
 	
 	/**
 	 * Restituisce l'id dell'utente
-	 * @return id
+	 * @return nome
 	 */
 	public int getId() {
-		return id_utente;
+		return id;
 	}
 
 	/**
-	 * Setta il tipo dell'utente
-	 * @param tipo
-	 * 		indica il nuovo tipo
+	 * Setta id dell'utente
+	 * @param nome
+	 * 		indica il nuovo id
 	 */
 	public void setId(int id) {
-		this.id_utente = id;
+		this.id = id;
 	}
-
 	
 	/**
 	 * Restituisce il nome dell'utente
@@ -194,30 +193,29 @@ public class Utente
 		this.username = username;
 	}
 
+	
 	/**
 	 * Restituisce il tipo dell'utente
-	 * @return tipo
+	 * @return nome
 	 */
-	public String getTipo() {
+	public String  getTipo() {
 		return tipo;
 	}
 
 	/**
 	 * Setta il tipo dell'utente
-	 * @param tipo
+	 * @param nome
 	 * 		indica il nuovo tipo
 	 */
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Utente [id_utente=" + id_utente + ", nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola
-				+ ", email=" + email + ", nazionalita=" + nazionalita + ", password=" + password + ", username="
-				+ username + ", tipo=" + tipo + "]";
+		return "Utente [nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", email=" + email
+				+ ", nazionalita=" + nazionalita + ", password=" + password + ", username=" + username + "]";
 	}
-
 	
 
 }

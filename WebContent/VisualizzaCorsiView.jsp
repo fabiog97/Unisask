@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.Utente" %>
+    
+    
+ <%
+ 	Utente account = (Utente) request.getSession().getAttribute("account");
+ 
+ 	
+ %>
 <!DOCTYPE>
 <html>
 <head>
@@ -12,24 +19,36 @@
 <body>
 
 <header>
-	<a  href="VisualizzaCorsiView.jsp"><img  src="images/LOGO_Unisask.png" width=150 ></a>
-	
-	<div id="Benvenuto">
-		<p>Benvenuto<br>
-		Filomena Ferrucci</p>
-		<a href="home.jsp"><input class="tastologout" type="submit" value="Logout"></a>
+
+	<div class="logo_header">
+		<a  href="VisualizzaCorsiView.jsp"><img  src="images/LOGO_Unisask.png" width=150 ></a>
 	</div>
+	
+	
+	
+	
+	<div id="Benvenuto" align="center">
+	<a href="VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<i class="fa fa-user" style="font-size: 35"></i>
+		<p>Benvenuto <%=account.getUsername()%></p>
+		<form action="Logout" method="get" >
+			<input class="tastologout" type="submit" value="Logout">
+		</form>
+	</a>
+	</div>
+	
+	<div id="contenitore_ricerca" align="center">
+		<form action="Ricerca" method="post" >
+			<h3>Ricerca AQ</h3>
+		    	<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
+	    </form>
+    </div>
 	
 </header>
 	
-	<div id="contenitore_ricerca">
-		<form action="Ricerca" method="post">
-			<label id="testo_ricerca" for="ricerca"><b>Ricerca AQ</b></label>
-	    	<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca" required>
-	    </form>
-    </div>
+
     
-    <div id="contenitore_link">
+    <div id="contenitore_link" align="center">
 		<p><a href="">I miei corsi</a> |<a href="">Corsi Di Studio</a> |<a href=""> Risposte</a></p>
 	</div>	
 

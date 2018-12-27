@@ -40,48 +40,28 @@ public class Login extends HttpServlet {
 		user.setUsername(request.getParameter("username"));
 		
 		String passwordToHash = request.getParameter("password");
-        String generatedPassword = null;
-        
-        try {
-            // Create MessageDigest instance for MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            //Add password bytes to digest
-            md.update(passwordToHash.getBytes());
-            //Get the hash's bytes
-            byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
-            //Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            //Get complete hashed password in hex format
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        
-		
+		System.out.println(passwordToHash);
+		String generatedPassword = CryptWithMD5.cryptWithMD5(passwordToHash);
+
+		System.out.println("Password inserita in form "+generatedPassword);
         user.setPassword(generatedPassword);
 		
 		try {
 			user1 = UtenteDao.login(user);
 			
+			System.out.println(user1.toString());
 			 if (user.getUsername().equals(user1.getUsername()) && user.getPassword().equals(user1.getPassword()) && (!user1.getTipo().equals("non_verificato")))
-		     {
-			        
+		     {  
 		          HttpSession session = request.getSession(true);	    
-		          session.setAttribute("currentSessionUser",user);
+		          session.setAttribute("currentSessionUser",user1);
+		          request.getSession().setAttribute("account", user1);
 		          System.out.println("Autenticazione Riuscita");
 		          response.sendRedirect("VisualizzaCorsiView.jsp"); //logged-in page      		
 		     }
 			        
 		     else {
 		    	 	System.out.println("Autenticazione NON Riuscita");
-		    	 	response.sendRedirect("invalid_login.jsp"); //error page 
+		    	 	response.sendRedirect("NegatoLoginView.jsp"); //error page 
 		     }
 		
 			

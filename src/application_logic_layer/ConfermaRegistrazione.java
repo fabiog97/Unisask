@@ -54,17 +54,17 @@ public class ConfermaRegistrazione extends HttpServlet {
 						
 					UtenteDao.aggiornaUtente(user.getId(), dominio);
 					
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/conferma_registrazione.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ConfermaRegistrazioneView.jsp");
 					dispatcher.forward(request, response);
 				}else {
 					System.out.println("Codice non presente nel DB");
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/negata_registrazione.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
 					dispatcher.forward(request, response);
 				}
 			}
 			else {
 				System.out.println("Username non presente nel DB");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/negata_registrazione.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
 				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {

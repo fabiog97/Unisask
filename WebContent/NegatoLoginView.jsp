@@ -18,6 +18,8 @@
   	<h1>L'autenticazione non è andata a buon fine </h1>
   	<p>Il tuo username o password non sono corretti</p>
   	
+  	<p><a href="LoginView.html">Login</a></p>
+  	
   	
   	</div>
   
