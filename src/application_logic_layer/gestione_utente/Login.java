@@ -57,7 +57,7 @@ public class Login extends HttpServlet {
 		          session.setAttribute("currentSessionUser",user1);
 		          request.getSession().setAttribute("account", user1);
 		          System.out.println("Autenticazione Riuscita");
-		          response.sendRedirect("VisualizzaCorsiView.jsp"); //logged-in page      		
+		          response.sendRedirect("gestione_corsi_insegnamento/VisualizzaCorsiView.jsp"); //logged-in page      		
 		     }
 			        
 		     else {

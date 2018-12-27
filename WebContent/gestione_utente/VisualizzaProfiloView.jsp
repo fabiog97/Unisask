@@ -42,7 +42,7 @@
 		<a href="ModificaPasswordView.jsp"><input  type="submit" value="Modifica Password"></a>
 	</div>
 	
-	<p><a href="../VisualizzaCorsiView.jsp">Indietro</a></p>
+	<p><a href="../gestione_corsi_insegnamento/VisualizzaCorsiView.jsp">Indietro</a></p>
 </div>
 
 <div class="container3 signin3">

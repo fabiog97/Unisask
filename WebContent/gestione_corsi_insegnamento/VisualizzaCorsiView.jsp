@@ -10,7 +10,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="SHORTCUT ICON" href="images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,17 +21,17 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="VisualizzaCorsiView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	
 	
 	
 	<div id="Benvenuto" align="center">
-	<a href="gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
-		<form action="Logout" method="get" >
+		<form action="../Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
 	</a>
