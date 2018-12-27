@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.util.ArrayList;
 
@@ -37,10 +37,10 @@ public class CorsoInsegnamento
 	/**
 	 *  Costruttore con parametri
 	 *  @param id indica il codice univoco
-	 *  @param annoAccademico indica in quale anno accademico è situato il corso
-	 *  @param corsoDiLaurea indica in quale corso di laurea è situato il corso
-	 *  @param annoDiStudio indica in quale anno di studio è situato il corso
-	 *  @param semestre indica in quale semestre è situato il corso
+	 *  @param annoAccademico indica in quale anno accademico ï¿½ situato il corso
+	 *  @param corsoDiLaurea indica in quale corso di laurea ï¿½ situato il corso
+	 *  @param annoDiStudio indica in quale anno di studio ï¿½ situato il corso
+	 *  @param semestre indica in quale semestre ï¿½ situato il corso
 	 *  @param docente indica il nome del docente che gestisce il corso
 	 *  @param nome indica il nome del corso
 	 *  @param docenti indica la lista dei docenti che gestiscono il corso

@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 
 	<div class="logo" align="center">
-		<img src="images/LOGO_Unisask.png" width="200">
+		<img src="./images/LOGO_Unisask.png" width="200">
 	</div>
   
   	<div class="container" align="center">

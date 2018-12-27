@@ -2,7 +2,7 @@ package storage_layer;
 
 import application_logic_layer.Lezione;
 import application_logic_layer.Quesito;
-import application_logic_layer.Utente;
+import application_logic_layer.gestione_utente.Utente;
 
 public class QuesitoDao 
 {

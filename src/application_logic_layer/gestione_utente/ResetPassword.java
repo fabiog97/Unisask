@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import application_logic_layer.CryptWithMD5;
 import storage_layer.UtenteDao;
 
 
@@ -57,7 +58,7 @@ public class ResetPassword extends HttpServlet {
 				if(UtenteDao.controlloResetPassword(user)==false) {
 					// Non esiste nessun utente con eamil e username specificato
 					request.setAttribute("flag", "reset");
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegatoResetView.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
 					dispatcher.forward(request, response);
 				}
 				else
@@ -109,7 +110,7 @@ public class ResetPassword extends HttpServlet {
 			        
 					Transport.send(message);
 					
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NotificaResetView.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente//NotificaResetView.jsp");
 					dispatcher.forward(request, response);
 				}
 			} catch (AddressException e) {

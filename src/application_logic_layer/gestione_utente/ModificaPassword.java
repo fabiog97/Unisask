@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import application_logic_layer.CryptWithMD5;
 import storage_layer.UtenteDao;
 
 @WebServlet("/ModificaPassword")
@@ -48,7 +49,7 @@ public class ModificaPassword extends HttpServlet {
 			user.setPassword(CryptWithMD5.cryptWithMD5(nuova_password));
 		    try {
 				UtenteDao.resetPassword(user);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaProfiloView.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NotificaModificaView.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -56,7 +57,7 @@ public class ModificaPassword extends HttpServlet {
 			}
 		}else {
 			request.setAttribute("flag", "modifica");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegatoResetView.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
 			dispatcher.forward(request, response);
 			
 		}

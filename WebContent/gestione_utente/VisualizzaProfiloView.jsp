@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.Utente"%>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente"%>
     
 <%
  	Utente account = (Utente) request.getSession().getAttribute("account");
@@ -9,22 +9,22 @@
 <!DOCTYPE>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="SHORTCUT ICON" href="images/LOGO_Unisask.png"> 
+<link rel="SHORTCUT ICON" href="../images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
 </head>
 <body>
 
 <header>
-	<a  href="VisualizzaProfiloView.jsp"><img  src="images/LOGO_Unisask.png" width=150 ></a>
+	<a  href="VisualizzaProfiloView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	
 	<div id="Benvenuto" align="center">
 	<a href="VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
-		<form action="Logout" method="get" >
+		<form action="../Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
 	</a>
@@ -42,7 +42,7 @@
 		<a href="ModificaPasswordView.jsp"><input  type="submit" value="Modifica Password"></a>
 	</div>
 	
-	<p><a href="VisualizzaCorsiView.jsp">Indietro</a></p>
+	<p><a href="../VisualizzaCorsiView.jsp">Indietro</a></p>
 </div>
 
 <div class="container3 signin3">

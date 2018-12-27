@@ -21,9 +21,9 @@
 			<div class="container" align="center">
 				
 		
-				<a href="LoginView.html"><input class="registerbtn" type="submit" value="Login"></a>
+				<a href="gestione_utente/LoginView.html"><input class="registerbtn" type="submit" value="Login"></a>
 				<br>
-				<a href="RegistrazioneView.html"><input class="registerbtn" type="submit" value="Registrati"></a>
+				<a href="gestione_utente/RegistrazioneView.html"><input class="registerbtn" type="submit" value="Registrati"></a>
 			</div>
 			
 			<div id="racchiudi_facebook_instagram" align="center">

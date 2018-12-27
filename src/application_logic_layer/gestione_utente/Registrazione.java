@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -93,7 +93,7 @@ public class Registrazione extends HttpServlet {
 			
 			try {
 				if(UtenteDao.registraUtente(user,codice)==false) {
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
 					dispatcher.forward(request, response);
 				}else {
 					
@@ -132,7 +132,7 @@ public class Registrazione extends HttpServlet {
 
 					
 						
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NotificaRegistrazioneView.jsp");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NotificaRegistrazioneView.jsp");
 						dispatcher.forward(request, response);
 						
 						

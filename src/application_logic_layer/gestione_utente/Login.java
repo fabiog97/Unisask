@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import application_logic_layer.CryptWithMD5;
 import storage_layer.UtenteDao;
 
 
@@ -61,7 +62,7 @@ public class Login extends HttpServlet {
 			        
 		     else {
 		    	 	System.out.println("Autenticazione NON Riuscita");
-		    	 	response.sendRedirect("NegatoLoginView.jsp"); //error page 
+		    	 	response.sendRedirect("gestione_utente/NegatoLoginView.jsp"); //error page 
 		     }
 		
 			

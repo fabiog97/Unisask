@@ -5,20 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 
 	<div class="logo" align="center">
-		<img src="images/LOGO_Unisask.png" width="200">
+		<img src="./images/LOGO_Unisask.png" width="200">
 	</div>
   
   	<div class="container" align="center">
-  	<h1>Registrazione effettuata con successo</h1>
-  	<p>Inizia da subito a scoprire il mondo di Unisask</p>
   	
-  	 <p><a href="LoginView.html">Login</a>.</p>
+  	<h1>Reset password</h1>
+  	<p>Per completare il tuo reset accedi alla tua email</p>
+  	<p><a href="gestione_utente/LoginView.html">Login</a></p>
   	</div>
   
   

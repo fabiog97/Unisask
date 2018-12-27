@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 /**
  * Oggetto Utente che identifica un utente

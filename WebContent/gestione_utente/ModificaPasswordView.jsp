@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.Utente"%>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente"%>
     
  
  <%
@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -21,7 +21,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="VisualizzaCorsiView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	
@@ -45,7 +45,7 @@
     </div>
 	
 </header>
-<form name="ModificaPassword"action="ModificaPassword?username=<%=account.getUsername()%>" method="post">
+<form name="ModificaPassword"action="../ModificaPassword?username=<%=account.getUsername()%>" method="post">
 
 	
   <div class="container" align="center">

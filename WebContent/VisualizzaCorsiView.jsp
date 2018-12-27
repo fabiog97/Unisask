@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.Utente" %>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente" %>
     
     
  <%
@@ -28,7 +28,7 @@
 	
 	
 	<div id="Benvenuto" align="center">
-	<a href="VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<a href="gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="Logout" method="get" >

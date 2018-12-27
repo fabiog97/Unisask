@@ -5,22 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 
 	<div class="logo" align="center">
-		<img src="images/LOGO_Unisask.png" width="200">
+		<img src="./images/LOGO_Unisask.png" width="200">
 	</div>
   
   	<div class="container" align="center">
-  	<h1>L'autenticazione non è andata a buon fine </h1>
-  	<p>Il tuo username o password non sono corretti</p>
   	
-  	<p><a href="LoginView.html">Login</a></p>
-  	
-  	
+  	<h1>Modifica password</h1>
+  	<p>La tua password è stata modificata con successo</p>
+  	<p><a href="gestione_utente/VisualizzaProfiloView.jsp">Indietro</a></p>
   	</div>
   
   

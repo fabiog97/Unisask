@@ -1,4 +1,4 @@
-package application_logic_layer;
+package application_logic_layer.gestione_utente;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -54,17 +54,17 @@ public class ConfermaRegistrazione extends HttpServlet {
 						
 					UtenteDao.aggiornaUtente(user.getId(), dominio);
 					
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ConfermaRegistrazioneView.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/ConfermaRegistrazioneView.jsp");
 					dispatcher.forward(request, response);
 				}else {
 					System.out.println("Codice non presente nel DB");
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
 					dispatcher.forward(request, response);
 				}
 			}
 			else {
 				System.out.println("Username non presente nel DB");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/NegataRegistrazioneView.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
 				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {

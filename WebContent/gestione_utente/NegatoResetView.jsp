@@ -10,13 +10,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 
 	<div class="logo" align="center">
-		<img src="images/LOGO_Unisask.png" width="200">
+		<img src="./images/LOGO_Unisask.png" width="200">
 	</div>
   
   	<div class="container" align="center">
@@ -25,12 +25,12 @@
   		{
   	%>
   	<p>La vecchia password inserita non è corretta</p>
-  	<p><a href="ModificaPasswordView.jsp">Indietro</a></p>
+  	<p><a href="gestione_utente/ModificaPasswordView.jsp">Indietro</a></p>
   	<%
   	}else{
   	%>
   	<p>Non abbiamo trovato nessun username associato ai nostri utenti</p>
-  	<p><a href="ResetPasswordView.html">Indietro</a></p>
+  	<p><a href="gestione_utente/ResetPasswordView.html">Indietro</a></p>
   	<%} %>
   	
   	</div>
