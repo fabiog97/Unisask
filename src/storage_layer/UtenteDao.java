@@ -15,6 +15,16 @@ import application_logic_layer.gestione_utente.Utente;
 
 public class UtenteDao 
 {
+	
+	private static UtenteDao instance;
+	
+	public static synchronized UtenteDao getInstance() {
+        if (instance == null) {
+            instance = new UtenteDao();
+        }
+        return instance;
+    }
+
 	public static boolean registraUtente(Utente utente, int codice) throws SQLException
 	{
 		Connection connection = null;
@@ -225,22 +235,20 @@ public class UtenteDao
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
-			while(rs.next()) 
-			{
-				
-				user.setUsername(rs.getString("username"));
-				user.setNome(rs.getString("nome"));
-				user.setCognome(rs.getString("cognome"));
-				user.setEmail(rs.getString("email"));
-				user.setMatricola(rs.getString("matricola"));
-				user.setNazionalita(rs.getString("nazionalita"));
-				user.setPassword(rs.getString("password"));
-				user.setTipo(rs.getString("tipo"));
 			
+				while(rs.next()) 
+				{
+					user.setUsername(rs.getString("username"));
+					user.setNome(rs.getString("nome"));
+					user.setCognome(rs.getString("cognome"));
+					user.setEmail(rs.getString("email"));
+					user.setMatricola(rs.getString("matricola"));
+					user.setNazionalita(rs.getString("nazionalita"));
+					user.setPassword(rs.getString("password"));
+					user.setTipo(rs.getString("tipo"));
+					connection.commit();
+				}
 			
-				connection.commit();
-			
-			}
 		} 
 		finally 
 		{
@@ -371,4 +379,81 @@ public class UtenteDao
 				
 				return utente;
 			}
-}
+	public static Utente getUtenteById(int id) throws SQLException
+	{
+		Connection connection = null;
+		Utente utente = new Utente();
+		PreparedStatement preparedStatement = null;
+				
+				String selectSQL = "SELECT * FROM utente WHERE id= ?";
+				
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(selectSQL);
+					
+					preparedStatement.setInt(1, id);
+					
+					System.out.println("getUtenteById:" + preparedStatement.toString());
+					
+					ResultSet rs = preparedStatement.executeQuery();
+					
+					if(rs.next()) {	
+						utente.setId(rs.getInt(1));
+						utente.setUsername(rs.getString(2));
+						utente.setPassword(rs.getString(3));
+						utente.setTipo(rs.getString(4));
+						utente.setNome(rs.getString(5));
+						utente.setCognome(rs.getString(6));
+						utente.setEmail(rs.getString(7));
+						utente.setNazionalita(rs.getString(8));
+						utente.setMatricola(rs.getString(9));
+						
+					}
+					else {
+						utente = null;
+					}
+					return utente;
+
+				} finally {
+					try {
+						if(preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						DriverManagerConnectionPool.releaseConnection(connection);
+					}
+				}	
+				
+				
+			}
+	
+	public static void deleteUtenteById(int id) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+				
+				String deleteSQL = "DELETE FROM utente WHERE id= ?";
+				
+				try {
+					connection = DriverManagerConnectionPool.getConnection();
+					preparedStatement = connection.prepareStatement(deleteSQL);
+					
+					preparedStatement.setInt(1, id);
+					
+					System.out.println("deleteUtenteById:" + preparedStatement.toString());
+					
+					preparedStatement.executeUpdate();
+					
+					connection.commit();
+				} finally {
+					try {
+						if(preparedStatement != null)
+							preparedStatement.close();
+					} finally {
+						DriverManagerConnectionPool.releaseConnection(connection);
+					}
+				}	
+				
+				
+			}
+	
+	}

@@ -148,7 +148,9 @@ public class Registrazione extends HttpServlet {
 					
 				}
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
+				dispatcher.forward(request, response);
+				System.out.println("Parametri non rispettati");
 				e1.printStackTrace();
 			} 
 			
