@@ -1,4 +1,4 @@
-package test;
+package test_unisask;
 
 import static org.junit.Assert.*;
 
