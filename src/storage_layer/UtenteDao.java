@@ -18,12 +18,7 @@ public class UtenteDao
 	
 	private static UtenteDao instance;
 	
-	public static synchronized UtenteDao getInstance() {
-        if (instance == null) {
-            instance = new UtenteDao();
-        }
-        return instance;
-    }
+	
 
 	public static boolean registraUtente(Utente utente, int codice) throws SQLException
 	{

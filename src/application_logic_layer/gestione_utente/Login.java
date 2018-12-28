@@ -41,16 +41,13 @@ public class Login extends HttpServlet {
 		user.setUsername(request.getParameter("username"));
 		
 		String passwordToHash = request.getParameter("password");
-		System.out.println(passwordToHash);
 		String generatedPassword = CryptWithMD5.cryptWithMD5(passwordToHash);
 
-		System.out.println("Password inserita in form "+generatedPassword);
         user.setPassword(generatedPassword);
 		
 		try {
 			user1 = UtenteDao.login(user);
 			
-			System.out.println(user1.toString());
 			 if (user.getUsername().equals(user1.getUsername()) && user.getPassword().equals(user1.getPassword()) && (!user1.getTipo().equals("non_verificato")))
 		     {  
 		          HttpSession session = request.getSession(true);	    
