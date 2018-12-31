@@ -97,7 +97,7 @@ public class InserisciCorso extends HttpServlet
 		corso.setSemestre(request.getParameter("itemSemestre"));
 		
 		try {
-			CorsoInsegnamentoDao.addCorso(corso, corso.getDocenti());
+			CorsoInsegnamentoDao.addCorso(corso);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

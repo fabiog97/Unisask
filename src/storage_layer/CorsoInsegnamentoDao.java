@@ -15,11 +15,12 @@ import application_logic_layer.gestione_utente.Utente;
 
 public class CorsoInsegnamentoDao 
 {
-	public static void removeCorso(int id_corso) throws SQLException
+	public static boolean removeCorso(int id_corso) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
+		int result = 0;
 		String deleteSQL = "DELETE FROM corso WHERE id = ?";
 		try 
 		{
@@ -28,7 +29,7 @@ public class CorsoInsegnamentoDao
 			
 			preparedStatement.setInt(1, id_corso);
 			
-			preparedStatement.executeUpdate();
+			result = preparedStatement.executeUpdate();
 			
 			System.out.println("removeCorso: "+ preparedStatement.toString());
 			connection.commit();
@@ -46,12 +47,16 @@ public class CorsoInsegnamentoDao
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
+		return (result!=0);
 	}
 	
-	public static void iscrizioneCorso(int id_corso, int id_utente) throws SQLException
+	public static boolean iscrizioneCorso(int id_corso, int id_utente) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		
+		int result = 0;
+		
 		String insertSQL = "INSERT INTO iscrive (id_utente, id_corso) VALUES (?, ?)";
 		try 
 		{
@@ -61,7 +66,7 @@ public class CorsoInsegnamentoDao
 			preparedStatement.setInt(2, id_corso);
 			
 			System.out.println("iscrizioneCorso: "+ preparedStatement.toString());
-			preparedStatement.executeUpdate();
+			result = preparedStatement.executeUpdate();
 			connection.commit();
 		}
 		finally 
@@ -76,13 +81,15 @@ public class CorsoInsegnamentoDao
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}	
+		return (result!=0);
 	}
 	
-	public static void disiscrizioneCorso(int id_utente, int id_corso) throws SQLException
+	public static boolean disiscrizioneCorso(int id_utente, int id_corso) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
+		int result = 0;
 		String deleteSQL = "DELETE FROM iscrive WHERE id_utente = ? AND id_corso = ?";
 		try 
 		{
@@ -92,7 +99,8 @@ public class CorsoInsegnamentoDao
 			preparedStatement.setInt(1, id_utente);
 			preparedStatement.setInt(2, id_corso);
 			
-			preparedStatement.executeUpdate();
+			result = preparedStatement.executeUpdate();
+			
 			
 			System.out.println("disiscrizioneCorso: "+ preparedStatement.toString());
 			connection.commit();
@@ -109,6 +117,7 @@ public class CorsoInsegnamentoDao
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
+		return (result != 0);
 	}
 	
 	public static ArrayList<CorsoInsegnamento> getListaCorsi() throws SQLException
@@ -153,7 +162,7 @@ public class CorsoInsegnamentoDao
 		return corsi;
 	}
 	
-	public static void addCorso(CorsoInsegnamento corso, ArrayList<Utente> docenti) throws SQLException
+	public static boolean addCorso(CorsoInsegnamento corso) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -162,10 +171,11 @@ public class CorsoInsegnamentoDao
 		
 		int id_corso =  0;
 		
-		String insertCorsoSQL = "INSERT INTO corso (nome, corso_di_laurea, corso_accademico, anno_di_studio, semestre, id_utente) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertCorsoSQL = "INSERT INTO corso (nome, corso_di_laurea, anno_accademico, anno_di_studio, semestre, id_utente) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		String insertInsegnaSQL = "INSERT INTO insegna (id_utente, id_corso) VALUES (?, ?)";
-		
+		int result1 = 0;
+		int result2 = 0;
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
@@ -180,7 +190,9 @@ public class CorsoInsegnamentoDao
 			preparedStatement.setInt(6, 1); // id amministratore
 			
 			System.out.println("addCorso: "+ preparedStatement.toString());
-			preparedStatement.executeUpdate();
+			result1 = preparedStatement.executeUpdate();
+
+			
 			
 			ResultSet rs = preparedStatement.getGeneratedKeys();
 		       
@@ -191,18 +203,18 @@ public class CorsoInsegnamentoDao
 	        
 	        preparedStatement1 = connection.prepareStatement(insertInsegnaSQL);
 	        
-			Iterator<Utente> it = docenti.iterator();
+			Iterator<Utente> it = corso.getDocenti().iterator();
 			while(it.hasNext())
 			{
 				Utente docente = (Utente) it.next();
 				preparedStatement1.setInt(1, docente.getId());
 				preparedStatement1.setInt(2, id_corso);
 				System.out.println("addInsegnaCorso: "+ preparedStatement1.toString());
-				preparedStatement1.executeUpdate();
+				result2 = preparedStatement1.executeUpdate();
 			}
 			
 			connection.commit();
-		
+			
 		}
 		
 		
@@ -218,6 +230,8 @@ public class CorsoInsegnamentoDao
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
+		return (result1 != 0 && result2!= 0);
+		
 	}
 	
 	public static ArrayList<CorsoInsegnamento> getListaCorsiInsegnanti(int id_utente) throws SQLException
