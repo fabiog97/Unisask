@@ -1,6 +1,9 @@
-package application_logic_layer.gestione_utente;
+package application_logic_layer.gestione_corsi_insegnamento;
 
 import java.util.ArrayList;
+
+import application_logic_layer.gestione_utente.Utente;
+
 
 /**
  * Oggetto Corso che identifica un corso d'insegnamento
@@ -142,22 +145,6 @@ public class CorsoInsegnamento
 		this.semestre = semestre;
 	}
 
-	/**
-	 * Restituisce il docente che gestisce il corso
-	 * @return docente
-	 */
-	public Utente getDocente() {
-		return docente;
-	}
-
-	/**
-	 * Setta il docente al corso
-	 * @param docente
-	 * 		indica il nuovo docente
-	 */
-	public void setDocente(Utente docente) {
-		this.docente = docente;
-	}
 
 	/**
 	 * Restituisce il nome del corso

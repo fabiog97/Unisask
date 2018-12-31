@@ -5,8 +5,9 @@ header{
 	margin:2%;	
 }
 
+
 .container {
-  padding: 49px;  
+  padding: 49px;
 }
 
 .container1 
@@ -212,10 +213,19 @@ li:hover {
 }
 
 
+/*inizio pagina InserisciCorsiView*/
+div.tendinaSemestre select
+{
+	width: 30%;
+	padding:4%;
+	margin: 5px 0 22px 0;
+  	display: block;
+  	border: none;
+  	background: #f1f1f1;
+}
 
 
-
-
+/*fine pagina InserisciCorsiView*/
 
 
 /*inizio pagina InserisciLezioneView*/

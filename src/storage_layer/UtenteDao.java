@@ -4,14 +4,16 @@ import java.sql.Connection;
 
 
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import com.mysql.jdbc.Statement;
 
 import application_logic_layer.gestione_utente.Utente;
-
 
 public class UtenteDao 
 {
@@ -233,6 +235,7 @@ public class UtenteDao
 			
 				while(rs.next()) 
 				{
+					user.setId(rs.getInt("id"));
 					user.setUsername(rs.getString("username"));
 					user.setNome(rs.getString("nome"));
 					user.setCognome(rs.getString("cognome"));
@@ -450,5 +453,46 @@ public class UtenteDao
 				
 				
 			}
-	
+	public static Collection<Utente> getAllDocenti() throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatament = null;
+		
+		Collection<Utente> docenti = new LinkedList<Utente>();
+		
+		String selectSQL = "SELECT * FROM utente WHERE tipo='docente'";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatament = connection.prepareStatement(selectSQL);
+			
+			System.out.println("getAllDocenti:" + preparedStatament.toString());
+			
+			ResultSet rs = preparedStatament.executeQuery();
+			
+			while(rs.next()) {
+				Utente user = new Utente();
+				
+				user.setId(rs.getInt("id"));
+				user.setNome(rs.getString("nome"));
+				user.setCognome(rs.getString("cognome"));
+				user.setEmail(rs.getString("email"));
+				user.setNazionalita(rs.getString("matricola"));
+				user.setUsername(rs.getString("username"));
+		
+				docenti.add(user);
+			}
+		} finally {
+			try {
+				if(preparedStatament != null)
+					preparedStatament.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+
+		return docenti;
+		
+		}
+		
 	}

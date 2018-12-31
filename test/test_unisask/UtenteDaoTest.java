@@ -117,6 +117,7 @@ public class UtenteDaoTest {
 		System.out.println("\n");
 	}
 	
+	@Test
 	public final void testEmptyNazionalitaRegistraUtente() throws SQLException {
 		System.out.println("TestEmptyNazionalitaRegistraUtente");
 		setUp();

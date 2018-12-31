@@ -1,11 +1,13 @@
 package storage_layer;
 
 import application_logic_layer.Lezione;
-import application_logic_layer.gestione_utente.CorsoInsegnamento;
+import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
+
+
 
 public class LezioneDao 
 {
-	public void addLezione(Lezione lezione,CorsoInsegnamento corso)
+	public void addLezione(Lezione lezione, CorsoInsegnamento corso)
 	{
 		
 	}
