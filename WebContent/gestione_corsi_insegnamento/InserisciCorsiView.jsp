@@ -13,7 +13,24 @@
 		return;
 	}
 	
+	
 %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function () {
+    $("#type").change(function () {
+        var val = $(this).val();
+        if (val == "triennale") {
+            $("#anno").html("<option value='test'>Primo Anno</option><option value='test2'>Secondo Anno</option><option value='test3'>Terzo Anno</option>");
+        } else if (val == "magistrale") {
+            $("#anno").html("<option value='test'>Primo Anno</option><option value='test2'>Secondo Anno</option>");
+        }
+    });
+});
+
+</script>
 <meta charset="UTF-8">
 <title>Unisask</title>
 <link rel="stylesheet" href="./style.css">
@@ -48,9 +65,9 @@
 	
 	    <label for="corsoDiLaurea"><b>Corso di laurea</b></label>
 		    <div class="custom-select">
-					<select name="itemCorsoDiLaurea">
-						<option >Informatica - Triennale</option>
-						<option >Informatica - Magistrale</option>
+					<select id="type" name="itemCorsoDiLaurea">
+						<option value="triennale">Informatica - Triennale</option>
+						<option value="magistrale">Informatica - Magistrale</option>
 					</select>
 					
 			</div>
@@ -82,12 +99,15 @@
 						<option >2018/2019</option>
 						<option >2017/2018</option>
 						<option >2016/2017</option>
-					</select>
-					
+					</select>	
 			</div>
 			
 		 <label for="annoDiStudio"><b>Anno di studio</b></label>
-	    <input type="text" name="annoDiStudio" required >
+	   <div class="custom-select">
+					<select id="anno" name="itemAnnoDiStudi">
+					 	<option value="">Seleziona un anno di studi</option>
+					</select>	
+			</div>
 			
 		<label for="semestre"><b>Semestre</b></label>
 	    		<div class="custom-select">

@@ -29,14 +29,19 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
-	
-	
-	
 	<div id="Benvenuto" align="center">
-	<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<%
+		if(!account.getTipo().equals("admin"))
+		{
+	%>
+			<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<%	
+		}
+	%>
+	
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="./Logout" method="get" >
@@ -45,37 +50,48 @@
 	</a>
 	</div>
 	
+	
+	
 	<%
 		if(!account.getUsername().equals("admin"))
 		{
-	%>
-	
-	<div id="contenitore_ricerca" align="center">
-		<form action="Ricerca" method="post" >
-			<h3>Ricerca AQ</h3>
-		    	<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
-	    </form>
-    </div>
-	
+	%>	
+		<div id="contenitore_ricerca" align="center">
+			<form action="Ricerca" method="post" >
+				<h3>Ricerca AQ</h3>
+		    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
+	    		</form>
+		</div>
+ 
 	<%
 		}
 	%>
 	
 </header>
 	
+	
+	<%
+		if(account.getTipo().equals("admin"))
+		{
+	%>
+		<div id="contenitore_button" align="center">
+			<a href="gestione_corsi_insegnamento/InserisciCorsiView.jsp"><input class=tastoInserisciCorso type="submit" value="Aggiungi Corso"></a>
+    		</div><br>
+	<%
+		}
+	%>
 
-    	
-    <div id="contenitore_link" align="center">
     <%
 		if(account.getTipo().equals("docente"))
 		{
-	%>
-		<p><a href="">I miei corsi</a>|<a href=""> Domande</a></p>
+	%>	<div id="contenitore_link" align="center">
+			<p><a href="">I miei corsi</a>|<a href=""> Domande</a></p>
+		</div>	
 	<%
 		}
 	%>
 		
-	</div>	
+	
 
 <div id="corsi_window">
 	<ul>

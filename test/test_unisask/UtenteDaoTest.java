@@ -156,7 +156,7 @@ public class UtenteDaoTest {
 		utente.setTipo("non_verificato");
 		utente.setUsername("maria98");
 		utente.setMatricola("051210449121");
-		utente.setEmail("f.grauso1@studenti.unisa.it");
+		utente.setEmail("m.rauzzino@studenti.unisa.it");
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;

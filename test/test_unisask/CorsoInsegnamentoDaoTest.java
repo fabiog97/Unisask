@@ -38,11 +38,17 @@ public class CorsoInsegnamentoDaoTest {
 	public void tearDown() throws Exception {
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
 		connection = DriverManagerConnectionPool.getConnection();
 		preparedStatement = connection.prepareStatement("DELETE FROM corso;");
 		preparedStatement1 = connection.prepareStatement("DELETE FROM utente;");
+		preparedStatement2 = connection.prepareStatement("ALTER TABLE corso AUTO_INCREMENT = 0;");
+		preparedStatement3 = connection.prepareStatement("ALTER TABLE utente AUTO_INCREMENT = 0;");
 		preparedStatement.executeUpdate();
 		preparedStatement1.executeUpdate();
+		preparedStatement2.executeUpdate();
+		preparedStatement3.executeUpdate();
 		connection.commit();
 	}
 
@@ -215,6 +221,7 @@ public class CorsoInsegnamentoDaoTest {
 
 	@Test
 	public final void testGetListaCorsi() throws Exception {
+		
 		System.out.println("TestGetListaCorsi");
 		setUp();
 		
@@ -277,6 +284,7 @@ public class CorsoInsegnamentoDaoTest {
 		CorsoInsegnamentoDao.removeCorso(2);
 		tearDown();
 		System.out.println("\n");
+		
 	}
 
 	@Test
@@ -428,7 +436,7 @@ public class CorsoInsegnamentoDaoTest {
 		tearDown();
 		System.out.println("\n");
 	}
-
+	
 	@Test
 	public final void testGetListaCorsiIscritti() throws Exception {
 		System.out.println("TestGetListaCorsiInsegnati");
@@ -510,6 +518,7 @@ public class CorsoInsegnamentoDaoTest {
 		CorsoInsegnamentoDao.removeCorso(2);
 		tearDown();
 		System.out.println("\n");
+		
 	}
 
 }

@@ -93,7 +93,7 @@ public class InserisciCorso extends HttpServlet
 
 		corso.setDocenti(docenti);
 		corso.setAnnoAccademico(request.getParameter("itemAnnoAccademico"));
-		corso.setAnnoDiStudio(request.getParameter("annoDiStudio"));
+		corso.setAnnoDiStudio(request.getParameter("itemAnnoDiStudi"));
 		corso.setSemestre(request.getParameter("itemSemestre"));
 		
 		try {
