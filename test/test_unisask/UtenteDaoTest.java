@@ -81,10 +81,10 @@ public class UtenteDaoTest {
 		}catch(Exception e) {
 			
 		}
-		finally {
-			Utente result = UtenteDao.getUtenteById(1);
-			assertNull(result);
-		}
+		
+		Utente result = UtenteDao.getUtenteById(1);
+		assertNull(result);
+		
 		UtenteDao.deleteUtenteById(1);
 		System.out.println("\n");
 	}
@@ -109,10 +109,10 @@ public class UtenteDaoTest {
 		}catch(Exception e) {
 			
 		}
-		finally {
-			Utente result = UtenteDao.getUtenteById(1);
-			assertNull(result);
-		}
+
+		Utente result = UtenteDao.getUtenteById(1);
+		assertNull(result);
+		
 		UtenteDao.deleteUtenteById(1);
 		System.out.println("\n");
 	}
@@ -136,10 +136,10 @@ public class UtenteDaoTest {
 		}catch(Exception e) {
 			
 		}
-		finally {
-			Utente result = UtenteDao.getUtenteById(1);
-			assertNull(result);
-		}
+
+		Utente result = UtenteDao.getUtenteById(1);
+		assertNull(result);
+		
 		UtenteDao.deleteUtenteById(1);
 		System.out.println("\n");
 	}
@@ -166,10 +166,10 @@ public class UtenteDaoTest {
 		}catch(Exception e) {
 			
 		}
-		finally {
-			Utente result = UtenteDao.getUtenteById(1);
-			assertNull(result);
-		}
+		
+		Utente result = UtenteDao.getUtenteById(1);
+		assertNull(result);
+		
 		UtenteDao.deleteUtenteById(1);
 		System.out.println("\n");
 	}
@@ -501,5 +501,5 @@ public class UtenteDaoTest {
 		
 		UtenteDao.deleteUtenteById(1);
 	}
-
+	
 }

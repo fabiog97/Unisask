@@ -12,13 +12,7 @@ import storage_layer.DriverManagerConnectionPool;
 
 public class DriverManagerConnectionPoolTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
 
 	@Test
 	public final void testGetConnection() {
@@ -28,6 +22,12 @@ public class DriverManagerConnectionPoolTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@Test
+	public final void realeaseConnection() {
+		assertEquals(true,true);
 	}
 
 	

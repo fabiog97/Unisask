@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-import application_logic_layer.Lezione;
 import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
+import application_logic_layer.gestione_lezioni.Lezione;
 
 public class LezioneDao 
 {

@@ -11,8 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import application_logic_layer.Lezione;
 import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
+import application_logic_layer.gestione_lezioni.Lezione;
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.CorsoInsegnamentoDao;
 import storage_layer.DriverManagerConnectionPool;

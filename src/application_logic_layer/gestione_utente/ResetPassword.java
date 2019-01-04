@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_logic_layer.CryptWithMD5;
 import storage_layer.UtenteDao;
 
 

@@ -18,10 +18,6 @@ import application_logic_layer.gestione_utente.Utente;
 public class UtenteDao 
 {
 	
-	private static UtenteDao instance;
-	
-	
-
 	public static boolean registraUtente(Utente utente, int codice) throws SQLException
 	{
 		Connection connection = null;
