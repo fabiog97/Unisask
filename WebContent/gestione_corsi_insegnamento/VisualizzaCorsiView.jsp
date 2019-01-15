@@ -2,13 +2,14 @@
     pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento" %>
     
     
+    
  <%
  	Utente account = (Utente) request.getSession().getAttribute("account");
-  	
+ 	Collection<CorsoInsegnamento> corsi_iscritti = (Collection<CorsoInsegnamento>) request.getAttribute("corsi_iscritti");
  	Collection<CorsoInsegnamento> corsi = (Collection<CorsoInsegnamento>) request.getAttribute("corsi");
  	Collection<CorsoInsegnamento> corsi_insegnati = (Collection<CorsoInsegnamento>) request.getAttribute("corsi_insegnati");
-	if (corsi == null && corsi_insegnati == null){
-		response.sendRedirect("../VisualizzaCorsi");
+	if (corsi == null && corsi_insegnati == null && corsi_iscritti == null){
+		response.sendRedirect("../VisualizzaCorsi?action=i_miei_corsi");
 		return;
 	}
 	
@@ -90,6 +91,16 @@
 	<%
 		}
 	%>
+	
+	<%
+		if(account.getTipo().equals("studente"))
+		{
+	%>	<div id="contenitore_link" align="center">
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+		</div>	
+	<%
+		}
+	%>
 		
 	
 
@@ -109,7 +120,7 @@
 						    <li>
 						    		<div>
 						    			<i class="fa fa-angle-right"></i>
-						    			<a href="#"><%=corso.getNome()%></a>
+						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
 						    			<div style= "float:right; font-family:futura"> 
 						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
 						    			</div>
@@ -120,6 +131,59 @@
 	    	  			}
 			    } 
 	    	  %>
+	    	  <%
+				if(account.getTipo().equals("admin"))
+				{
+			    		if(corsi.size() > 0)
+			    		{
+				    		Iterator<CorsoInsegnamento> it = corsi.iterator();
+						while(it.hasNext())
+						{
+							CorsoInsegnamento corso = (CorsoInsegnamento) it.next();
+		
+			%>
+						    <li>
+						    		<div>
+						    			<i class="fa fa-angle-right"></i>
+						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
+						    			<div style= "float:right; font-family:futura"> 
+						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+						    			</div>
+						    		</div>
+						    	</li>
+	    	  <%		
+	    	  				}
+	    	  			}
+			    } 
+	    	  %>
+	    	  
+	    	  <%
+				if(account.getTipo().equals("studente"))
+				{
+			    		if(corsi_iscritti.size() > 0)
+			    		{
+				    		Iterator<CorsoInsegnamento> it = corsi_iscritti.iterator();
+						while(it.hasNext())
+						{
+							CorsoInsegnamento corso = (CorsoInsegnamento) it.next();
+		
+			%>
+						    <li>
+						    		<div>
+						    			<i class="fa fa-angle-right"></i>
+						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
+						    			<div style= "float:right; font-family:futura"> 
+						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+						    			</div>
+						    		</div>
+						    	</li>
+	    	  <%		
+	    	  				}
+	    	  			}
+			    } 
+	    	  %>
+	    	  
+	    	  
   	</ul>
   	
   	

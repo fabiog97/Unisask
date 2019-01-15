@@ -7,7 +7,7 @@ package application_logic_layer.gestione_lezioni;
 
 public class Lezione 
 {
-	private int id_lezione;
+	private int id;
 	private String data;
 	private String descrizione;
 	private String valutazione;
@@ -18,7 +18,7 @@ public class Lezione
 	 */
 	public Lezione()
 	{
-		id_lezione = -1;
+		id = -1;
 		data = null;
 		descrizione = null;
 		valutazione = null;
@@ -35,7 +35,7 @@ public class Lezione
 	 */
 	public Lezione(int id, String data,String descrizione, String valutazione, String nome)
 	{
-		this.id_lezione = id;
+		this.id = id;
 		this.data = data;
 		this.descrizione = descrizione;
 		this.valutazione = valutazione;
@@ -47,7 +47,7 @@ public class Lezione
 	 * @return id
 	 */
 	public int getId() {
-		return id_lezione;
+		return id;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Lezione
 	 * 		indica il nuovo ID
 	 */
 	public void setId(int id) {
-		this.id_lezione = id;
+		this.id = id;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Lezione
 
 	@Override
 	public String toString() {
-		return "Lezione [id=" + id_lezione + ", data=" + data + ", descrizione=" + descrizione + ", valutazione=" + valutazione
+		return "Lezione [id=" + id + ", data=" + data + ", descrizione=" + descrizione + ", valutazione=" + valutazione
 				+ ", nome=" + nome + "]";
 	}
 	

@@ -722,7 +722,7 @@ public class QuesitoDaoTest {
 		
 		QuesitoDao.addDomanda(quesito, 1, 2);
 		
-		ArrayList<Quesito> domande = QuesitoDao.getDomandeByLezioneUsername(1,1);
+		ArrayList<Quesito> domande = QuesitoDao.getDomandeByLezioneIdUtente(1,1);
 	
 		Quesito domanda = null;
 		Iterator<Quesito> iterator = domande.iterator();

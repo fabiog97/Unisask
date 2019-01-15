@@ -16,6 +16,18 @@
 	
 %>
 
+<script>
+	function validateForm() {
+		
+	    var docenti = document.forms["AggiungiCorso"]["docenti"].value;
+	    if (!docenti) {
+	    		alert("Seleziona un docente");
+	    	  return false;
+	    	}
+	    
+	}
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 
@@ -58,7 +70,7 @@ $(document).ready(function () {
 
 <div id="inserisci_lezione" align="center">
 	<h1>Aggiungi Corso</h1>
-  	<form id="formCorsi" action="InserisciCorso" method="post">
+  	<form name="AggiungiCorso" id="formCorsi" action="InserisciCorso" method="post" onsubmit="return validateForm()">
 	  
 	    <label for="nomeCorso"><b>Nome Corso</b></label>
 	    <input type="text" name="nomeCorso" required >
@@ -72,10 +84,10 @@ $(document).ready(function () {
 					
 			</div>
 	    
-	    <label for="docente"><b>Docente</b></label>
+	   
 	    	<label for="docente"><b>Docente</b></label>
 			<div class="custom-select">
-				<select name="itemDocenti"  size="3" multiple="multiple" tabindex="1">
+				<select name="itemDocenti" id="docenti"  size="3" multiple="multiple" tabindex="1">
 	    <% 
 	    		if(docenti.size() > 0)
 	    		{
@@ -125,8 +137,6 @@ $(document).ready(function () {
 </div>
 
 	
-                
-
 <div class="container2 signin2">
   		&copy; 2018 Unisask Inc. All right reserved<br>  
  </div>

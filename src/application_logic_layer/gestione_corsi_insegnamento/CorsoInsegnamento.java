@@ -17,7 +17,6 @@ public class CorsoInsegnamento
 	private String corsoDiLaurea;
 	private String annoDiStudio;
 	private String semestre;
-	private Utente docente;
 	private String nome;
 	private ArrayList<Utente> docenti;
 	
@@ -32,7 +31,6 @@ public class CorsoInsegnamento
 		corsoDiLaurea = null;
 		annoDiStudio = null;
 		semestre = null;
-		docente = null;
 		nome = null;
 		docenti = new ArrayList<Utente>();
 	}
@@ -55,7 +53,6 @@ public class CorsoInsegnamento
 		this.annoAccademico = annoAccademico;
 		this.corsoDiLaurea = corsoDiLaurea;
 		this.annoDiStudio = annoDiStudio;
-		this.docente = docente;
 		this.nome = nome;
 		this.docenti = docenti;
 	}
@@ -183,7 +180,7 @@ public class CorsoInsegnamento
 	@Override
 	public String toString() {
 		return "CorsoInsegnamento [id=" + id + ", annoAccademico=" + annoAccademico + ", corsoDiLaurea=" + corsoDiLaurea
-				+ ", annoDiStudio=" + annoDiStudio + ", semestre=" + semestre + ", docente=" + docente + ", nome="
+				+ ", annoDiStudio=" + annoDiStudio + ", semestre=" + semestre + ", nome="
 				+ nome + ", docenti=" + docenti + "]";
 	}
 	

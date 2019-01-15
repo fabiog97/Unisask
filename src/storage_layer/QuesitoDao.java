@@ -307,7 +307,7 @@ public class QuesitoDao
 	}
 	
 	
-	public static ArrayList<Quesito> getDomandeByLezioneUsername(int id_lezione,int id_utente) throws SQLException //Restituisce tutte le domande che riceve il docente per una determinata lezione
+	public static ArrayList<Quesito> getDomandeByLezioneIdUtente(int id_lezione,int id_utente) throws SQLException //Restituisce tutte le domande che riceve il docente per una determinata lezione
 	{
 	
 			Connection connection = null;
