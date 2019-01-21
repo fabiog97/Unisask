@@ -139,7 +139,7 @@
 										</div>
 										
 										<div id="second_box_element">
-											<i class="far fa-question-circle"></i><a href="InserisciDomandaView.jsp"> Domanda</a>
+											<i class="far fa-question-circle"></i><a href="./gestione_quesiti/InvioDomandaView.jsp?id_lezione=<%=lezione.getId()%>"> Domanda</a>
 										</div>
 									
 										<div id="third_box_element" >

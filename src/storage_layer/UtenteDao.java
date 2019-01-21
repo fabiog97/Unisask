@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -257,7 +258,64 @@ public class UtenteDao
 			}
 		}	
 		
-		return user;
+		return user;	
+	}
+	
+	public static ArrayList<Utente> getDocentiByLezioneId(int id_lezione) throws SQLException
+	{
+
+		ArrayList<Utente> docenti = new ArrayList<Utente>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+	
+	
+		String selectSQL = "SELECT *  FROM utente WHERE id IN( SELECT id_utente FROM insegna WHERE id_corso IN (SELECT id FROM corso WHERE id IN (SELECT id_corso FROM lezione WHERE id = ?)));"; 
+		
+		
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setInt(1, id_lezione);
+			
+			System.out.println("getDocentiByLezioneId: "+ preparedStatement.toString());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			
+				while(rs.next()) 
+				{
+					Utente user = new Utente();
+					user.setId(rs.getInt("id"));
+					user.setUsername(rs.getString("username"));
+					user.setNome(rs.getString("nome"));
+					user.setCognome(rs.getString("cognome"));
+					user.setEmail(rs.getString("email"));
+					user.setMatricola(rs.getString("matricola"));
+					user.setNazionalita(rs.getString("nazionalita"));
+					user.setPassword(rs.getString("password"));
+					user.setTipo(rs.getString("tipo"));
+					docenti.add(user);
+					connection.commit();
+				}
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}	
+		
+		return docenti;
 		
 		
 	}

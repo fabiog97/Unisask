@@ -43,12 +43,16 @@ public class QuesitoDao
 		       
 			if (rs.next()){
 	            id_quesito = rs.getInt(1);
+	            
 	        }
 	        rs.close();
 	        
 	        preparedStatement1 = connection.prepareStatement(insertRiceveSQL);
 	        
 	        Iterator<Utente> it = quesito.getDocenti().iterator();
+	        
+	        System.out.println(quesito.getDocenti().isEmpty());
+	        
 			while(it.hasNext())
 			{
 				Utente docente = (Utente) it.next();

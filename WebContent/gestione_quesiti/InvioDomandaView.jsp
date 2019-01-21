@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_lezioni.Lezione, application_logic_layer.gestione_lezioni.Lezione, storage_layer.LezioneDao" %>
+
+
+<%
+ 	Utente account = (Utente) request.getSession().getAttribute("account");
+
+ 	
+ 	String id = request.getParameter("id_lezione");
+ 	int idLezione  = Integer.parseInt(id);
+	
+ 	
+ 	
+ 	Lezione lezione = LezioneDao.getLezioneById(idLezione);
+ 	
+ %>
+     
 <!DOCTYPE>
 <html>
 <head>
@@ -14,48 +29,57 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="#"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">
-		<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
-		<p>Benvenuto Antonio</p>
-		<form action="./Logout" method="get" >
+		<p>Benvenuto <%=account.getUsername()%></p>
+		<form action="../Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
-	</a>
-	</div>
-
-	<div id="contenitore_ricerca" align="center">
-			<form action="Ricerca" method="post" >
-				<h3>Ricerca AQ</h3>
-		    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
-	    		</form>
-		</div>
 	
-
+	</div>
 </header>
 
 
   
-    <div id="contenitore_link" align="center">
-		<p><a href="">I miei corsi</a> |<a href="">Corsi Di Studio</a> |<a href=""> Risposte</a></p>
-	</div>
+    <%
+		if(account.getTipo().equals("docente"))
+		{
+	%>	<div id="contenitore_link" align="center">
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%> class="active">I miei corsi</a> | <a href=""> Domande</a></p>
+		</div>
+		
+		
+	<%
+		}
+	%>
+	
+	<%
+		if(account.getTipo().equals("studente"))
+		{
+	%>	<div id="contenitore_link" align="center">
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+		</div>	
+	<%
+		}
+	%>
 	
 <div id="profilo_view" align="center">
 	
 	<div align="center">
-		<h2>Introduzione al Software</h2>
+		<h2><%=lezione.getNome()%></h2>
 	
-		<h5>Prodotto e processo software</h5>
-		<h5>Fondamenti di Ingegneria del software</h5>
+		<h5><%=lezione.getDescrizione() %></h5>
 		
+	<form name="InvioDomanda" action="../InvioDomanda?id_lezione=<%=idLezione%>&id_utente=<%=account.getId()%>" method="post">
 		<h5>Domanda</h5>
-		<p><textarea rows="7" cols="50" name="argomento_lezione"></textarea></p>
+		<p><textarea rows="7" cols="50" name="domanda"></textarea></p>
 		
-		<a href="home.jsp"><input class="tastoRispondi" type="submit" value="Invia domanda"></a>
-		</div>
+		<input class="tastoRispondi" type="submit" value="Invia domanda">
+	</form>
+	</div>
 
 </div>
 

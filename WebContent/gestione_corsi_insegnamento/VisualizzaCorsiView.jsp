@@ -152,11 +152,9 @@
 			%>
 						    <li>
 						    		<div>
-						    			<i class="fa fa-angle-right"></i>
-						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
-						    			<div style= "float:right; font-family:futura"> 
-						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
-						    			</div>
+						    			
+						    			<%=corso.getNome()%>
+						    			
 						    		</div>
 						    	</li>
 	    	  <%		

@@ -23,7 +23,7 @@ public class LezioneDao
 			preparedStatement.setString(1, lezione.getNome());
 			preparedStatement.setString(2, lezione.getData());
 			preparedStatement.setString(3, lezione.getDescrizione());
-			preparedStatement.setString(4, lezione.getValutazione());
+			preparedStatement.setInt(4, 0);
 			preparedStatement.setInt(5, id_corso);
 			
 			System.out.println("addLezione: "+ preparedStatement.toString());
@@ -105,6 +105,40 @@ public class LezioneDao
 			preparedStatement.executeUpdate();
 			
 			System.out.println("removeLezione: "+ preparedStatement.toString());
+			connection.commit();
+		}
+		finally 
+		{
+			try 
+			{
+				if (preparedStatement != null)
+				preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
+	
+	public static void updateValutazioneLezione(int id_lezione, int valutazione) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String updateSQL = "UPDATE lezione SET valutazione = ?  WHERE id = ?";
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			
+			preparedStatement.setInt(1, valutazione);
+			preparedStatement.setInt(2, id_lezione);
+			
+			
+			preparedStatement.executeUpdate();
+			
+			System.out.println("updateValutazioneLezione: "+ preparedStatement.toString());
 			connection.commit();
 		}
 		finally 

@@ -60,7 +60,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+			<p><a href="../VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
 		</div>	
 	<%
 		}
@@ -75,6 +75,8 @@
 		
 	
 		<h5>Valutazione</h5>
+		
+		<form name="InvioValutazione" action="../InserisciValutazioneLezione?id_lezione=<%=idLezione%>" method="post">
 		<div class="rate" >
 		  <input type="radio" id="star5" name="rate" value="5" />
 		  <label for="star5" title="text">5 stars</label>
@@ -87,8 +89,10 @@
 		  <input type="radio" id="star1" name="rate" value="1" />
 		  <label for="star1" title="text">1 star</label>
 		</div>
+		<input class="tastoRispondi" type="submit" value="Invia valutazione">
+		</form>
 		
-		<a href="home.jsp"><input class="tastorispondi" type="submit" value="Inserisci valutazione"></a>
+		
 	</div>
 
 </div>

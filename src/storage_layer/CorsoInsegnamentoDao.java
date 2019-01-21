@@ -162,6 +162,48 @@ public class CorsoInsegnamentoDao
 		return corsi;
 	}
 	
+	public static CorsoInsegnamento getCorsoById(int id_corso) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		CorsoInsegnamento corso = null;
+		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
+		String selectSQL = "SELECT * FROM corso WHERE id = ?"; 
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) 
+			{
+				corso = new CorsoInsegnamento();
+				corso.setId(rs.getInt("id"));
+				corso.setNome(rs.getString("nome"));
+				corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
+				corso.setAnnoAccademico(rs.getString("anno_accademico"));
+				corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
+				corso.setSemestre(rs.getString("semestre"));
+				
+			}
+			System.out.println("getCorsoById:" + preparedStatement.toString());
+			connection.commit();
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return corso;
+	}
+	
 	public static boolean addCorso(CorsoInsegnamento corso) throws SQLException
 	{
 		Connection connection = null;
