@@ -86,80 +86,70 @@
 	
 
 <div id="corsi_window">
-	<ul>
+		<ul>
 			
-	    	  	<%
-	    	  			int flag = 0;
-					if(corsi.size() > 0)
-			    		{
-				    		Iterator<CorsoInsegnamento> it = corsi.iterator();
-				    		Iterator<CorsoInsegnamento> iterator = corsi_iscritti.iterator();
-						while(it.hasNext())
-						{
-							CorsoInsegnamento corso = (CorsoInsegnamento) it.next();
-							
-							flag = 0;
-							
-						%>
-							<li>
-								<div>
+	    	<%
+	    	  	int flag = 0;
+				if(corsi.size() > 0)
+			    {
+				    Iterator<CorsoInsegnamento> it = corsi.iterator();
+					while(it.hasNext())
+					{
+						CorsoInsegnamento corso = (CorsoInsegnamento) it.next();
+						flag = 0;
+			%>
+						<li>
+							<div>
 							<% 
-							if(corsi_iscritti.size() > 0)
-				    			{
-								while(iterator.hasNext())
-								{
-									CorsoInsegnamento corso_iscritto = (CorsoInsegnamento) iterator.next();
-									
-							%>
-							    
-							    			<%
-							    				if(corso.getNome().equals(corso_iscritto.getNome()))
-							    				{
-							    			%> 
-									    			<i class="fa fa-angle-right"></i>
-									    			<a href=""><%=corso.getNome()%></a>
-									    			<div style= "float:right; font-family:futura">
-							    						<a href="DisiscrizioneCorso?id_corso=<%=corso_iscritto.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Disiscrivimi"></a>
-							    			<%
-							    					flag = 1;
-							    				}
-							    				
-							    				else
-							    				{
-							    			%>
-							    					<a href="IscrizioneCorso?id_corso=<%=corso.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Iscrivimi"></a>
-							    				
-							    			<%
-							    				}
-							    			
-							    			%>
-							    					</div>
-							<% 		
+								for(CorsoInsegnamento corso_iscritto : corsi_iscritti)
+								{			
+							    	if(corso.getNome().equals(corso_iscritto.getNome()))
+							    	{
+							    		%> 
+									    	<i class="fa fa-angle-right"></i>
+							   				<a href=""><%=corso.getNome()%></a>
+									    	<div style= "float:right; font-family:futura">
+							    				<a href="DisiscrizioneCorso?id_corso=<%=corso_iscritto.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Disiscrivimi"></a>
+							    			</div>
+							    		<%
+							    			flag = 1;
+							    	}	
 								}
-							} 
+							
 							%>
 							   
 								
-								<% if(flag!=1){%>
+							<% 
+							if(flag!=1)
+							{
+							%>
 								<i class="fa fa-angle-right"></i>
-							    	<a href=""><%=corso.getNome()%></a><%} %>
-							    	<div style= "float:right; font-family:futura">
-							    	<% if(flag!=1){ %>
-							    		<a href="IscrizioneCorso?id_corso=<%=corso.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Iscrivimi"></a>
-							  	<%} %>
-							  	</div>
+							    <a href=""><%=corso.getNome()%></a>
+							<%
+							} 
+							%>
+							
+							<div style= "float:right; font-family:futura">
+								<% 
+								if(flag!=1)
+								{ 
+								%>
+								   <a href="IscrizioneCorso?id_corso=<%=corso.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Iscrivimi"></a>
+								<%
+								} 
+							%>
+							</div>
 							  	
 							    	
-							    	</div>		
-								</li>
+					</div>		
+				</li>
 								
-		    	  <%								
-		    	  			}
-					}
-		    	  %>
-	    	  
-	    	  				</ul>
-					</div>
+		  	<%								
+		    }
+		}
+		%>  	  
+	  </ul>
+	</div>
   	
 
 <div class="container2 signin2">

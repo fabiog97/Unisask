@@ -18,7 +18,7 @@
 <body>
 
 <header>
-	<a  href="VisualizzaProfiloView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
+	<a  href="../gestione_corsi_insegnamento/VisualizzaCorsiView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	
 	<div id="Benvenuto" align="center">
 	<a href="VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">

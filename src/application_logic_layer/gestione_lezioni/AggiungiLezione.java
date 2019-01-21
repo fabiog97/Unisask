@@ -1,6 +1,8 @@
 package application_logic_layer.gestione_lezioni;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +16,7 @@ import storage_layer.LezioneDao;
 @WebServlet("/AggiungiLezione")
 public class AggiungiLezione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
+
     public AggiungiLezione() {
         super();
         // TODO Auto-generated constructor stub
@@ -23,33 +24,33 @@ public class AggiungiLezione extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try
 		{ 
 			Lezione lezione = new Lezione();
 			
+			int id_corso = Integer.valueOf(request.getParameter("id_corso"));
 			lezione.setNome(request.getParameter("nomeLezione"));
 			lezione.setData(request.getParameter("dataLezione"));
 			lezione.setDescrizione(request.getParameter("argomento_lezione"));
-			
-			int id_corso = Integer.parseInt(request.getParameter("id_corso"));//Quando il docente premer� su aggiungi, 
-			
 			
 			LezioneDao.addLezione(lezione,id_corso); 
 				
 			HttpSession session = request.getSession(true); 
 			session.setAttribute("lezione",lezione); 
-			response.sendRedirect("VisualizzaLezioneView.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_lezioni/NotificaInserimentoLezione.jsp?id_corso="+id_corso);
+			dispatcher.forward(request, response);
 			
 		}
 		catch (Throwable theException) 
 		{ 
 			System.out.println(theException); 
 		} 
+		
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

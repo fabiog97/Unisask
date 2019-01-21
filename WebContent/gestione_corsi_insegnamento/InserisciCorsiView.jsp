@@ -4,6 +4,7 @@
 
 <%
 
+	Utente account = (Utente) request.getSession().getAttribute("account");
 	Collection<Utente> docenti = (Collection<Utente>) request.getAttribute("docenti");
 	if (docenti == null){
 		response.sendRedirect("../InserisciCorso");
@@ -54,13 +55,13 @@ $(document).ready(function () {
 <body>
 
 <header>
-	<a  href="VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+	<a  href="./gestione_corsi_insegnamento/VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	
 	<div id="Benvenuto" align="center">
 	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
-		<p>Benvenuto Tizio</p>
-		<form action="../Logout" method="get" >
+		<p>Benvenuto <%=account.getNome()%></p>
+		<form action="./Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
 	</a>

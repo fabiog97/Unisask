@@ -44,6 +44,51 @@ public class LezioneDao
 		}	
 	}
 	
+	public static Lezione getLezioneById(int id_lezione) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Lezione lezione = new Lezione();
+		
+		String selectSQL = "SELECT * FROM lezione WHERE id = ?"; 
+		try 
+		{
+			
+			connection = DriverManagerConnectionPool.getConnection();
+			
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setInt(1, id_lezione);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			System.out.println("RS DB"+rs);
+			while(rs.next()) 
+			{
+				lezione.setId(rs.getInt("id"));
+				lezione.setNome(rs.getString("nome"));
+				lezione.setData(rs.getString("data_lezione"));
+				lezione.setDescrizione(rs.getString("descrizione"));
+				lezione.setValutazione(rs.getString("valutazione"));
+				connection.commit();
+			}
+			System.out.println("getLezioneById:" + preparedStatement.toString());
+			connection.commit();
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return lezione;
+	}
+	
 	public static void removeLezione(int id_lezione) throws SQLException
 	{
 		Connection connection = null;
@@ -75,6 +120,8 @@ public class LezioneDao
 			}
 		}
 	}
+	
+	
 	
 	public static ArrayList<Lezione> getListaLezioni(int id_corso) throws SQLException
 	{

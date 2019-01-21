@@ -168,6 +168,17 @@ li:hover {
   margin-left:15%;
 }
 
+.tastorispondi
+{
+  background-color: #2A85AD;
+  color: white;
+  padding:6;
+  border: none;
+  cursor: pointer;
+  height:8%;
+  margin-top:-0.6%;
+}
+
 #Benvenuto
 {
 	float: right;
@@ -283,20 +294,41 @@ div.custom-select select
   background: #f1f1f1;
 }
 /*fine pagina InserisciLezioneView*/
+.row {
+  display: flex;
+  justify-content: space-between;
+}
 
-/*inizio pagina InvioDomandaView*/
-.tastorispondi
-{
-  background-color: #2A85AD;
-  color: white;
-  padding: 8;
-  border: none;
+
+
+
+/*inizio pagina InserisciValutazioneView*/
+.rate {
+  height: 60px;
+  padding: 0 170px;
+
+}
+
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
   cursor: pointer;
-  text-align: center;
+  font-size: 30px;
+  color: #EEEEEE;
 }
 
-#professore
-{
-	margin-top:-2%;
-}
-/*fine pagina InvioDomandaView*/
+.rate:not(:checked) > label:before { content: '★ '; }
+
+.rate > input:checked ~ label { color: black; }
+.rate:not(:checked) > label:hover, .rate:not(:checked) > label:hover ~ label { color: black; }
+
+.rate > input:checked + label:hover, .rate > input:checked + label:hover ~ label, .rate > input:checked ~ label:hover, .rate > input:checked ~ label:hover ~ label, .rate > label:hover ~ input:checked ~ label { color: #7E7E7E; }
+
+
+/*fine pagina InserisciValutazioneView*/

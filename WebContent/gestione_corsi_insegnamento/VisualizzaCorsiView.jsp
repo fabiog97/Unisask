@@ -20,7 +20,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 <link rel="SHORTCUT ICON" href="./images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
@@ -30,7 +30,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="#"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">
@@ -86,7 +86,7 @@
 		if(account.getTipo().equals("docente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="">I miei corsi</a>|<a href=""> Domande</a></p>
+			<p><a href="" class="active">I miei corsi</a> | <a href=""> Domande</a></p>
 		</div>	
 	<%
 		}
@@ -115,16 +115,24 @@
 						while(it.hasNext())
 						{
 							CorsoInsegnamento corso = (CorsoInsegnamento) it.next();
-		
+							
 			%>
-						    <li>
-						    		<div>
-						    			<i class="fa fa-angle-right"></i>
-						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
-						    			<div style= "float:right; font-family:futura"> 
-						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
-						    			</div>
-						    		</div>
+						    <li><a href="VisualizzaLezioni?id_corso=<%=corso.getId()%>&nome_corso=<%=corso.getNome()%>">
+						    		<div class="row">
+									<div id="first_box_element" align="left">
+										<i class="fa fa-angle-right"></i>
+							    			<%=corso.getNome()%>
+									</div>
+										
+									<div id="second_box_element" align="center">
+										
+									</div>
+											
+									<div id="third_box_element" align="right">
+										1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+									</div>
+								</div>
+						    		</a>
 						    	</li>
 	    	  <%		
 	    	  				}
@@ -169,13 +177,20 @@
 		
 			%>
 						    <li>
-						    		<div>
-						    			<i class="fa fa-angle-right"></i>
-						    			<a href="VisualizzaLezioni&id_corso=<%=corso.getId()%>"><%=corso.getNome()%></a>
-						    			<div style= "float:right; font-family:futura"> 
-						    				2 <i class="fa fa-question-circle" style= "font-size:20px"></i>
-						    			</div>
-						    		</div>
+						    <a href="VisualizzaLezioni?id_corso=<%=corso.getId()%>">
+									<div class="row">
+										<div id="first_box_element" align="left">
+											<i class="fas fa-angle-right"></i> <%=corso.getNome()%>
+										</div>
+										
+										<div id="second_box_element" align="center">
+										
+										</div>
+										<div id="third_box_element" align="right">
+											1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+										</div>
+									</div>
+						    		</a>
 						    	</li>
 	    	  <%		
 	    	  				}
