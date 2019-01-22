@@ -15,7 +15,7 @@ public class LezioneDao
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String insertSQL = "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione, id_corso) VALUES (?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione_media, id_corso) VALUES (?, ?, ?, ?, ?)";
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
@@ -44,6 +44,77 @@ public class LezioneDao
 		}	
 	}
 	
+	public static void addValutazioneLezione(int id_utente, int id_lezione, int valutazione) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String insertSQL = "INSERT INTO valuta (id_utente, id_lezione, valutazione) VALUES (?, ?, ?)";
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1,id_utente);
+			preparedStatement.setInt(2,id_lezione);
+			preparedStatement.setInt(3,valutazione);
+			
+			
+			System.out.println("addValutazioneLezione: "+ preparedStatement.toString());
+			preparedStatement.executeUpdate();
+			connection.commit();
+		}
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}	
+	}
+	
+	public static double getMediaValutazioniById(int id_lezione) throws SQLException
+	{
+		double media =  0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT AVG(valutazione) AS MediaValutazione FROM valuta WHERE id_lezione = ?";
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1,id_lezione);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) 
+			{
+				media = rs.getDouble("MediaValutazione");
+				connection.commit();
+			}
+			
+			System.out.println("getMediaValutazioniById: "+ preparedStatement.toString());
+			
+			connection.commit();
+		}
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}	
+		return media;
+	}
+	
 	public static Lezione getLezioneById(int id_lezione) throws SQLException
 	{
 		Connection connection = null;
@@ -68,7 +139,7 @@ public class LezioneDao
 				lezione.setNome(rs.getString("nome"));
 				lezione.setData(rs.getString("data_lezione"));
 				lezione.setDescrizione(rs.getString("descrizione"));
-				lezione.setValutazione(rs.getString("valutazione"));
+				lezione.setValutazione(rs.getString("valutazione_media"));
 				connection.commit();
 			}
 			System.out.println("getLezioneById:" + preparedStatement.toString());
@@ -121,18 +192,18 @@ public class LezioneDao
 		}
 	}
 	
-	public static void updateValutazioneLezione(int id_lezione, int valutazione) throws SQLException
+	public static void updateValutazioneLezione(int id_lezione, double valutazione) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String updateSQL = "UPDATE lezione SET valutazione = ?  WHERE id = ?";
+		String updateSQL = "UPDATE lezione SET valutazione_media = ?  WHERE id = ?";
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 			
-			preparedStatement.setInt(1, valutazione);
+			preparedStatement.setDouble(1, valutazione);
 			preparedStatement.setInt(2, id_lezione);
 			
 			
@@ -179,7 +250,7 @@ public class LezioneDao
 				lezione.setNome(rs.getString("nome"));
 				lezione.setData(rs.getString("data_lezione"));
 				lezione.setDescrizione(rs.getString("descrizione"));
-				lezione.setValutazione(rs.getString("valutazione"));
+				lezione.setValutazione(rs.getString("valutazione_media"));
 				lezioni.add(lezione);
 			}
 			System.out.println("getListaLezioni:" + preparedStatement.toString());

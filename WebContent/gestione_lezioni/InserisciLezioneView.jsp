@@ -50,7 +50,7 @@
 		
 		<input class="registerbtn" type="submit" value="Aggiungi" tabindex="2">
 	</form>
-	
+	<p><a href="../gestione_corsi_insegnamento/VisualizzaCorsiView.jsp">Indietro</a></p>
 </div>
 
 <div class="container2 signin2">

@@ -86,7 +86,7 @@
 		if(account.getTipo().equals("docente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="" class="active">I miei corsi</a> | <a href=""> Domande</a></p>
+			<p><a href="" class="active">I miei corsi</a> | <a href="VisualizzaDomande"> Domande</a></p>
 		</div>	
 	<%
 		}
@@ -96,7 +96,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
 		</div>	
 	<%
 		}
@@ -154,7 +154,9 @@
 						    		<div>
 						    			
 						    			<%=corso.getNome()%>
-						    			
+						    			<div style= "float:right; font-family:futura">
+							    			<a href="EliminaCorso?id_corso=<%=corso.getId()%>"><input class="tastorispondi" type="submit" value="Elimina"></a>
+							    		</div>
 						    		</div>
 						    	</li>
 	    	  <%		

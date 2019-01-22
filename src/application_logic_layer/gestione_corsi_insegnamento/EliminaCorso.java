@@ -2,6 +2,7 @@ package application_logic_layer.gestione_corsi_insegnamento;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,24 +21,24 @@ public class EliminaCorso extends HttpServlet
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
 		try
 		{ 
+			
 			int id_corso = Integer.parseInt(request.getParameter("id_corso"));
 			
 			CorsoInsegnamentoDao.removeCorso(id_corso); 
 				
-			response.sendRedirect("VisualizzaCorsiView.jsp");
-			
+			response.sendRedirect("./gestione_corsi_insegnamento/VisualizzaCorsiView.jsp");
 		}
 		catch (Throwable theException) 
 		{ 
 			System.out.println(theException); 
 		} 
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		
 		doGet(request, response);
 	}
     

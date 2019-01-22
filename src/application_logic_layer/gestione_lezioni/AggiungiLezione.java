@@ -35,8 +35,7 @@ public class AggiungiLezione extends HttpServlet {
 			
 			LezioneDao.addLezione(lezione,id_corso); 
 				
-			HttpSession session = request.getSession(true); 
-			session.setAttribute("lezione",lezione); 
+			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_lezioni/NotificaInserimentoLezione.jsp?id_corso="+id_corso);
 			dispatcher.forward(request, response);
 			

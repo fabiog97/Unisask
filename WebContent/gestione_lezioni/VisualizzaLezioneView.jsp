@@ -4,14 +4,10 @@
     
 <%
  	Utente account = (Utente) request.getSession().getAttribute("account");
-	
  	Collection<Lezione> lezioni = (Collection<Lezione>) request.getAttribute("lezioni");
- 	
  	String nome_corso = (String)request.getAttribute("nome_corso");
  	String id_corso = (String)request.getAttribute("id_corso");
  	int id = Integer.parseInt(id_corso);
- 	
-	
  %>
 <!DOCTYPE>
 <html>
@@ -47,7 +43,7 @@
 		if(account.getTipo().equals("docente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%> class="active">I miei corsi</a> | <a href=""> Domande</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%> class="active">I miei corsi</a> | <a href="VisualizzaDomande"> Domande</a></p>
 		</div>
 		
 		<div id="racchiudiText" align="center">
@@ -63,7 +59,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
 		</div>	
 	<%
 		}
@@ -77,11 +73,15 @@
 		
 			if(account.getTipo().equals("docente"))
 			{
+				
 				if(lezioni.size() > 0)
 				    		{
+							
 					    		Iterator<Lezione> it = lezioni.iterator();
+					    		
 							while(it.hasNext())
 							{
+								
 								Lezione lezione = (Lezione) it.next();
 		
 		%>
@@ -93,7 +93,8 @@
 										
 										<div id="second_box_element" align="center">
 										<%
-												int val = Integer.parseInt(lezione.getValutazione());
+												double media = Double.parseDouble(lezione.getValutazione());
+												int val = (int) media;
 												for(int i = 0; i<val;i++)
 												{
 										%>
@@ -112,6 +113,10 @@
 										<div id="third_box_element" align="right">
 											1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
 										</div>
+										
+										<div style= "float:right; font-family:futura">
+							    				<a href="EliminaLezione?id_lezione=<%= lezione.getId()%>&id_corso=<%=id_corso%>&nome_corso=<%=nome_corso%>"><input class="tastorispondi" type="submit" value="Elimina"></a>
+							    			</div>
 									</div>
 								</li>
 			<%			
@@ -150,7 +155,16 @@
 			<%			
 						}
 					}
+				else
+				{
+					
+			%>
+			<div align="center">
+				<p>Non ci sono lezioni disponibili</p>
+			</div>
+			<%
 				}
+			}
 			%>
 			
 		</ul>

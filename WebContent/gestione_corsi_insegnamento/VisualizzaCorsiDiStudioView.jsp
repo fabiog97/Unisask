@@ -77,7 +77,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" >I miei corsi</a> | <a class="active" href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Domande</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" >I miei corsi</a> | <a class="active" href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
 		</div>	
 	<%
 		}

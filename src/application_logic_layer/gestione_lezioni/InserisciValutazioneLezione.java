@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import application_logic_layer.gestione_utente.Utente;
 import storage_layer.LezioneDao;
 
 
@@ -30,10 +31,19 @@ public class InserisciValutazioneLezione extends HttpServlet {
 		
 		try {
 			int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
+			Utente utente = (Utente)request.getSession().getAttribute("account");
 			
 			int val = Integer.parseInt(request.getParameter("rate"));
 			
-			LezioneDao.updateValutazioneLezione(id_lezione, val);
+			LezioneDao.addValutazioneLezione(utente.getId(), id_lezione, val);
+			
+			double media = LezioneDao.getMediaValutazioniById(id_lezione);
+			
+			System.out.println("Media: "+media);
+			
+			LezioneDao.updateValutazioneLezione(id_lezione, media);
+			
+			
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_lezioni/NotificaInserimentoValutazione.jsp?id_lezione="+id_lezione);
 			dispatcher.forward(request, response);
