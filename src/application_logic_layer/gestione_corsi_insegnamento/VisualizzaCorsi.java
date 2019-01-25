@@ -55,6 +55,7 @@ public class VisualizzaCorsi extends HttpServlet
 				request.setAttribute("corsi_insegnati", corsi_insegnati);
 				
 				
+				
 				if(action.equals("corsi_di_studio")) {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_corsi_insegnamento/VisualizzaCorsiDiStudioView.jsp");
 					dispatcher.forward(request, response);

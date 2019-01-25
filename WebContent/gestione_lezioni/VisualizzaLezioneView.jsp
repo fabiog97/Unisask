@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_lezioni.Lezione, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento" %>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_lezioni.Lezione, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento, storage_layer.QuesitoDao" %>
     
     
 <%
@@ -26,14 +26,14 @@
 	<div class="logo_header">
 		<a  href="#"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
-	
+	<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<div id="Benvenuto" align="center">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="./Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
-	
+	</a>
 	</div>
 </header>
 	
@@ -59,7 +59,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="VisualizzaRisposte">Risposte</a></p>
 		</div>	
 	<%
 		}
@@ -88,7 +88,7 @@
 								<li >
 									<div class="row">
 										<div id="first_box_element" align="left">
-											<i class="fas fa-angle-right"></i> <a href="#"><%=lezione.getNome()%></a>
+											<i class="fas fa-angle-right"></i> <%=lezione.getNome()%>
 										</div>
 										
 										<div id="second_box_element" align="center">
@@ -111,7 +111,12 @@
 										%>
 										</div>
 										<div id="third_box_element" align="right">
-											1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+										
+										<%
+											int c = QuesitoDao.getCountDomandeByIdLezione(lezione.getId());
+										
+										%>
+											<%=c%> <i class="fa fa-question-circle" style= "font-size:20px"></i>
 										</div>
 										
 										<div style= "float:right; font-family:futura">

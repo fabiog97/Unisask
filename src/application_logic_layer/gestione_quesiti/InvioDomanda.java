@@ -35,11 +35,15 @@ public class InvioDomanda extends HttpServlet {
 		System.out.println("TEST");
 		try 
 		{	
+			Utente user = (Utente) request.getSession().getAttribute("account");
 			
 			int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
 			int id_utente = Integer.parseInt(request.getParameter("id_utente"));
 			GregorianCalendar gc = new GregorianCalendar();
 			String data_odierna =  gc.get(Calendar.DAY_OF_MONTH) + "/" +  gc.get(Calendar.MONTH) + "/" +  gc.get(Calendar.YEAR);
+			System.out.println(gc.get(Calendar.MONTH));
+			System.out.println(data_odierna);
+			
 			Quesito quesito = new Quesito();
 		
 			ArrayList<Utente> docenti = UtenteDao.getDocentiByLezioneId(id_lezione);
@@ -51,6 +55,7 @@ public class InvioDomanda extends HttpServlet {
 				System.out.println(docente.toString());
 			}
 			quesito.setDocenti(docenti);
+			quesito.setStudente_richiedente(user.getCognome());
 			quesito.setDomanda(request.getParameter("domanda").toString());
 			quesito.setData(data_odierna);
 			QuesitoDao.addDomanda(quesito, id_lezione, id_utente);

@@ -26,12 +26,13 @@
 	</div>
 	
 	<div id="Benvenuto" align="center">
+	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="../Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
-	
+	</a>
 </header>
 
    

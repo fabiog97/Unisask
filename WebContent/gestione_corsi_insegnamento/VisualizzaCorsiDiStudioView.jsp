@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento" %>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento, storage_layer.CorsoInsegnamentoDao" %>
     
     
     
@@ -21,7 +21,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 <link rel="SHORTCUT ICON" href="./images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
@@ -77,7 +77,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" >I miei corsi</a> | <a class="active" href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" >I miei corsi</a> | <a class="active" href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="VisualizzaRisposte">Risposte</a></p>
 		</div>	
 	<%
 		}
@@ -99,21 +99,38 @@
 						flag = 0;
 			%>
 						<li>
-							<div>
+							<div class="row">
 							<% 
 								for(CorsoInsegnamento corso_iscritto : corsi_iscritti)
 								{			
-							    	if(corso.getNome().equals(corso_iscritto.getNome()))
-							    	{
-							    		%> 
-									    	<i class="fa fa-angle-right"></i>
-							   				<a href=""><%=corso.getNome()%></a>
-									    	<div style= "float:right; font-family:futura">
-							    				<a href="DisiscrizioneCorso?id_corso=<%=corso_iscritto.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Disiscrivimi"></a>
-							    			</div>
-							    		<%
-							    			flag = 1;
-							    	}	
+								    	if(corso.getNome().equals(corso_iscritto.getNome()))
+								    	{
+								    		%> 
+								    		<div id="first_box_element" align="left">
+											<i class="fa fa-angle-right"></i>
+								   			<a href=""><%=corso.getNome()%></a>
+								   		</div>	
+								   			Prof: 
+								   			<%
+												ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByCorso(corso.getId());
+												Iterator<Utente> iterator = docenti.iterator();
+												while(iterator.hasNext())
+												{
+													Utente docente = iterator.next();
+											%>
+												&nbsp;<%=docente.getNome()%><%=docente.getCognome()%> 
+											
+											<%
+												}
+											%>
+								   			
+								   				
+										    	<div style= "float:right; font-family:futura">
+								    				<a href="DisiscrizioneCorso?id_corso=<%=corso_iscritto.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Disiscrivimi"></a>
+								    			</div>
+								    		<%
+								    			flag = 1;
+								    	}	
 								}
 							
 							%>
@@ -123,22 +140,42 @@
 							if(flag!=1)
 							{
 							%>
+							<div id="first_box_element" align="left">
 								<i class="fa fa-angle-right"></i>
-							    <a href=""><%=corso.getNome()%></a>
+								<a href=""><%=corso.getNome()%></a>
+							</div>
+								Prof: 
+							    <%
+												ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByCorso(corso.getId());
+												Iterator<Utente> iterator = docenti.iterator();
+												while(iterator.hasNext())
+												{
+													Utente docente = iterator.next();
+											%>
+												
+													 &nbsp;<%=docente.getNome()%><%=docente.getCognome()%> 
+												
+											
+											<%
+												}
+											%>
 							<%
 							} 
 							%>
 							
-							<div style= "float:right; font-family:futura">
+							
 								<% 
 								if(flag!=1)
 								{ 
 								%>
+								<div style= "float:right; font-family:futura">
 								   <a href="IscrizioneCorso?id_corso=<%=corso.getId()%>&id_utente=<%=account.getId()%>"><input class="tastorispondi" type="submit" value="Iscrivimi"></a>
+								</div>
 								<%
+								
 								} 
 							%>
-							</div>
+							
 							  	
 							    	
 					</div>		

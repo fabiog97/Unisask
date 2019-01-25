@@ -172,10 +172,10 @@ li:hover {
 {
   background-color: #2A85AD;
   color: white;
-  padding:6;
+  padding:5;
   border: none;
   cursor: pointer;
-  height:8%;
+  height:7%;
   margin-top:-0.6%;
 }
 
@@ -300,7 +300,9 @@ div.custom-select select
 }
 
 
-
+#first_box_element{
+	width: 30%
+}
 
 /*inizio pagina InserisciValutazioneView*/
 .rate {

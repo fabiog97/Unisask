@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_lezioni.Lezione, application_logic_layer.gestione_quesiti.Quesito"%>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_lezioni.Lezione, storage_layer.QuesitoDao, application_logic_layer.gestione_quesiti.Quesito"%>
     
 <%
 	Utente account = (Utente) request.getSession().getAttribute("account");
 	Collection<Quesito> quesiti = (Collection<Quesito>) request.getAttribute("quesiti");
-
+	String nome_corso = "";
 
 %>    
 <!DOCTYPE>
@@ -26,12 +26,13 @@
 	</div>
 	
 	<div id="Benvenuto" align="center">
+	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="./Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
-	
+	</a>
 	</div>
 </header>
 	
@@ -41,7 +42,7 @@
 		if(account.getTipo().equals("docente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%> class="active">I miei corsi</a> | <a href="VisualizzaDomande"> Domande</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>">I miei corsi</a> | <a class="active" href="VisualizzaDomande"> Domande </a></p>
 		</div>
 		
 		
@@ -66,12 +67,9 @@
 					    		Iterator<Quesito> it = quesiti.iterator();
 					    		
 							while(it.hasNext())
-							{
-								
+							{								
 								Quesito quesito = (Quesito) it.next();
-								
-								
-		
+
 		%>
 								<li >
 									<div class="row">
@@ -80,14 +78,15 @@
 										</div>
 										
 										<div id="second_box_element" align="center">
-										
+											<%
+													nome_corso = QuesitoDao.getCorsoByIdQuesito(quesito.getId()).getNome();
+											%>
+											<%=nome_corso%>
 										</div>
-										<div id="third_box_element" align="right">
 										
-										</div>
 										
 										<div style= "float:right; font-family:futura">
-							    				<a href=""><input class="tastorispondi" type="submit" value="Rispondi"></a>
+							    				<a href="./gestione_quesiti/InvioRispostaView.jsp?nome_corso=<%=nome_corso%>&domanda=<%=quesito.getDomanda()%>&id_quesito=<%=quesito.getId()%>"><input class="tastorispondi" type="submit" value="Rispondi"></a>
 							    			</div>
 									</div>
 								</li>

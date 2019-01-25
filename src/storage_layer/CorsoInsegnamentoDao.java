@@ -326,6 +326,59 @@ public class CorsoInsegnamentoDao
 		return corsi;
 	}
 	
+	public static ArrayList<Utente> getListaDocentiByCorso(int id_corso) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ArrayList<Utente> docenti = new ArrayList<Utente>();
+		String selectSQL = "SELECT * FROM utente  WHERE id IN (SELECT id_utente  FROM insegna  WHERE id_corso = ?);"; 
+		try
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setInt(1, id_corso);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			System.out.println("getListaDocentiByCorso:" + preparedStatement.toString());
+			
+			while(rs.next()) 
+			{
+				Utente user = new Utente();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setNome(rs.getString("nome"));
+				user.setCognome(rs.getString("cognome"));
+				user.setEmail(rs.getString("email"));
+				user.setMatricola(rs.getString("matricola"));
+				user.setNazionalita(rs.getString("nazionalita"));
+				user.setPassword(rs.getString("password"));
+				user.setTipo(rs.getString("tipo"));
+				docenti.add(user);
+				connection.commit();
+			}
+		}
+			
+			
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)	
+					preparedStatement.close();
+			} 
+			
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+			
+		return docenti;
+	}
+	
 	public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente) throws SQLException
 	{
 		Connection connection = null;

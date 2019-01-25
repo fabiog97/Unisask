@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento" %>
+    pageEncoding="UTF-8" import="java.util.*,application_logic_layer.gestione_utente.Utente, application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento,  application_logic_layer.gestione_utente.Utente,  storage_layer.QuesitoDao, storage_layer.CorsoInsegnamentoDao" %>
     
     
     
@@ -42,7 +42,7 @@
 	<%	
 		}
 	%>
-	
+
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="./Logout" method="get" >
@@ -51,10 +51,17 @@
 	</a>
 	</div>
 	
+	<div id="contenitore_ricerca" align="center">
+			<form action="Ricerca" method="post" >
+				<h3>Ricerca AQ</h3>
+		    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
+	    		</form>
+		</div>
+	
 	
 	
 	<%
-		if(!account.getUsername().equals("admin"))
+		if(!account.getUsername().equals("admin") && account.getUsername().equals("docente") )
 		{
 	%>	
 		<div id="contenitore_ricerca" align="center">
@@ -96,7 +103,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
+			<p><a href="VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="VisualizzaRisposte">Risposte</a></p>
 		</div>	
 	<%
 		}
@@ -129,7 +136,7 @@
 									</div>
 											
 									<div id="third_box_element" align="right">
-										1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
+										<%=QuesitoDao.getCountDomandeByIdCorso(corso.getId())%> <i class="fa fa-question-circle" style= "font-size:20px"></i>
 									</div>
 								</div>
 						    		</a>
@@ -181,14 +188,20 @@
 									<div class="row">
 										<div id="first_box_element" align="left">
 											<i class="fas fa-angle-right"></i> <%=corso.getNome()%>
-										</div>
-										
-										<div id="second_box_element" align="center">
 										
 										</div>
-										<div id="third_box_element" align="right">
-											1 <i class="fa fa-question-circle" style= "font-size:20px"></i>
-										</div>
+										Prof:
+											<%
+												ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByCorso(corso.getId())	;
+												Iterator<Utente> iterator = docenti.iterator();
+												while(iterator.hasNext())
+												{
+													Utente docente = iterator.next();
+											%>
+												<%=docente.getNome()%><%=docente.getCognome()%> 
+											<%
+												}
+											%>
 									</div>
 						    		</a>
 						    	</li>

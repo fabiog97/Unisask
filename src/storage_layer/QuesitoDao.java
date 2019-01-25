@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 import com.mysql.jdbc.Statement;
 
+import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
 import application_logic_layer.gestione_lezioni.Lezione;
 import application_logic_layer.gestione_quesiti.Quesito;
 import application_logic_layer.gestione_utente.Utente;
@@ -23,8 +24,8 @@ public class QuesitoDao
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
 		String insertSQL = "INSERT INTO quesito (domanda, risposta, data_quesito, id_lezione, id_utente, completo) VALUES (?, ?, ?, ?, ?, ?)";
-		
 		String insertRiceveSQL = "INSERT INTO riceve (id_utente, id_quesito) VALUES (?, ?)";
+		
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
@@ -91,7 +92,6 @@ public class QuesitoDao
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, quesito.getRisposta());
 			preparedStatement.setInt(2, quesito.getId());
-	
 			
 			System.out.println("addRisposta: "+ preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -181,6 +181,82 @@ public class QuesitoDao
 			}
 		}
 		return quesiti;
+	}
+	
+	public static int getCountDomandeByIdLezione(int id_lezione) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int count = 0;
+		
+		
+		String selectSQL = "SELECT COUNT(id) AS conteggio FROM quesito WHERE id_lezione = ? AND completo = 0;"; 
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, id_lezione);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) 
+			{
+				count = rs.getInt("conteggio");
+				connection.commit();
+			}
+			System.out.println("getCountDomandeByIdLezione:" + preparedStatement.toString());
+			connection.commit();
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return count;
+	}
+	
+	public static int getCountDomandeByIdCorso(int id_corso) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int count = 0;
+		
+		
+		String selectSQL = "SELECT COUNT(id) AS conteggio FROM quesito WHERE completo = 0 AND  id_lezione IN (SELECT id FROM lezione WHERE id_corso = ?);"; 
+		try 
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, id_corso);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) 
+			{
+				count = rs.getInt("conteggio");
+				connection.commit();
+			}
+			System.out.println("getCountDomandeByIdCorso:" + preparedStatement.toString());
+			connection.commit();
+		} 
+		finally 
+		{
+			try 
+			{
+				if(preparedStatement != null)
+					preparedStatement.close();
+			} 
+			finally 
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return count;
 	}
 	
 	public static ArrayList<Quesito> getRisposteByLezione(int id_lezione) throws SQLException
@@ -354,6 +430,136 @@ public class QuesitoDao
 				}
 			}
 			return quesiti;
+		}
+	
+	public static CorsoInsegnamento getCorsoByIdQuesito(int id_quesito) throws SQLException //Restituisce tutte le domande che riceve il docente per una determinata lezione
+	{
+	
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			CorsoInsegnamento corso = null;
+			
+			String selectSQL = "SELECT * from corso WHERE id IN (SELECT id_corso FROM lezione WHERE id IN (SELECT id_lezione FROM quesito WHERE id = ?));";
+			try 
+			{
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(selectSQL);
+				
+				preparedStatement.setInt(1, id_quesito);
+				
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				while(rs.next()) 
+				{
+					corso = new CorsoInsegnamento();
+					corso.setId(rs.getInt("id"));
+					corso.setNome(rs.getString("nome"));
+					
+				}
+				System.out.println("getDomandeByLezioneUsername:" + preparedStatement.toString());
+				connection.commit();
+			} 
+			finally 
+			{
+				try 
+				{
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} 
+				finally 
+				{
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+			return corso;
+	}
+	
+	public static Quesito getQuesitoById(int id_quesito) throws SQLException 
+	{
+	
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			Quesito quesito = null;
+			
+			String selectSQL = "SELECT * FROM quesito WHERE id = ?;";
+			try 
+			{
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(selectSQL);
+				
+				preparedStatement.setInt(1, id_quesito);
+				
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				while(rs.next()) 
+				{
+					quesito = new Quesito();
+					quesito.setId(rs.getInt("id"));
+					quesito.setDomanda(rs.getString("domanda"));
+					quesito.setRisposta(rs.getString("risposta"));
+					
+					
+				}
+				System.out.println("getQuesitoById:" + preparedStatement.toString());
+				connection.commit();
+			} 
+			finally 
+			{
+				try 
+				{
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} 
+				finally 
+				{
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+			return quesito;
+		}
+	
+	public static Lezione getLezioneByIdQuesito(int id_quesito) throws SQLException {
+	
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			Lezione lezione = null;
+			
+			
+			String selectSQL = "select * from lezione WHERE id IN (SELECT id_lezione from quesito WHERE id = ?);";
+			try 
+			{
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(selectSQL);
+				
+				preparedStatement.setInt(1, id_quesito);
+				System.out.println("TEST2");
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				while(rs.next()) 
+				{
+					lezione = new Lezione();
+					lezione.setId(rs.getInt("id"));
+					lezione.setData(rs.getString("data_lezione"));
+					lezione.setNome(rs.getString("nome"));
+					
+				}
+				System.out.println("getDomandeByLezioneUsername:" + preparedStatement.toString());
+				connection.commit();
+			} 
+			finally 
+			{
+				try 
+				{
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} 
+				finally 
+				{
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+			System.out.println("Lezione: "+lezione.toString());
+			return lezione;
 		}
 	
 }

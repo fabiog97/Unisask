@@ -19,7 +19,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 <link rel="SHORTCUT ICON" href="./images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
@@ -33,12 +33,13 @@
 	</div>
 	
 	<div id="Benvenuto" align="center">
+	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="../Logout" method="get" >
 			<input class="tastologout" type="submit" value="Logout">
 		</form>
-	
+	</a>
 	</div>
 </header>
 
@@ -60,7 +61,7 @@
 		if(account.getTipo().equals("studente"))
 		{
 	%>	<div id="contenitore_link" align="center">
-			<p><a href="../VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a> | <a href="">Risposte</a></p>
+			<p><a href="../VisualizzaCorsi?action=<%="i_miei_corsi"%>" class="active">I miei corsi</a> | <a href="../VisualizzaCorsi?action=<%="corsi_di_studio"%>">Corsi di studio</a>  | <a href="VisualizzaRisposte">Risposte</a></p>
 		</div>	
 	<%
 		}
