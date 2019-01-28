@@ -23,136 +23,121 @@ import javax.servlet.http.HttpSession;
 
 import storage_layer.UtenteDao;
 
-
 @WebServlet("/Registrazione")
 public class Registrazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public Registrazione() {
-        super();
-        
-    }
+	public Registrazione() {
+		super();
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			
-			response.setContentType("text/html");
-			
-			Utente user = new Utente();
-			
-			user.setNome(request.getParameter("nome"));
-			user.setCognome(request.getParameter("cognome"));
-			user.setUsername(request.getParameter("username"));
-			user.setEmail(request.getParameter("email"));
-			user.setMatricola(request.getParameter("matricola"));
-			user.setNazionalita(request.getParameter("nazionalita"));
-			
-			//Codifica in Hash Password
-			
-			String passwordToHash = request.getParameter("password");
-	        String generatedPassword = null;
-	        
-	        try {
-	            // Create MessageDigest instance for MD5
-	            MessageDigest md = MessageDigest.getInstance("MD5");
-	            //Add password bytes to digest
-	            md.update(passwordToHash.getBytes());
-	            //Get the hash's bytes
-	            byte[] bytes = md.digest();
-	            //This bytes[] has bytes in decimal format;
-	            //Convert it to hexadecimal format
-	            StringBuilder sb = new StringBuilder();
-	            for(int i=0; i< bytes.length ;i++)
-	            {
-	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-	            }
-	            //Get complete hashed password in hex format
-	            generatedPassword = sb.toString();
-	        }
-	        catch (NoSuchAlgorithmException e)
-	        {
-	            e.printStackTrace();
-	        }
-	        
-			
-	        user.setPassword(generatedPassword);
-			user.setTipo("non_verificato");
-	        
-	        
-			Random random = new Random();
-			
-			int codice = random.nextInt(50000);
-			System.out.println("Codice: "+codice);
-			
-			try {
-				if(UtenteDao.registraUtente(user,codice)==false) {
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
-					dispatcher.forward(request, response);
-				}else {
-					
-					String name = (String)request.getParameter("nome");
-					String username = (String)request.getParameter("username");
-					String surname = (String)request.getParameter("cognome");
-					String mail = (String)request.getParameter("email");
-					
-				
-					
-					try {
-						
-						final String email = "unisaskplatform@gmail.com";
-						final String password = "Unisask2018";
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-						Properties props = new Properties();
-						props.put("mail.smtp.auth", "true");
-						props.put("mail.smtp.starttls.enable", "true");
-						props.put("mail.smtp.host", "smtp.gmail.com");
-						props.put("mail.smtp.port", "587");
-						Session session = Session.getInstance(props,
-						  new javax.mail.Authenticator() {
-							protected PasswordAuthentication getPasswordAuthentication() {
-								return new PasswordAuthentication(email, password);
-							}
-						  });
-					
-						Message message = new MimeMessage(session);
-						message.setFrom(new InternetAddress(username));
-						message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(mail));
-						message.setSubject("Conferma Registrazione Unisask");
-						message.setText("Ciao "+name+", \n" + 
-								"Per confermare la registrazione vai al seguente link: http://localhost:8080/Unisask/ConfermaRegistrazione?codice="+codice+"&username="+username+" \n Grazie!");
-						
-						Transport.send(message);
+		response.setContentType("text/html");
 
-					
-						
-						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NotificaRegistrazioneView.jsp");
-						dispatcher.forward(request, response);
-						
-						
-					
-					} catch(Exception e) {
-						
-					}
-					
-				}
-			} catch (SQLException e1) {
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
+		Utente user = new Utente();
+
+		user.setNome(request.getParameter("nome"));
+		user.setCognome(request.getParameter("cognome"));
+		user.setUsername(request.getParameter("username"));
+		user.setEmail(request.getParameter("email"));
+		user.setMatricola(request.getParameter("matricola"));
+		user.setNazionalita(request.getParameter("nazionalita"));
+
+		// Codifica in Hash Password
+
+		String passwordToHash = request.getParameter("password");
+		String generatedPassword = null;
+
+		try {
+			// Create MessageDigest instance for MD5
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// Add password bytes to digest
+			md.update(passwordToHash.getBytes());
+			// Get the hash's bytes
+			byte[] bytes = md.digest();
+			// This bytes[] has bytes in decimal format;
+			// Convert it to hexadecimal format
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			// Get complete hashed password in hex format
+			generatedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		user.setPassword(generatedPassword);
+		user.setTipo("non_verificato");
+
+		Random random = new Random();
+
+		int codice = random.nextInt(50000);
+		System.out.println("Codice: " + codice);
+
+		try {
+			if (UtenteDao.registraUtente(user, codice) == false) {
+				RequestDispatcher dispatcher = getServletContext()
+						.getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
 				dispatcher.forward(request, response);
-				System.out.println("Parametri non rispettati");
-				e1.printStackTrace();
-			} 
-			
-			
+			} else {
+
+				String name = (String) request.getParameter("nome");
+				String username = (String) request.getParameter("username");
+				String surname = (String) request.getParameter("cognome");
+				String mail = (String) request.getParameter("email");
+
+				try {
+
+					final String email = "unisaskplatform@gmail.com";
+					final String password = "Unisask2018";
+
+					Properties props = new Properties();
+					props.put("mail.smtp.auth", "true");
+					props.put("mail.smtp.starttls.enable", "true");
+					props.put("mail.smtp.host", "smtp.gmail.com");
+					props.put("mail.smtp.port", "587");
+					Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(email, password);
+						}
+					});
+
+					Message message = new MimeMessage(session);
+					message.setFrom(new InternetAddress(username));
+					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
+					message.setSubject("Conferma Registrazione Unisask");
+					message.setText("Ciao " + name + ", \n"
+							+ "Per confermare la registrazione vai al seguente link: http://localhost:8080/Unisask/ConfermaRegistrazione?codice="
+							+ codice + "&username=" + username + " \n Grazie!");
+
+					Transport.send(message);
+
+					RequestDispatcher dispatcher = getServletContext()
+							.getRequestDispatcher("/gestione_utente/NotificaRegistrazioneView.jsp");
+					dispatcher.forward(request, response);
+
+				} catch (Exception e) {
+
+				}
+
+			}
+		} catch (SQLException e1) {
+			RequestDispatcher dispatcher = getServletContext()
+					.getRequestDispatcher("/gestione_utente/NegataRegistrazioneView.jsp");
+			dispatcher.forward(request, response);
+			System.out.println("Parametri non rispettati");
+			e1.printStackTrace();
+		}
+
 	}
-			
-			
-			
-			
+
 }

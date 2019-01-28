@@ -21,7 +21,7 @@ import storage_layer.UtenteDao;
 public class CorsoInsegnamentoDaoTest {
 
 	Connection connection = null;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		PreparedStatement preparedStatement = null;
@@ -55,13 +55,13 @@ public class CorsoInsegnamentoDaoTest {
 	@Test
 	public final void testRemoveCorso() throws Exception {
 		System.out.println("TestRemoveCorso");
-		
+
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -71,7 +71,7 @@ public class CorsoInsegnamentoDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -83,11 +83,11 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-	
+
 		CorsoInsegnamentoDao.addCorso(corso);
-		
+
 		boolean result = CorsoInsegnamentoDao.removeCorso(1);
-		
+
 		assertTrue(result);
 		tearDown();
 		System.out.println("\n");
@@ -95,16 +95,16 @@ public class CorsoInsegnamentoDaoTest {
 
 	@Test
 	public final void testIscrizioneCorso() throws Exception {
-		
+
 		System.out.println("TestIscrizioneCorso");
-		
+
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		Utente docente = new Utente();
 		Utente studente = new Utente();
-		
+
 		docente.setNome("Filomena");
 		docente.setCognome("Ferrucci");
 		docente.setTipo("docente");
@@ -114,7 +114,7 @@ public class CorsoInsegnamentoDaoTest {
 		docente.setPassword("0123456789");
 		docente.setNazionalita("Italiana");
 		int codice1 = 8911;
-		
+
 		studente.setNome("Fabio");
 		studente.setCognome("Grauso");
 		studente.setTipo("studente");
@@ -124,48 +124,47 @@ public class CorsoInsegnamentoDaoTest {
 		studente.setPassword("0123456789");
 		studente.setNazionalita("Italiana");
 		int codice2 = 8912;
-		
+
 		UtenteDao.registraUtente(docente, codice1);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
-		
+
 		UtenteDao.registraUtente(studente, codice1);
 		Utente studente1 = UtenteDao.getUtenteByUsername("fabiog97");
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-	
+
 		CorsoInsegnamentoDao.addCorso(corso);
-		
+
 		boolean result = CorsoInsegnamentoDao.iscrizioneCorso(1, 1);
 
 		assertTrue(result);
-		
+
 		CorsoInsegnamentoDao.removeCorso(1);
-		
 
 		tearDown();
 		System.out.println("\n");
-		//fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	public final void testDisiscrizioneCorso() throws Exception {
-		
+
 		System.out.println("TestDisiscrizioneCorso");
-		
+
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		Utente docente = new Utente();
 		Utente studente = new Utente();
-		
+
 		docente.setNome("Filomena");
 		docente.setCognome("Ferrucci");
 		docente.setTipo("docente");
@@ -175,7 +174,7 @@ public class CorsoInsegnamentoDaoTest {
 		docente.setPassword("0123456789");
 		docente.setNazionalita("Italiana");
 		int codice1 = 8911;
-		
+
 		studente.setNome("Fabio");
 		studente.setCognome("Grauso");
 		studente.setTipo("studente");
@@ -185,51 +184,50 @@ public class CorsoInsegnamentoDaoTest {
 		studente.setPassword("0123456789");
 		studente.setNazionalita("Italiana");
 		int codice2 = 8912;
-		
+
 		UtenteDao.registraUtente(docente, codice1);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
-		
+
 		UtenteDao.registraUtente(studente, codice2);
 		Utente studente1 = UtenteDao.getUtenteByUsername("fabiog97");
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-	
-		CorsoInsegnamentoDao.addCorso(corso);
-		
-		CorsoInsegnamentoDao.iscrizioneCorso(1,studente1.getId());
-		
-		//boolean result = CorsoInsegnamentoDao.disiscrizioneCorso(studente.getId(),1);
 
-		
+		CorsoInsegnamentoDao.addCorso(corso);
+
+		CorsoInsegnamentoDao.iscrizioneCorso(1, studente1.getId());
+
+		// boolean result = CorsoInsegnamentoDao.disiscrizioneCorso(studente.getId(),1);
+
 		ArrayList<CorsoInsegnamento> corsi_iscritti = CorsoInsegnamentoDao.getListaCorsiIscritti(1);
-	
+
 		assertTrue(corsi_iscritti.isEmpty());
-		
+
 		CorsoInsegnamentoDao.removeCorso(1);
 		tearDown();
-		
+
 		System.out.println("\n");
-		
+
 	}
 
 	@Test
 	public final void testGetListaCorsi() throws Exception {
-		
+
 		System.out.println("TestGetListaCorsi");
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
 		CorsoInsegnamento corso1 = new CorsoInsegnamento();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -239,7 +237,7 @@ public class CorsoInsegnamentoDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -251,51 +249,49 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-		
+
 		corso1.setNome("Gestione Progetti Software");
 		corso1.setCorsoDiLaurea("Informatica - Magistrale");
 		corso1.setAnnoAccademico("2018/2019");
 		corso1.setSemestre("Primo");
 		corso1.setAnnoDiStudio("Secondo");
 		corso1.setDocenti(docenti);
-		
+
 		CorsoInsegnamentoDao.addCorso(corso);
 		CorsoInsegnamentoDao.addCorso(corso1);
-		
-		
+
 		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
 		corsi = CorsoInsegnamentoDao.getListaCorsi();
-		
+
 		Iterator<CorsoInsegnamento> it = corsi.iterator();
-		
+
 		int flag = 0;
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			CorsoInsegnamento corso_ins = (CorsoInsegnamento) it.next();
 			if (flag == 0) {
-				assertEquals(corso_ins.getNome(),corso.getNome());
-			}else {
-				assertEquals(corso_ins.getNome(),corso1.getNome());
+				assertEquals(corso_ins.getNome(), corso.getNome());
+			} else {
+				assertEquals(corso_ins.getNome(), corso1.getNome());
 			}
 			flag = 1;
 		}
-	
+
 		CorsoInsegnamentoDao.removeCorso(1);
 		CorsoInsegnamentoDao.removeCorso(2);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
 
 	@Test
 	public final void testAddCorso() throws Exception {
 		System.out.println("TestAddCorso");
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -305,7 +301,7 @@ public class CorsoInsegnamentoDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -317,25 +313,25 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-		
+
 		boolean result = CorsoInsegnamentoDao.addCorso(corso);
 		assertTrue(result);
 		CorsoInsegnamentoDao.removeCorso(1);
 		tearDown();
 		System.out.println("\n");
 	}
-	
+
 	@Test
 	public final void testMaxNomeAddCorso() throws Exception {
 		System.out.println("TestAddCorso");
-		
+
 		boolean result = true;
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -345,7 +341,7 @@ public class CorsoInsegnamentoDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -357,15 +353,13 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-		
-		try 
-		{
-			 result = CorsoInsegnamentoDao.addCorso(corso);
-		}catch(Exception e) {
-			
-		}
-		finally {
-			assertTrue(result);	
+
+		try {
+			result = CorsoInsegnamentoDao.addCorso(corso);
+		} catch (Exception e) {
+
+		} finally {
+			assertTrue(result);
 		}
 		tearDown();
 		System.out.println("\n");
@@ -375,12 +369,12 @@ public class CorsoInsegnamentoDaoTest {
 	public final void testGetListaCorsiInsegnanti() throws Exception {
 		System.out.println("TestGetListaCorsiInsegnati");
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
 		CorsoInsegnamento corso1 = new CorsoInsegnamento();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -390,7 +384,7 @@ public class CorsoInsegnamentoDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -402,52 +396,50 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-		
+
 		corso1.setNome("Gestione Progetti Software");
 		corso1.setCorsoDiLaurea("Informatica - Magistrale");
 		corso1.setAnnoAccademico("2018/2019");
 		corso1.setSemestre("Primo");
 		corso1.setAnnoDiStudio("Secondo");
 		corso1.setDocenti(docenti);
-		
+
 		CorsoInsegnamentoDao.addCorso(corso);
 		CorsoInsegnamentoDao.addCorso(corso1);
-		
-		
+
 		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
 		corsi = CorsoInsegnamentoDao.getListaCorsiInsegnanti(1);
-		
+
 		Iterator<CorsoInsegnamento> it = corsi.iterator();
-		
+
 		int flag = 0;
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			CorsoInsegnamento corso_ins = (CorsoInsegnamento) it.next();
 			if (flag == 0) {
-				assertEquals(corso_ins.getNome(),corso.getNome());
-			}else {
-				assertEquals(corso_ins.getNome(),corso1.getNome());
+				assertEquals(corso_ins.getNome(), corso.getNome());
+			} else {
+				assertEquals(corso_ins.getNome(), corso1.getNome());
 			}
 			flag = 1;
 		}
-	
+
 		CorsoInsegnamentoDao.removeCorso(1);
 		CorsoInsegnamentoDao.removeCorso(2);
 		tearDown();
 		System.out.println("\n");
 	}
-	
+
 	@Test
 	public final void testGetListaCorsiIscritti() throws Exception {
 		System.out.println("TestGetListaCorsiInsegnati");
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
 		CorsoInsegnamento corso1 = new CorsoInsegnamento();
-		
+
 		Utente docente = new Utente();
 		Utente studente = new Utente();
-		
+
 		docente.setNome("Filomena");
 		docente.setCognome("Ferrucci");
 		docente.setTipo("docente");
@@ -457,7 +449,7 @@ public class CorsoInsegnamentoDaoTest {
 		docente.setPassword("0123456789");
 		docente.setNazionalita("Italiana");
 		int codice1 = 8912;
-		
+
 		studente.setNome("Antonio");
 		studente.setCognome("Vitiello");
 		studente.setTipo("studente");
@@ -467,10 +459,10 @@ public class CorsoInsegnamentoDaoTest {
 		studente.setPassword("0123456789");
 		studente.setNazionalita("Italiana");
 		int codice2 = 8913;
-		
+
 		UtenteDao.registraUtente(docente, codice1);
 		UtenteDao.registraUtente(studente, codice2);
-		
+
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
@@ -481,44 +473,41 @@ public class CorsoInsegnamentoDaoTest {
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 		corso.setDocenti(docenti);
-		
+
 		corso1.setNome("Gestione Progetti Software");
 		corso1.setCorsoDiLaurea("Informatica - Magistrale");
 		corso1.setAnnoAccademico("2018/2019");
 		corso1.setSemestre("Primo");
 		corso1.setAnnoDiStudio("Secondo");
 		corso1.setDocenti(docenti);
-		
-		
-		
+
 		CorsoInsegnamentoDao.addCorso(corso);
 		CorsoInsegnamentoDao.addCorso(corso1);
-		
-		CorsoInsegnamentoDao.iscrizioneCorso(1, 1);		
-		CorsoInsegnamentoDao.iscrizioneCorso(2, 1);		
-		
+
+		CorsoInsegnamentoDao.iscrizioneCorso(1, 1);
+		CorsoInsegnamentoDao.iscrizioneCorso(2, 1);
+
 		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
 		corsi = CorsoInsegnamentoDao.getListaCorsiIscritti(1);
-		
+
 		Iterator<CorsoInsegnamento> it = corsi.iterator();
-		
+
 		int flag = 0;
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			CorsoInsegnamento corso_ins = (CorsoInsegnamento) it.next();
 			if (flag == 0) {
-				assertEquals(corso_ins.getNome(),corso.getNome());
-			}else {
-				assertEquals(corso_ins.getNome(),corso1.getNome());
+				assertEquals(corso_ins.getNome(), corso.getNome());
+			} else {
+				assertEquals(corso_ins.getNome(), corso1.getNome());
 			}
 			flag = 1;
 		}
-	
+
 		CorsoInsegnamentoDao.removeCorso(1);
 		CorsoInsegnamentoDao.removeCorso(2);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
 
 }

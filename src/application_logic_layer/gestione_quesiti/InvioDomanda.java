@@ -19,38 +19,36 @@ import application_logic_layer.gestione_utente.Utente;
 import storage_layer.QuesitoDao;
 import storage_layer.UtenteDao;
 
-
 @WebServlet("/InvioDomanda")
 public class InvioDomanda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public InvioDomanda() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InvioDomanda() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("TEST");
-		try 
-		{	
+		try {
 			Utente user = (Utente) request.getSession().getAttribute("account");
-			
+
 			int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
 			int id_utente = Integer.parseInt(request.getParameter("id_utente"));
 			GregorianCalendar gc = new GregorianCalendar();
-			String data_odierna =  gc.get(Calendar.DAY_OF_MONTH) + "/" +  gc.get(Calendar.MONTH) + "/" +  gc.get(Calendar.YEAR);
+			String data_odierna = gc.get(Calendar.DAY_OF_MONTH) + "/" + gc.get(Calendar.MONTH) + "/"
+					+ gc.get(Calendar.YEAR);
 			System.out.println(gc.get(Calendar.MONTH));
 			System.out.println(data_odierna);
-			
+
 			Quesito quesito = new Quesito();
-		
+
 			ArrayList<Utente> docenti = UtenteDao.getDocentiByLezioneId(id_lezione);
-			
+
 			Iterator<Utente> it = docenti.iterator();
-			
-			while(it.hasNext()) {
+
+			while (it.hasNext()) {
 				Utente docente = it.next();
 				System.out.println(docente.toString());
 			}
@@ -58,19 +56,17 @@ public class InvioDomanda extends HttpServlet {
 			quesito.setDomanda(request.getParameter("domanda").toString());
 			quesito.setData(data_odierna);
 			QuesitoDao.addDomanda(quesito, id_lezione, id_utente);
-			
-		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_quesiti/NotificaInserimentoQuesitoDomanda.jsp?id_lezione="+id_lezione);
+
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+					"/gestione_quesiti/NotificaInserimentoQuesitoDomanda.jsp?id_lezione=" + id_lezione);
 			dispatcher.forward(request, response);
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

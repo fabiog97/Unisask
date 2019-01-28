@@ -12,8 +12,6 @@ import storage_layer.DriverManagerConnectionPool;
 
 public class DriverManagerConnectionPoolTest {
 
-
-
 	@Test
 	public final void testGetConnection() {
 		try {
@@ -23,13 +21,10 @@ public class DriverManagerConnectionPoolTest {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@Test
 	public final void realeaseConnection() {
-		assertEquals(true,true);
+		assertEquals(true, true);
 	}
-
-	
 
 }

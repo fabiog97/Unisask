@@ -6,39 +6,42 @@ import application_logic_layer.gestione_utente.Utente;
 
 /**
  * Oggetto Quesito che identifica un quesito
+ * 
  * @author AntonioVitiello
  */
 
-public class Quesito 
-{
+public class Quesito {
 	private int id;
 	private String risposta;
 	private String data;
 	private String domanda;
 	private ArrayList<Utente> docenti;
-	
+
 	/**
-	 *  Costruttore vuoto
+	 * Costruttore vuoto
 	 */
-	public Quesito()
-	{
+	public Quesito() {
 		id = -1;
 		risposta = null;
 		data = null;
 		domanda = null;
 		docenti = new ArrayList<Utente>();
-		
+
 	}
-	
+
 	/**
-	 *  Costruttore con parametri
-	 *  @param id indica il codice univoco
-	 *  @param risposta indica la risposta data al quesito
-	 *  @param data indica la data in cui � stato posto il quesito
-	 *  @param domanda indica la domanda data al quesito
+	 * Costruttore con parametri
+	 * 
+	 * @param id
+	 *            indica il codice univoco
+	 * @param risposta
+	 *            indica la risposta data al quesito
+	 * @param data
+	 *            indica la data in cui � stato posto il quesito
+	 * @param domanda
+	 *            indica la domanda data al quesito
 	 */
-	public Quesito(int id, String risposta, String data, String domanda,ArrayList<Utente> docenti)
-	{
+	public Quesito(int id, String risposta, String data, String domanda, ArrayList<Utente> docenti) {
 		this.id = id;
 		this.risposta = risposta;
 		this.data = data;
@@ -48,6 +51,7 @@ public class Quesito
 
 	/**
 	 * Restituisce il codice univoco del quesito
+	 * 
 	 * @return id
 	 */
 	public int getId() {
@@ -56,8 +60,9 @@ public class Quesito
 
 	/**
 	 * Setta il codice univoco al quesito
+	 * 
 	 * @param id
-	 * 		indica il nuovo ID
+	 *            indica il nuovo ID
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -65,6 +70,7 @@ public class Quesito
 
 	/**
 	 * Restituisce la risposta data al quesito
+	 * 
 	 * @return risposta
 	 */
 	public String getRisposta() {
@@ -73,8 +79,9 @@ public class Quesito
 
 	/**
 	 * Setta la risposta al quesito
+	 * 
 	 * @param id
-	 * 		indica la nuova risposta
+	 *            indica la nuova risposta
 	 */
 	public void setRisposta(String risposta) {
 		this.risposta = risposta;
@@ -82,6 +89,7 @@ public class Quesito
 
 	/**
 	 * Restituisce la data del quesito
+	 * 
 	 * @return data
 	 */
 	public String getData() {
@@ -90,8 +98,9 @@ public class Quesito
 
 	/**
 	 * Setta la data al quesito
+	 * 
 	 * @param data
-	 * 		indica la nuova data
+	 *            indica la nuova data
 	 */
 	public void setData(String data) {
 		this.data = data;
@@ -99,6 +108,7 @@ public class Quesito
 
 	/**
 	 * Restituisce la domanda del quesito
+	 * 
 	 * @return domanda
 	 */
 	public String getDomanda() {
@@ -107,15 +117,17 @@ public class Quesito
 
 	/**
 	 * Setta la domanda al quesito
+	 * 
 	 * @param domanda
-	 * 		indica la nuova domanda
+	 *            indica la nuova domanda
 	 */
 	public void setDomanda(String domanda) {
 		this.domanda = domanda;
 	}
-	
+
 	/**
 	 * Restituisce la lista dei docenti che ricevono i quesiti
+	 * 
 	 * @return docenti
 	 */
 	public ArrayList<Utente> getDocenti() {
@@ -124,8 +136,9 @@ public class Quesito
 
 	/**
 	 * Setta la lista di docenti che devono ricevere i quesiti
+	 * 
 	 * @param docenti
-	 * 		indica la nuova lista di docenti
+	 *            indica la nuova lista di docenti
 	 */
 	public void setDocenti(ArrayList<Utente> docenti) {
 		this.docenti = docenti;

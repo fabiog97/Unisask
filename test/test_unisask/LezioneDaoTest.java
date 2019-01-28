@@ -22,7 +22,7 @@ import storage_layer.UtenteDao;
 public class LezioneDaoTest {
 
 	Connection connection = null;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		PreparedStatement preparedStatement = null;
@@ -55,12 +55,12 @@ public class LezioneDaoTest {
 
 	@Test
 	public final void testAddLezione() throws Exception {
-		
+
 		System.out.println("TestAddLezione");
 		setUp();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -70,14 +70,14 @@ public class LezioneDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
@@ -86,40 +86,40 @@ public class LezioneDaoTest {
 		corso.setDocenti(docenti);
 
 		CorsoInsegnamentoDao.addCorso(corso);
-	
+
 		Lezione lezione = new Lezione();
-		
+
 		lezione.setNome("Scenari e casi d'uso");
 		lezione.setData("21/09/2018");
 		lezione.setDescrizione("Scenario visionary, as is, training, casi d’uso, diagrammi dei casi d’uso");
 
 		LezioneDao.addLezione(lezione, 1);
-		
-		ArrayList<Lezione> lezioni  = LezioneDao.getListaLezioni(1);
-		
+
+		ArrayList<Lezione> lezioni = LezioneDao.getListaLezioni(1);
+
 		Lezione lezione1 = null;
 		Iterator<Lezione> i = lezioni.iterator();
-		
-		while(i.hasNext()) {
+
+		while (i.hasNext()) {
 			lezione1 = (Lezione) i.next();
 		}
-		
+
 		assertEquals(lezione1.getNome(), lezione.getNome());
 		CorsoInsegnamentoDao.removeCorso(1);
 		LezioneDao.removeLezione(1);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
-	
+
 	@Test
 	public final void testMaxDataAddLezione() throws Exception {
-		
+
 		System.out.println("TestMaxDataAddLezione");
 		setUp();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -129,14 +129,14 @@ public class LezioneDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
@@ -145,45 +145,44 @@ public class LezioneDaoTest {
 		corso.setDocenti(docenti);
 
 		CorsoInsegnamentoDao.addCorso(corso);
-	
+
 		Lezione lezione = new Lezione();
-		
+
 		lezione.setNome("Scenari e casi d'uso");
 		lezione.setData("21/09/201832");
 		lezione.setDescrizione("Scenario visionary, scenario as is, training, casi d’uso, diagrammi dei casi d’uso");
 
 		try {
 			LezioneDao.addLezione(lezione, 1);
-		}catch(Exception e) {
-			
-		}
-		finally {
-			ArrayList<Lezione> lezioni  = LezioneDao.getListaLezioni(1);
-			
+		} catch (Exception e) {
+
+		} finally {
+			ArrayList<Lezione> lezioni = LezioneDao.getListaLezioni(1);
+
 			Lezione lezione1 = null;
 			Iterator<Lezione> i = lezioni.iterator();
-			
-			while(i.hasNext()) {
+
+			while (i.hasNext()) {
 				lezione1 = (Lezione) i.next();
 				assertNull(lezione1.getNome());
 			}
-			
+
 		}
 		CorsoInsegnamentoDao.removeCorso(1);
 		LezioneDao.removeLezione(1);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
 
 	@Test
 	public final void testRemoveLezione() throws Exception {
-		
+
 		System.out.println("TestRemoveLezione");
 		setUp();
-		
+
 		Utente utente = new Utente();
-		
+
 		utente.setNome("Filomena");
 		utente.setCognome("Ferrucci");
 		utente.setTipo("docente");
@@ -193,14 +192,14 @@ public class LezioneDaoTest {
 		utente.setPassword("0123456789");
 		utente.setNazionalita("Italiana");
 		int codice = 8912;
-		
+
 		UtenteDao.registraUtente(utente, codice);
 		Utente utente1 = UtenteDao.getUtenteByUsername("fferrucci");
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
 		docenti.add(utente1);
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
@@ -209,88 +208,85 @@ public class LezioneDaoTest {
 		corso.setDocenti(docenti);
 
 		CorsoInsegnamentoDao.addCorso(corso);
-	
+
 		Lezione lezione = new Lezione();
-		
+
 		lezione.setNome("Scenari e casi d'uso");
 		lezione.setData("21/09/2018");
 		lezione.setDescrizione("Scenario visionary, as is, training, casi d’uso, diagrammi dei casi d’uso");
 
 		LezioneDao.addLezione(lezione, 1);
 		LezioneDao.removeLezione(1);
-		
-		ArrayList<Lezione> lezioni  = LezioneDao.getListaLezioni(1);
-		
+
+		ArrayList<Lezione> lezioni = LezioneDao.getListaLezioni(1);
+
 		Lezione lezione1 = null;
 		Iterator<Lezione> i = lezioni.iterator();
-		
-		while(i.hasNext()) {
+
+		while (i.hasNext()) {
 			lezione1 = (Lezione) i.next();
 		}
-		
-		
+
 		assertNull(lezione1);
 		CorsoInsegnamentoDao.removeCorso(1);
 		LezioneDao.removeLezione(1);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
 
 	@Test
 	public final void testGetListaLezioni() throws Exception {
-		
+
 		System.out.println("TestGetListaLezioni");
 		setUp();
-		
+
 		CorsoInsegnamento corso = new CorsoInsegnamento();
-		
+
 		corso.setNome("Ingegneria del Software");
 		corso.setCorsoDiLaurea("Informatica - Triennale");
 		corso.setAnnoAccademico("2018/2019");
 		corso.setSemestre("Primo");
 		corso.setAnnoDiStudio("Primo");
 
-		
 		CorsoInsegnamentoDao.addCorso(corso);
-		
+
 		Lezione lezione = new Lezione();
 		Lezione lezione1 = new Lezione();
-		
+
 		lezione.setNome("Scenari e casi d'uso");
 		lezione.setData("21/09/2018");
 		lezione.setDescrizione("Scenario visionary, as is, training, casi d’uso, diagrammi dei casi d’uso");
-	
+
 		lezione1.setNome("Requisiti");
 		lezione1.setData("21/09/2018");
 		lezione1.setDescrizione("Requisiti funzionali e non funzionali");
 
 		LezioneDao.addLezione(lezione, 1);
 		LezioneDao.addLezione(lezione1, 1);
-		
-		ArrayList<Lezione>  lezioni = new ArrayList<Lezione>();
+
+		ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
 		lezioni = LezioneDao.getListaLezioni(1);
-		
+
 		Iterator<Lezione> it = lezioni.iterator();
-		
+
 		int flag = 0;
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			Lezione lezione_db = (Lezione) it.next();
 			if (flag == 0) {
-				assertEquals(lezione_db.getNome(),lezione.getNome());
-			}else {
-				assertEquals(lezione_db.getNome(),lezione1.getNome());
+				assertEquals(lezione_db.getNome(), lezione.getNome());
+			} else {
+				assertEquals(lezione_db.getNome(), lezione1.getNome());
 			}
 			flag = 1;
 		}
-	
+
 		CorsoInsegnamentoDao.removeCorso(1);
 
 		LezioneDao.removeLezione(1);
 		LezioneDao.removeLezione(2);
 		tearDown();
 		System.out.println("\n");
-		
+
 	}
 }

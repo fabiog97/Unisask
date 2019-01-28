@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 import application_logic_layer.gestione_utente.Utente;
 
-
 /**
  * Oggetto Corso che identifica un corso d'insegnamento
+ * 
  * @author AntonioVitiello
  */
 
-public class CorsoInsegnamento 
-{
+public class CorsoInsegnamento {
 	private int id;
 	private String annoAccademico;
 	private String corsoDiLaurea;
@@ -19,13 +18,12 @@ public class CorsoInsegnamento
 	private String semestre;
 	private String nome;
 	private ArrayList<Utente> docenti;
-	
+
 	/**
-	 *  Costruttore vuoto
+	 * Costruttore vuoto
 	 */
-	
-	public CorsoInsegnamento()
-	{
+
+	public CorsoInsegnamento() {
 		id = -1;
 		annoAccademico = null;
 		corsoDiLaurea = null;
@@ -34,21 +32,30 @@ public class CorsoInsegnamento
 		nome = null;
 		docenti = new ArrayList<Utente>();
 	}
-	
+
 	/**
-	 *  Costruttore con parametri
-	 *  @param id indica il codice univoco
-	 *  @param annoAccademico indica in quale anno accademico � situato il corso
-	 *  @param corsoDiLaurea indica in quale corso di laurea � situato il corso
-	 *  @param annoDiStudio indica in quale anno di studio � situato il corso
-	 *  @param semestre indica in quale semestre � situato il corso
-	 *  @param docente indica il nome del docente che gestisce il corso
-	 *  @param nome indica il nome del corso
-	 *  @param docenti indica la lista dei docenti che gestiscono il corso
+	 * Costruttore con parametri
+	 * 
+	 * @param id
+	 *            indica il codice univoco
+	 * @param annoAccademico
+	 *            indica in quale anno accademico � situato il corso
+	 * @param corsoDiLaurea
+	 *            indica in quale corso di laurea � situato il corso
+	 * @param annoDiStudio
+	 *            indica in quale anno di studio � situato il corso
+	 * @param semestre
+	 *            indica in quale semestre � situato il corso
+	 * @param docente
+	 *            indica il nome del docente che gestisce il corso
+	 * @param nome
+	 *            indica il nome del corso
+	 * @param docenti
+	 *            indica la lista dei docenti che gestiscono il corso
 	 */
-	
-	public CorsoInsegnamento(int id, String annoAccademico, String corsoDiLaurea, String annoDiStudio, String semestre, Utente docente, String nome, ArrayList<Utente> docenti)
-	{
+
+	public CorsoInsegnamento(int id, String annoAccademico, String corsoDiLaurea, String annoDiStudio, String semestre,
+			Utente docente, String nome, ArrayList<Utente> docenti) {
 		this.id = id;
 		this.annoAccademico = annoAccademico;
 		this.corsoDiLaurea = corsoDiLaurea;
@@ -59,6 +66,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce il codice univoco del corso
+	 * 
 	 * @return id
 	 */
 	public int getId() {
@@ -67,8 +75,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta il codice univoco al corso
+	 * 
 	 * @param id
-	 * 		indica il nuovo ID
+	 *            indica il nuovo ID
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -76,6 +85,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce l'anno accademico del corso
+	 * 
 	 * @return annoAccademico
 	 */
 	public String getAnnoAccademico() {
@@ -84,8 +94,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta l'anno accademico al corso
+	 * 
 	 * @param annoAccademico
-	 * 		indica il nuovo anno Accademico
+	 *            indica il nuovo anno Accademico
 	 */
 	public void setAnnoAccademico(String annoAccademico) {
 		this.annoAccademico = annoAccademico;
@@ -93,6 +104,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce il corso di laurea del corso
+	 * 
 	 * @return corsoDiLaurea
 	 */
 	public String getCorsoDiLaurea() {
@@ -101,8 +113,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta il corso di laurea al corso
+	 * 
 	 * @param corsoDiLaurea
-	 * 		indica il nuovo corso di Laurea
+	 *            indica il nuovo corso di Laurea
 	 */
 	public void setCorsoDiLaurea(String corsoDiLaurea) {
 		this.corsoDiLaurea = corsoDiLaurea;
@@ -110,6 +123,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce l'anno di studio del corso
+	 * 
 	 * @return annoDiStudio
 	 */
 	public String getAnnoDiStudio() {
@@ -118,8 +132,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta l'anno di studio al corso
+	 * 
 	 * @param annoDiStudio
-	 * 		indica il nuovo anno di Studio
+	 *            indica il nuovo anno di Studio
 	 */
 	public void setAnnoDiStudio(String annoDiStudio) {
 		this.annoDiStudio = annoDiStudio;
@@ -127,6 +142,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce il semestre del corso
+	 * 
 	 * @return semestre
 	 */
 	public String getSemestre() {
@@ -135,16 +151,17 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta il semestre al corso
+	 * 
 	 * @param semestre
-	 * 		indica il nuovo semestre
+	 *            indica il nuovo semestre
 	 */
 	public void setSemestre(String semestre) {
 		this.semestre = semestre;
 	}
 
-
 	/**
 	 * Restituisce il nome del corso
+	 * 
 	 * @return nome
 	 */
 	public String getNome() {
@@ -153,8 +170,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta il nome al corso
+	 * 
 	 * @param nome
-	 * 		indica il nuovo nome
+	 *            indica il nuovo nome
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -162,6 +180,7 @@ public class CorsoInsegnamento
 
 	/**
 	 * Restituisce la lista dei docenti che gestiscono il corso
+	 * 
 	 * @return docenti
 	 */
 	public ArrayList<Utente> getDocenti() {
@@ -170,8 +189,9 @@ public class CorsoInsegnamento
 
 	/**
 	 * Setta la lista di docenti al corso
+	 * 
 	 * @param docenti
-	 * 		indica la nuova lista di docenti
+	 *            indica la nuova lista di docenti
 	 */
 	public void setDocenti(ArrayList<Utente> docenti) {
 		this.docenti = docenti;
@@ -180,10 +200,8 @@ public class CorsoInsegnamento
 	@Override
 	public String toString() {
 		return "CorsoInsegnamento [id=" + id + ", annoAccademico=" + annoAccademico + ", corsoDiLaurea=" + corsoDiLaurea
-				+ ", annoDiStudio=" + annoDiStudio + ", semestre=" + semestre + ", nome="
-				+ nome + ", docenti=" + docenti + "]";
+				+ ", annoDiStudio=" + annoDiStudio + ", semestre=" + semestre + ", nome=" + nome + ", docenti="
+				+ docenti + "]";
 	}
-	
-	
 
 }

@@ -15,27 +15,27 @@ import storage_layer.UtenteDao;
 @WebServlet("/ModificaPassword")
 public class ModificaPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public ModificaPassword() {
-        super();
-        
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public ModificaPassword() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String vecchia_password = request.getParameter("vecchia_password");
 		String nuova_password = request.getParameter("nuova_password");
 		String username = request.getParameter("username");
-		
-        String generatedPassword = CryptWithMD5.cryptWithMD5(vecchia_password);
-      
+
+		String generatedPassword = CryptWithMD5.cryptWithMD5(vecchia_password);
+
 		Utente user = null;
 		try {
 			user = UtenteDao.getUtenteByUsername(username);
@@ -43,22 +43,24 @@ public class ModificaPassword extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(user.getPassword().equals(generatedPassword)) {
+
+		if (user.getPassword().equals(generatedPassword)) {
 			user.setPassword(CryptWithMD5.cryptWithMD5(nuova_password));
-		    try {
+			try {
 				UtenteDao.resetPassword(user);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NotificaModificaView.jsp");
+				RequestDispatcher dispatcher = getServletContext()
+						.getRequestDispatcher("/gestione_utente/NotificaModificaView.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			request.setAttribute("flag", "modifica");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
+			RequestDispatcher dispatcher = getServletContext()
+					.getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
 			dispatcher.forward(request, response);
-			
+
 		}
 		doGet(request, response);
 	}

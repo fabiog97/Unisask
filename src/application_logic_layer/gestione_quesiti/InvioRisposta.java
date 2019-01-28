@@ -12,21 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import storage_layer.QuesitoDao;
 
-
 @WebServlet("/InvioRisposta")
 public class InvioRisposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public InvioRisposta() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	public InvioRisposta() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String risposta = request.getParameter("risposta").toString();
 		String id_quesito = request.getParameter("id_quesito").toString();
 		int id = Integer.parseInt(id_quesito);
@@ -42,12 +39,11 @@ public class InvioRisposta extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

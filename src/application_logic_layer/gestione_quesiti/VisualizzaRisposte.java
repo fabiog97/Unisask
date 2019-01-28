@@ -20,35 +20,35 @@ import storage_layer.QuesitoDao;
 @WebServlet("/VisualizzaRisposte")
 public class VisualizzaRisposte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public VisualizzaRisposte() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public VisualizzaRisposte() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Utente user = (Utente) request.getSession().getAttribute("account");
-		
+
 		ArrayList<Quesito> quesiti;
-		
+
 		try {
 			quesiti = QuesitoDao.getRisposteByIdUtente(user.getId());
 			request.setAttribute("quesiti_risposti", quesiti);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestione_quesiti/VisualizzaRisposteView.jsp");
+			RequestDispatcher dispatcher = getServletContext()
+					.getRequestDispatcher("/gestione_quesiti/VisualizzaRisposteView.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

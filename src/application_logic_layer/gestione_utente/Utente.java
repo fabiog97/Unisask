@@ -2,11 +2,11 @@ package application_logic_layer.gestione_utente;
 
 /**
  * Oggetto Utente che identifica un utente
+ * 
  * @author AntonioVitiello
  */
 
-public class Utente 
-{
+public class Utente {
 	private int id;
 	private String nome;
 	private String cognome;
@@ -16,11 +16,11 @@ public class Utente
 	private String password;
 	private String username;
 	private String tipo;
+
 	/**
-	 *  Costruttore vuoto
+	 * Costruttore vuoto
 	 */
-	public Utente()
-	{
+	public Utente() {
 		id = 0;
 		nome = null;
 		cognome = null;
@@ -30,21 +30,29 @@ public class Utente
 		password = null;
 		username = null;
 		tipo = null;
-		
+
 	}
-	
+
 	/**
-	 *  Costruttore con parametri
-	 *  @param nome indica il codice univoco
-	 *  @param cognome indica la risposta data al quesito
-	 *  @param matricola indica la data in cui � stato posto il quesito
-	 *  @param email indica la domanda data al quesito
-	 *  @param nazionalita indica la domanda data al quesito
-	 *  @param password indica la domanda data al quesito
-	 *  @param username indica la domanda data al quesito
+	 * Costruttore con parametri
+	 * 
+	 * @param nome
+	 *            indica il codice univoco
+	 * @param cognome
+	 *            indica la risposta data al quesito
+	 * @param matricola
+	 *            indica la data in cui � stato posto il quesito
+	 * @param email
+	 *            indica la domanda data al quesito
+	 * @param nazionalita
+	 *            indica la domanda data al quesito
+	 * @param password
+	 *            indica la domanda data al quesito
+	 * @param username
+	 *            indica la domanda data al quesito
 	 */
-	public Utente(int id, String nome, String cognome, String matricola, String email, String nazionalita, String password, String username, String tipo)
-	{
+	public Utente(int id, String nome, String cognome, String matricola, String email, String nazionalita,
+			String password, String username, String tipo) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -56,9 +64,9 @@ public class Utente
 		this.tipo = tipo;
 	}
 
-	
 	/**
 	 * Restituisce l'id dell'utente
+	 * 
 	 * @return nome
 	 */
 	public int getId() {
@@ -67,15 +75,17 @@ public class Utente
 
 	/**
 	 * Setta id dell'utente
+	 * 
 	 * @param nome
-	 * 		indica il nuovo id
+	 *            indica il nuovo id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * Restituisce il nome dell'utente
+	 * 
 	 * @return nome
 	 */
 	public String getNome() {
@@ -84,15 +94,17 @@ public class Utente
 
 	/**
 	 * Setta nome dell'utente
+	 * 
 	 * @param nome
-	 * 		indica il nuovo nome
+	 *            indica il nuovo nome
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
 	 * Restituisce il cognome dell'utente
+	 * 
 	 * @return cognome
 	 */
 	public String getCognome() {
@@ -101,8 +113,9 @@ public class Utente
 
 	/**
 	 * Setta cognome dell'utente
+	 * 
 	 * @param cognome
-	 * 		indica il nuovo cognome
+	 *            indica il nuovo cognome
 	 */
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
@@ -110,6 +123,7 @@ public class Utente
 
 	/**
 	 * Restituisce la matricola dell'utente
+	 * 
 	 * @return matricola
 	 */
 	public String getMatricola() {
@@ -118,8 +132,9 @@ public class Utente
 
 	/**
 	 * Setta matricola dell'utente
+	 * 
 	 * @param matricola
-	 * 		indica la nuova matricola
+	 *            indica la nuova matricola
 	 */
 	public void setMatricola(String matricola) {
 		this.matricola = matricola;
@@ -127,6 +142,7 @@ public class Utente
 
 	/**
 	 * Restituisce l'email dell'utente
+	 * 
 	 * @return email
 	 */
 	public String getEmail() {
@@ -135,8 +151,9 @@ public class Utente
 
 	/**
 	 * Setta email dell'utente
+	 * 
 	 * @param email
-	 * 		indica la nuova email
+	 *            indica la nuova email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -144,6 +161,7 @@ public class Utente
 
 	/**
 	 * Restituisce la nazionalit� dell'utente
+	 * 
 	 * @return nazionalita
 	 */
 	public String getNazionalita() {
@@ -152,8 +170,9 @@ public class Utente
 
 	/**
 	 * Setta nazionalita dell'utente
+	 * 
 	 * @param nazionalita
-	 * 		indica la nuova nazionalit�
+	 *            indica la nuova nazionalit�
 	 */
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
@@ -161,6 +180,7 @@ public class Utente
 
 	/**
 	 * Restituisce la password dell'utente
+	 * 
 	 * @return password
 	 */
 	public String getPassword() {
@@ -169,8 +189,9 @@ public class Utente
 
 	/**
 	 * Setta password dell'utente
+	 * 
 	 * @param password
-	 * 		indica la nuova password
+	 *            indica la nuova password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -178,6 +199,7 @@ public class Utente
 
 	/**
 	 * Restituisce l'username dell'utente
+	 * 
 	 * @return username
 	 */
 	public String getUsername() {
@@ -186,36 +208,37 @@ public class Utente
 
 	/**
 	 * Setta username dell'utente
+	 * 
 	 * @param username
-	 * 		indica il nuovo username
+	 *            indica il nuovo username
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	
 	/**
 	 * Restituisce il tipo dell'utente
+	 * 
 	 * @return nome
 	 */
-	public String  getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
 	/**
 	 * Setta il tipo dell'utente
+	 * 
 	 * @param nome
-	 * 		indica il nuovo tipo
+	 *            indica il nuovo tipo
 	 */
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Utente [nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", email=" + email
 				+ ", nazionalita=" + nazionalita + ", password=" + password + ", username=" + username + "]";
 	}
-	
 
 }
