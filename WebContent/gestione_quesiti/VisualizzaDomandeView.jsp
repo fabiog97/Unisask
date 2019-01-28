@@ -22,11 +22,11 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="#"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="index.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">
-	<a href="../gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
+	<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<i class="fa fa-user" style="font-size: 35"></i>
 		<p>Benvenuto <%=account.getUsername()%></p>
 		<form action="./Logout" method="get" >

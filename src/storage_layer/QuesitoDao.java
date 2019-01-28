@@ -562,4 +562,46 @@ public class QuesitoDao
 			return lezione;
 		}
 	
+	public static ArrayList<Quesito> getQuesitiByricerca(String ricerca) throws SQLException 
+	{
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
+			String selectSQL = "SELECT * FROM quesito WHERE completo = 1 AND domanda LIKE '%"+ricerca+"%' AND risposta LIKE '%"+ricerca+"%'";
+			try 
+			{
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(selectSQL);
+				
+				//preparedStatement.setString(1, ricerca);
+				//preparedStatement.setString(2, ricerca);
+				
+				ResultSet rs = preparedStatement.executeQuery();
+				while(rs.next()) 
+				{
+					Quesito quesito = new Quesito();
+					quesito.setId(rs.getInt("id"));
+					quesito.setDomanda(rs.getString("domanda"));
+					quesito.setRisposta(rs.getString("risposta"));
+					quesito.setData(rs.getString("data_quesito"));
+					quesiti.add(quesito);
+				}
+				System.out.println("getQuesitiByricerca:" + preparedStatement.toString());
+				connection.commit();
+			} 
+			finally 
+			{
+				try 
+				{
+					if(preparedStatement != null)
+						preparedStatement.close();
+				} 
+				finally 
+				{
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+			return quesiti;
+		}
 }

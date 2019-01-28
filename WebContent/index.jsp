@@ -22,10 +22,27 @@
 	</head>
 	
 	<body>
+	
+		<div class="banner">
+			<div style="float:left" align="center">
+			<div>
+			
+			</div>
+				<a href="https://www.facebook.com/dinfunisa/" target="_blank"><img src="images/logo_dinf.png" width="60"></a>
+				<p>Dipartimento d'Informatica</p>
+			</div>
+			
+	   		<div style="float:right" align="center">
+				<a href="https://www.facebook.com/unisalerno" target="_blank"><img src="images/logo_unisa.png" width="60" ></a>
+				<p>Università degli Studi di Salerno</p>
+			</div>	  
+  		</div>
+			
+			
 			<div class="logo" align="center">
 				<img src="images/LOGO_Unisask.png" width="200" >
 				
-				<p>Benvenuti in UNISASK, l'unica piattaforma che ascolta gli studenti.</p>
+				<p>Benvenuti su UNISASK, l'unica piattaforma che ascolta gli studenti</p>
 				
 			</div>
 			

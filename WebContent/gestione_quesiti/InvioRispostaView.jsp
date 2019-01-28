@@ -28,7 +28,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="#"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="../index.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">

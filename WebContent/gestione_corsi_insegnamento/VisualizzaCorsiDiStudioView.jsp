@@ -31,7 +31,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="index.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">
@@ -59,7 +59,7 @@
 		{
 	%>	
 		<div id="contenitore_ricerca" align="center">
-			<form action="Ricerca" method="post" >
+			<form action="RicercaAq" method="post" >
 				<h3>Ricerca AQ</h3>
 		    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
 	    		</form>

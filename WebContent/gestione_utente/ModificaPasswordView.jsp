@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Unisask</title>
+<link rel="SHORTCUT ICON" href="./images/LOGO_Unisask.png"> 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
 
@@ -21,7 +22,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="VisualizzaCorsiView.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="../index.jsp"><img  src="../images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	
@@ -37,12 +38,9 @@
 	</a>
 	</div>
 	
-	<div id="contenitore_ricerca" align="center">
-		<form action="Ricerca" method="post" >
-			<h3>Ricerca AQ</h3>
-		    	<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
-	    </form>
-    </div>
+	<br>
+	<br>
+	<br>
 	
 </header>
 <form name="ModificaPassword"action="../ModificaPassword?username=<%=account.getUsername()%>" method="post">

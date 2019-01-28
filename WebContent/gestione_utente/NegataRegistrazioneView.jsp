@@ -15,8 +15,8 @@
 	</div>
   
   	<div class="container" align="center">
-  	<h1>La registrazione non è andata a buon fine </h1>
-  	<p>Registrati nuovamente e riprova ad inserire correttamente i campi</p>
+  	<h1>La registrazione non è andata a buon fine</h1>
+  	<p>Registrati nuovamente e prova ad utilizzare un username o una matricola differente</p>
   	<p><a href="gestione_utente/RegistrazioneView.html">Indietro</a></p>
   	
   	</div>

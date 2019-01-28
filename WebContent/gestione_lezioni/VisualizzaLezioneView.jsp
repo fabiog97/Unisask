@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="./style.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
-<link rel="SHORTCUT ICON" href="../images/LOGO_Unisask.png"> 
+<link rel="SHORTCUT ICON" href="images/LOGO_Unisask.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
 </head>
@@ -24,7 +24,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="#"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="index.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	<a href="./gestione_utente/VisualizzaProfiloView.jsp" style="text-decoration:none; color:black;">
 	<div id="Benvenuto" align="center">
@@ -35,6 +35,20 @@
 		</form>
 	</a>
 	</div>
+	
+	<%
+		if(!account.getTipo().equals("docente"))
+		{
+	%>	
+			<div id="contenitore_ricerca" align="center">
+				<form action="RicercaAq" method="post" >
+					<h3>Ricerca AQ</h3>
+			    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
+		    		</form>
+			</div>
+	<%
+		} 
+	%>
 </header>
 	
 

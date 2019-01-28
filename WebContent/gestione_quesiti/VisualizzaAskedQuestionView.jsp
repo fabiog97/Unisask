@@ -4,7 +4,7 @@
 <%
  	Utente account = (Utente) request.getSession().getAttribute("account");
 
-	Collection<Quesito> quesiti = (Collection<Quesito>) request.getAttribute("quesiti_risposti");
+	Collection<Quesito> quesiti_ricercati = (Collection<Quesito>) request.getAttribute("quesiti_ricercati");
 %>
 <!DOCTYPE>
 <html>
@@ -20,7 +20,7 @@
 <header>
 
 	<div class="logo_header">
-		<a  href="index.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
+		<a  href="../index.jsp"><img  src="./images/LOGO_Unisask.png" width=150 ></a>
 	</div>
 	
 	<div id="Benvenuto" align="center">
@@ -55,7 +55,7 @@
 		{
 	%>	
 		<div id="contenitore_ricerca" align="center">
-			<form action="Ricerca" method="post" >
+			<form action="RicercaAq" method="post" >
 				<h3>Ricerca AQ</h3>
 		    		<input id="barra_ricerca" type="text" placeholder="Cerca" name="ricerca">
 	    		</form>
@@ -80,9 +80,9 @@
 	<div id="divCorsi">
 		<ul>			
 			<%
-				if(quesiti.size() > 0)
+				if(quesiti_ricercati.size() > 0)
 				    		{
-							Iterator<Quesito> it = quesiti.iterator();
+							Iterator<Quesito> it = quesiti_ricercati.iterator();
 					    		
 							while(it.hasNext())
 							{								

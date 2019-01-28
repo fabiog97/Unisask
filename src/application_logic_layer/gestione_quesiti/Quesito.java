@@ -15,15 +15,6 @@ public class Quesito
 	private String risposta;
 	private String data;
 	private String domanda;
-	private String studente_richiedente;
-	public String getStudente_richiedente() {
-		return studente_richiedente;
-	}
-
-	public void setStudente_richiedente(String studente_richiedente) {
-		this.studente_richiedente = studente_richiedente;
-	}
-
 	private ArrayList<Utente> docenti;
 	
 	/**

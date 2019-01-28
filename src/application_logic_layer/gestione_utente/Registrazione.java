@@ -137,14 +137,9 @@ public class Registrazione extends HttpServlet {
 						
 						
 					
-					} catch(Exception e) {}
-					
-					//response.getWriter().write(res);		
-				
-					
-					
-				
-					
+					} catch(Exception e) {
+						
+					}
 					
 				}
 			} catch (SQLException e1) {

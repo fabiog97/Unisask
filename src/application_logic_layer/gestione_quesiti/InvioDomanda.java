@@ -55,7 +55,6 @@ public class InvioDomanda extends HttpServlet {
 				System.out.println(docente.toString());
 			}
 			quesito.setDocenti(docenti);
-			quesito.setStudente_richiedente(user.getCognome());
 			quesito.setDomanda(request.getParameter("domanda").toString());
 			quesito.setData(data_odierna);
 			QuesitoDao.addDomanda(quesito, id_lezione, id_utente);

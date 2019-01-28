@@ -6,6 +6,22 @@ header{
 	height: 25%;	
 }
 
+.banner{
+	background-color: #2A85AD;
+	padding: 1%;
+	padding-left: 5%;
+	padding-right: 5%;
+	height: 120px;
+	color: white;
+	font-size: 70%;
+	margin: 0;
+}
+
+body{
+	margin: 0;
+}
+
+
 
 .container {
   padding: 49px;

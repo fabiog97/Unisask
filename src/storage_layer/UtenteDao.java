@@ -25,27 +25,37 @@ public class UtenteDao
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement1 = null;
 		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
 		
 		int id_utente = 0;
 		
 		String insertSQL = "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita, matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // Viene eseguita una query con la quale si va ad inserire nel DB il nuovo utente
 
-		String controlloSQL = "SELECT * FROM utente WHERE username = ?";
+		String controllo_username = "SELECT * FROM utente WHERE username = ?";
+		
+		String controllo_matricola = "SELECT * FROM utente WHERE matricola = ?";
 		
 		String insertSQL1 = "INSERT INTO codici_conferma (codice, id_utente) VALUES (?, ?)"; 
 		
 		try 
 		{
 			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement2 = connection.prepareStatement(controlloSQL);
+			preparedStatement2 = connection.prepareStatement(controllo_username);
+			preparedStatement3 = connection.prepareStatement(controllo_matricola);
+			
 			preparedStatement2.setString(1, utente.getUsername());
+			preparedStatement3.setString(1, utente.getMatricola());
 			
-			System.out.println("controlloUtenteDoppione: "+ preparedStatement2.toString());
-			ResultSet result_set = preparedStatement2.executeQuery();
+			System.out.println("Matricola: "+utente.getMatricola());
+			
+			System.out.println("controllo_username: "+ preparedStatement2.toString());
+			System.out.println("controllo_matricola: "+ preparedStatement3.toString());
+			ResultSet result_set1 = preparedStatement2.executeQuery();
+			ResultSet result_set2 = preparedStatement3.executeQuery();
 
-			if(result_set.next() == false)  
-			{
 			
+			if((result_set1.next() == false) && (result_set2.next() == false)  )
+			{
 				preparedStatement = connection.prepareStatement(insertSQL,Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setString(1, utente.getUsername());
 				preparedStatement.setString(2, utente.getPassword());
