@@ -19,6 +19,18 @@
 	function validateForm() {
 
 		var docenti = document.forms["AggiungiCorso"]["docenti"].value;
+		var nome = document.forms["AggiungiCorso"]["nomeCorso"].value;
+		
+		if (nome == '') {
+			alert("Il campo nome non raggiunge la lunghezza minima");
+			return false;
+		}
+		
+		if(nome.length > 50){
+			alert("Il campo nome raggiunge la lunghezza massima");
+			return false;
+		}
+		
 		if (!docenti) {
 			alert("Seleziona un docente");
 			return false;
@@ -81,12 +93,10 @@
 
 	<div id="inserisci_lezione" align="center">
 		<h1>Aggiungi Corso</h1>
-		<form name="AggiungiCorso" id="formCorsi" action="InserisciCorso"
-			method="post" onsubmit="return validateForm()">
-
+		<form name="AggiungiCorso" id="formCorsi" action="InserisciCorso" method="post" onsubmit="return validateForm()">
 			<label for="nomeCorso"><b>Nome Corso</b></label> <input type="text"
-				name="nomeCorso" required> <label for="corsoDiLaurea"><b>Corso
-					di laurea</b></label>
+				name="nomeCorso"> 
+			<label for="corsoDiLaurea"><b>Corso di laurea</b></label>
 			<div class="custom-select">
 				<select id="type" name="itemCorsoDiLaurea">
 					<option value="triennale">Informatica - Triennale</option>

@@ -17,6 +17,53 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
 
+<script>
+	function validateForm() {
+
+		var nomeLezione = document.forms["AggiungiLezione"]["nomeLezione"].value;
+		var dataLezione = document.forms["AggiungiLezione"]["dataLezione"].value;
+		var argomentoLezione = document.forms["AggiungiLezione"]["argomentoLezione"].value;
+		var reg = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
+		
+		if (nomeLezione == '') {
+			alert("Il campo nome non raggiunge la lunghezza minima");
+			return false;
+		}
+		
+		if(nomeLezione.length > 55){
+			alert("Il campo nome supera la lunghezza massima");
+			return false;
+		}
+		
+		if(dataLezione == ''){
+			alert("Il campo data non raggiunge la lunghezza minima");
+			return false;
+		}
+		
+		
+		if(dataLezione.length > 10){
+			alert("Il campo data supera la lunghezza massima");
+			return false;
+		}
+		
+		 if (!dataLezione.match(reg)) {
+		 	alert("Il campo data non rispetta il formato");
+		    return false;
+		 }
+		
+		 if(argomentoLezione == ''){
+				alert("Il campo argomento non raggiunge la lunghezza minima");
+				return false;
+		}
+		 
+		 if(argomentoLezione.length > 500){
+				alert("Il campo argomento raggiunge la lunghezza massima");
+				return false;
+		}
+
+
+	}
+</script>
 
 
 </head>
@@ -45,20 +92,19 @@
 	<div id="inserisci_lezione" align="center">
 		<h1>Aggiungi Lezione</h1>
 
-		<form name="AggiungiLezione" id="formLezioneView"
-			action="../AggiungiLezione?id_corso=<%=id_corso%>" method="post">
-			<label for="nomeLezione"><b>Nome Lezione</b></label> <input
-				id="nomelezione" type="text" name="nomeLezione" required> <label
-				for="dataLezione"><b>Data Lezione</b></label> <input id="data"
-				type="text" name="dataLezione" required> <label
-				for="argomentoLezione"><b>Argomento Lezione</b></label>
-			<p>
-				<textarea id="argomento" rows="3" cols="50" name="argomento_lezione"></textarea>
-			</p>
+		<form name="AggiungiLezione" id="formLezioneView"  onsubmit="return validateForm()" action="../AggiungiLezione?id_corso=<%=id_corso%>" method="post" >
+				<label for="nomeLezione"><b>Nome Lezione</b></label> 
+				<input id="nomelezione" type="text" name="nomeLezione" > 
+				
+				<label for="dataLezione"><b>Data Lezione</b></label> 
+				<input id="data" type="text" name="dataLezione" >
+				
+				<label for="argomentoLezione"><b>Argomento Lezione</b></label>
+				<textarea id="argomento" rows="3" cols="50" name="argomentoLezione"></textarea>
 
-			<input class="registerbtn" type="submit" value="Aggiungi"
-				tabindex="2">
+				<button type="submit" class="registerbtn">Aggiungi</button>
 		</form>
+		
 		<p>
 			<a href="../gestione_corsi_insegnamento/VisualizzaCorsiView.jsp">Indietro</a>
 		</p>

@@ -31,7 +31,7 @@ public class AggiungiLezione extends HttpServlet {
 			int id_corso = Integer.valueOf(request.getParameter("id_corso"));
 			lezione.setNome(request.getParameter("nomeLezione"));
 			lezione.setData(request.getParameter("dataLezione"));
-			lezione.setDescrizione(request.getParameter("argomento_lezione"));
+			lezione.setDescrizione(request.getParameter("argomentoLezione"));
 			
 			LezioneDao.addLezione(lezione,id_corso); 
 				
