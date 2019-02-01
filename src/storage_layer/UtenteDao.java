@@ -15,6 +15,15 @@ import application_logic_layer.gestione_utente.Utente;
 
 public class UtenteDao {
 
+	/**
+	 * @author FabioGrauso
+	 * Permette la registrazione di un utente nel database
+	 * @param <utente> oggetto utente da registrare
+	 * @param <codice> codice di verfica registrazione
+	 * @return true se l'utente è stato registrato con successo
+	 * @return false se l'utente non è stato registrato con successo
+	 * @throws SQLException
+	 */
 	public static boolean registraUtente(Utente utente, int codice) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -24,23 +33,8 @@ public class UtenteDao {
 
 		int id_utente = 0;
 
-		String insertSQL = "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita, matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // Viene
-																																							// eseguita
-																																							// una
-																																							// query
-																																							// con
-																																							// la
-																																							// quale
-																																							// si
-																																							// va
-																																							// ad
-																																							// inserire
-																																							// nel
-																																							// DB
-																																							// il
-																																							// nuovo
-																																							// utente
-
+		String insertSQL = "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita, matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
+																																							
 		String controllo_username = "SELECT * FROM utente WHERE username = ?";
 
 		String controllo_matricola = "SELECT * FROM utente WHERE matricola = ?";
@@ -107,6 +101,15 @@ public class UtenteDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di aggiornare la tipologia di un utente a secondo del dominio passato
+	 * @param <id_utente> id dell'utente che si vuole aggiornare
+	 * @param <dominio> stringa di dominio appartenente all'emai dell'utente
+	 * @return true se l'utente è stato aggiornato con successo
+	 * @return false se l'utente non è stato aggiornato con successo
+	 * @throws SQLException
+	 */
 	public static boolean aggiornaUtente(int id_utente, String dominio) throws SQLException {
 		String dominio_docenti = "unisa.it";
 		String dominio_studenti = "studenti.unisa.it";
@@ -149,6 +152,14 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di verificare il codice di conferma di un determinato utente
+	 * @param <id_utente> id dell'utente che si vuole aggiornare
+	 * @param <dominio> stringa di dominio appartenente all'emai dell'utente
+	 * @return codice di conferma
+	 * @throws SQLException
+	 */
 	public static int verificaCodice(int id_utente) throws SQLException {
 		Connection connection = null;
 		Utente utente = new Utente();
@@ -183,6 +194,14 @@ public class UtenteDao {
 		return codice_conferma;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di eliminare il codice di conferma dal database
+	 * @param <codice> codice che si vuole eliminare
+	 * @return true se il codice è stato eliminato con successo
+	 * @return false se il codice non è stato eliminato con successo
+	 * @throws SQLException
+	 */
 	public static boolean deleteCodiceUtente(int codice) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -212,6 +231,13 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di controllare le credenziali di accesso di un utente
+	 * @param <utente> oggetto utente che vuole accedere al sistema
+	 * @return restituisce l'utente
+	 * @throws SQLException
+	 */
 	public static Utente login(Utente utente) throws SQLException {
 
 		Connection connection = null;
@@ -257,6 +283,13 @@ public class UtenteDao {
 		return user;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista dei docenti che insegnano in una lezione
+	 * @param <id_lezione> id della lezione d'interesse
+	 * @return restituisce una lista di utente
+	 * @throws SQLException
+	 */
 	public static ArrayList<Utente> getDocentiByLezioneId(int id_lezione) throws SQLException {
 
 		ArrayList<Utente> docenti = new ArrayList<Utente>();
@@ -303,6 +336,14 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di controllare se l'username e l'email inserite per il reset hanno una corrispondenza nel database
+	 * @param <utente> oggetto utente che vuole resettare la password
+	 * @return true se è stata trovata una corrispondenza nel database
+	 * @return false se non è stata trovata una corrispondenza nel database
+	 * @throws SQLException
+	 */
 	public static boolean controlloResetPassword(Utente utente) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -335,6 +376,12 @@ public class UtenteDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di resettare una password di un utente
+	 * @param <utente> oggetto utente che vuole resettare la password
+	 * @throws SQLException
+	 */
 	public static void resetPassword(Utente user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -362,6 +409,13 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere un utente mediante il suo username
+	 * @param <username> username dell'utente che si vuole ottenere
+	 * @return restituisce un utente
+	 * @throws SQLException
+	 */
 	public static Utente getUtenteByUsername(String username) throws SQLException {
 		Connection connection = null;
 		Utente utente = new Utente();
@@ -403,6 +457,13 @@ public class UtenteDao {
 		return utente;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere un utente mediante il suo id
+	 * @param <username> username dell'utente che si vuole ottenere
+	 * @return restituisce un utente
+	 * @throws SQLException
+	 */
 	public static Utente getUtenteById(int id) throws SQLException {
 		Connection connection = null;
 		Utente utente = new Utente();
@@ -447,6 +508,12 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di eliminare un utente mediante il suo id
+	 * @param <id> id dell'utente che si vuole eliminare
+	 * @throws SQLException
+	 */
 	public static void deleteUtenteById(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -475,6 +542,12 @@ public class UtenteDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista di tutti i docenti presenti sul database
+	 * @return restituisce una lista di utenti 
+	 * @throws SQLException
+	 */
 	public static Collection<Utente> getAllDocenti() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatament = null;

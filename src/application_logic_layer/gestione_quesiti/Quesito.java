@@ -32,14 +32,10 @@ public class Quesito {
 	/**
 	 * Costruttore con parametri
 	 * 
-	 * @param id
-	 *            indica il codice univoco
-	 * @param risposta
-	 *            indica la risposta data al quesito
-	 * @param data
-	 *            indica la data in cui � stato posto il quesito
-	 * @param domanda
-	 *            indica la domanda data al quesito
+	 * @param id indica il codice univoco
+	 * @param risposta indica la risposta data al quesito
+	 * @param data indica la data in cui è stato posto il quesito
+	 * @param domanda indica la domanda data al quesito
 	 */
 	public Quesito(int id, String risposta, String data, String domanda, ArrayList<Utente> docenti) {
 		this.id = id;

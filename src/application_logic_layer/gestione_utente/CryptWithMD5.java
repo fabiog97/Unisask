@@ -3,6 +3,11 @@ package application_logic_layer.gestione_utente;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Classe per la codifica delle password in MD5
+ * @author FabioGrauso
+ * 
+ */
 public class CryptWithMD5 {
 
 	private static MessageDigest md;

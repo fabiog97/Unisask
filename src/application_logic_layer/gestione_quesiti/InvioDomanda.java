@@ -18,16 +18,28 @@ import javax.servlet.http.HttpSession;
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.QuesitoDao;
 import storage_layer.UtenteDao;
-
+/**
+ * Servlet implementation class InvioDomanda
+ * 
+ * Gestisce l'invio della domanda al docente.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/InvioDomanda")
 public class InvioDomanda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public InvioDomanda() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("TEST");
@@ -65,6 +77,9 @@ public class InvioDomanda extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

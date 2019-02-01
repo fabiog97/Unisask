@@ -14,6 +14,15 @@ import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
 import application_logic_layer.gestione_utente.Utente;
 
 public class CorsoInsegnamentoDao {
+	
+	/**
+	 * @author AntonioVitiello
+	 * Permette la rimozione del corso dal database
+	 * @param <id_corso> id del corso da rimuovere
+	 * @return true	se il corso è stato cancellato correttamente
+	 * @return false	se il corso non è stato cancellato correttamente
+	 * @throws SQLException
+	 */
 	public static boolean removeCorso(int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -42,6 +51,15 @@ public class CorsoInsegnamentoDao {
 		return (result != 0);
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette l'iscrizione di un utente ad corso 
+	 * @param <id_corso> id del corso a cui iscriversi
+	 * @param <id_utente> id dell'utente che intende iscriversi
+	 * @return true	se l'utente si è iscritto correttamente al corso
+	 * @return false	se l'utente non si è iscritto correttamente al corso
+	 * @throws SQLException
+	 */
 	public static boolean iscrizioneCorso(int id_corso, int id_utente) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -69,6 +87,15 @@ public class CorsoInsegnamentoDao {
 		return (result != 0);
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette la disiscrizione di un'utente al corso
+	 * @param <id_corso> id del corso a cui disiscriversi
+	 * @param <id_utente> id dell'utente che intende disiscriversi
+	 * @return true	se l'utente si è disiscritto correttamente al corso
+	 * @return false	se l'utente non si è disiscritto correttamente al corso
+	 * @throws SQLException
+	 */
 	public static boolean disiscrizioneCorso(int id_utente, int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -97,6 +124,12 @@ public class CorsoInsegnamentoDao {
 		return (result != 0);
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette di ottenere una lista di tutti corsi presenti nel database
+	 * @return Lista di corsi d'insegnamento
+	 * @throws SQLException
+	 */
 	public static ArrayList<CorsoInsegnamento> getListaCorsi() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -131,6 +164,13 @@ public class CorsoInsegnamentoDao {
 		return corsi;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere il corso tramite il suo id
+	 * @param <id_corso> id del corso che si vuole veng restituito
+	 * @return restituisce un corso d'insegnamento
+	 * @throws SQLException
+	 */
 	public static CorsoInsegnamento getCorsoById(int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -165,6 +205,14 @@ public class CorsoInsegnamentoDao {
 		return corso;
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette l'aggiunta di un corso nel database
+	 * @param <corso> oggetto corso da aggiungere
+	 * @return true	se il corso è stato inserito correttamente
+	 * @return false	se il corso non è stato inserito correttamente
+	 * @throws SQLException
+	 */
 	public static boolean addCorso(CorsoInsegnamento corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -226,6 +274,13 @@ public class CorsoInsegnamentoDao {
 
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista dei corsi insegnati da un docente
+	 * @param <id_utente> id del docente
+	 * @return restituisce una lista di corsi d'insegnamento
+	 * @throws SQLException
+	 */
 	public static ArrayList<CorsoInsegnamento> getListaCorsiInsegnanti(int id_utente) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -269,7 +324,14 @@ public class CorsoInsegnamentoDao {
 		return corsi;
 	}
 
-	public static ArrayList<Utente> getListaDocentiByCorso(int id_corso) throws SQLException {
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista dei docenti che insegnano in un determinato corso
+	 * @param <id_corso> id del corso a cui i docenti insegnano 
+	 * @return restituisce una lista di docenti
+	 * @throws SQLException
+	 */
+	public static ArrayList<Utente> getListaDocentiByIdCorso(int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -315,6 +377,13 @@ public class CorsoInsegnamentoDao {
 		return docenti;
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette di ottenere una lista dei corsi in cui uno studente si è iscritto
+	 * @param <id_utente> id dello studente
+	 * @return restituisce una lista di corsi d'insegnamento
+	 * @throws SQLException
+	 */
 	public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

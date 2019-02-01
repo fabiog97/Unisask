@@ -12,16 +12,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import storage_layer.LezioneDao;
-
+/**
+ * Servlet implementation class EliminaLezione
+ * 
+ * Gestisce l'eliminazione della lezione.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/EliminaLezione")
 public class EliminaLezione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public EliminaLezione() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -52,6 +64,9 @@ public class EliminaLezione extends HttpServlet {
 
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

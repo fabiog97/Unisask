@@ -77,7 +77,15 @@
 			<li>
 				<div class="row">
 					<div id="first_box_element" align="left">
-						<i class="fas fa-angle-right"></i> <a href="#"><%=quesito.getDomanda()%></a>
+					
+						<%
+							String domanda = quesito.getDomanda();
+							if(domanda.length()>24)
+							{
+								domanda  = domanda.substring(0,24)+" . . . .";
+							}
+						%>
+						<i class="fas fa-angle-right"></i> <a href="#"><%=domanda%></a>
 					</div>
 
 					<div id="second_box_element" align="center">

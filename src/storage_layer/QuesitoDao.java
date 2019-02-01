@@ -15,6 +15,15 @@ import application_logic_layer.gestione_quesiti.Quesito;
 import application_logic_layer.gestione_utente.Utente;
 
 public class QuesitoDao {
+	
+	/**
+	 * @author AntonioVitiello
+	 * Permette l'inserimento di una domanda nel database
+	 * @param <quesito> oggetto quesito da inserire
+	 * @param <id_lezione> id della lezione che contiene il quesito
+	 * @param <id_utente> id dell'utente che ha effettuato la domanda
+	 * @throws SQLException
+	 */
 	public static void addDomanda(Quesito quesito, int id_lezione, int id_utente) throws SQLException {
 		Connection connection = null;
 		int id_quesito = 0;
@@ -69,6 +78,12 @@ public class QuesitoDao {
 		}
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette l'inserimento della risposta nel database
+	 * @param <quesito> oggetto quesito
+	 * @throws SQLException
+	 */
 	public static void addRisposta(Quesito quesito) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -92,6 +107,12 @@ public class QuesitoDao {
 		}
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette la rimozione del quesito dal database
+	 * @param <id_quesito>  id del quesito da rimuovere
+	 * @throws SQLException
+	 */
 	public static void removeQuesito(int id_quesito) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -117,6 +138,12 @@ public class QuesitoDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista di tutte le risposte presenti nel database
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Quesito> getAllRisposte() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -149,6 +176,13 @@ public class QuesitoDao {
 		return quesiti;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere il numero di domande fatte ad una lezione
+	 * @param <id_lezione> id della lezione che hai i quesiti
+	 * @return restituisce il numero di quesiti
+	 * @throws SQLException
+	 */
 	public static int getCountDomandeByIdLezione(int id_lezione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -178,6 +212,13 @@ public class QuesitoDao {
 		return count;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere il numero di domande che ha un corso
+	 * @param <id_corso> id del corso
+	 * @return restituisce un numero di quesiti
+	 * @throws SQLException
+	 */
 	public static int getCountDomandeByIdCorso(int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -207,6 +248,13 @@ public class QuesitoDao {
 		return count;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere le risposte date a un quesito di una determina lezione
+	 * @param <id_lezione> id della lezione d'interesse
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Quesito> getRisposteByLezione(int id_lezione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -241,8 +289,14 @@ public class QuesitoDao {
 		return quesiti;
 	}
 
-	public static ArrayList<Quesito> getRisposteByIdUtente(int id_utente) throws SQLException // Restituisce le risposte
-																								// date ad uno studente
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere le risposte date ad uno studente
+	 * @param <id_utente> id dell'utente d'interesse
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
+	public static ArrayList<Quesito> getRisposteByIdUtente(int id_utente) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -278,9 +332,14 @@ public class QuesitoDao {
 		return quesiti;
 	}
 
-	public static ArrayList<Quesito> getDomandeByIdUtente(int id_utente) throws SQLException // Restituisce tutte le
-																								// domande che riceve il
-																								// docente
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere le domande che riceve un docente
+	 * @param <id_utente> id del docente
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
+	public static ArrayList<Quesito> getDomandeByIdUtente(int id_utente) throws SQLException
 	{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -314,19 +373,17 @@ public class QuesitoDao {
 		}
 		return quesiti;
 	}
-
-	public static ArrayList<Quesito> getDomandeByLezioneIdUtente(int id_lezione, int id_utente) throws SQLException // Restituisce
-																													// tutte
-																													// le
-																													// domande
-																													// che
-																													// riceve
-																													// il
-																													// docente
-																													// per
-																													// una
-																													// determinata
-																													// lezione
+	
+	
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere le domande che riceve un docente per una determinata lezione
+	 * @param <id_lezione> id della lezione d'interesse
+	 * @param <id_utente> id del docente
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
+	public static ArrayList<Quesito> getDomandeByLezioneIdUtente(int id_lezione, int id_utente) throws SQLException 
 	{
 
 		Connection connection = null;
@@ -363,10 +420,14 @@ public class QuesitoDao {
 		return quesiti;
 	}
 
-	public static CorsoInsegnamento getCorsoByIdQuesito(int id_quesito) throws SQLException // Restituisce tutte le
-																							// domande che riceve il
-																							// docente per una
-																							// determinata lezione
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere il corso di appartenenza di un determinato quesito
+	 * @param <id_quesito> id del quesito d'interesse
+	 * @return restituisce un corso d'insegnamento
+	 * @throws SQLException
+	 */
+	public static CorsoInsegnamento getCorsoByIdQuesito(int id_quesito) throws SQLException
 	{
 
 		Connection connection = null;
@@ -400,6 +461,13 @@ public class QuesitoDao {
 		return corso;
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere un quesito tramite il suo id
+	 * @param <id_quesito> id del quesito che si vuole ricercare
+	 * @return quesito restituito
+	 * @throws SQLException
+	 */
 	public static Quesito getQuesitoById(int id_quesito) throws SQLException {
 
 		Connection connection = null;
@@ -434,6 +502,7 @@ public class QuesitoDao {
 		return quesito;
 	}
 
+	/*
 	public static Lezione getLezioneByIdQuesito(int id_quesito) throws SQLException {
 
 		Connection connection = null;
@@ -469,7 +538,15 @@ public class QuesitoDao {
 		System.out.println("Lezione: " + lezione.toString());
 		return lezione;
 	}
-
+	*/
+	
+	/**
+	 * @author FabioGrauso
+	 * Permette di ottenere una lista di quesiti contenente una determinata parola
+	 * @param <ricerca> parola da ricercare
+	 * @return restituisce una lista di quesiti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Quesito> getQuesitiByricerca(String ricerca) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

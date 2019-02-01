@@ -11,14 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import storage_layer.CorsoInsegnamentoDao;
 
+/**
+ * Servlet implementation class EliminaCorso
+ * 
+ * Gestisce l'eliminazione del corso.
+ * @author AntonioVitiello
+ * 
+ */
 @WebServlet("/EliminaCorso")
 public class EliminaCorso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public EliminaCorso() {
 		super();
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -33,6 +46,9 @@ public class EliminaCorso extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

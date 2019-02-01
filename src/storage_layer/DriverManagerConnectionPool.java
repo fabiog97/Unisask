@@ -6,6 +6,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Connector per il database
+ * 
+ * @author FabioGrauso & AntonioVitiello
+ *
+ */
 public class DriverManagerConnectionPool {
 
 	private static List<Connection> freeDbConnections;
@@ -19,6 +25,13 @@ public class DriverManagerConnectionPool {
 		}
 	}
 
+	/**
+	 * Inizializza le connessioni
+	 * 
+	 * @return
+	 * @throws SQLException
+	 * @author FabioGrauso & AntonioVitiello
+	 */
 	private static synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
 		String ip = "localhost";
@@ -55,6 +68,14 @@ public class DriverManagerConnectionPool {
 		return connection;
 	}
 
+	/**
+	 * Rilascia la connessione
+	 * 
+	 * @param connection
+	 *            rappresenta la connessione rilasciata e ri-aggiunta al pool di
+	 *            connessioni.
+	 * @author FabioGrauso & AntonioVitiello
+	 */
 	public static synchronized void releaseConnection(Connection connection) throws SQLException {
 		if (connection != null)
 			freeDbConnections.add(connection);

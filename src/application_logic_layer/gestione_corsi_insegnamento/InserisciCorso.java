@@ -17,15 +17,27 @@ import javax.servlet.http.HttpSession;
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.CorsoInsegnamentoDao;
 import storage_layer.UtenteDao;
-
+/**
+ * Servlet implementation class InserisciCorso
+ * 
+ * Gestisce l'inserimento del corso.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/InserisciCorso")
 public class InserisciCorso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public InserisciCorso() {
 		super();
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -49,6 +61,9 @@ public class InserisciCorso extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CorsoInsegnamento corso = new CorsoInsegnamento();

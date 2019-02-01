@@ -12,16 +12,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.LezioneDao;
-
+/**
+ * Servlet implementation class InserisciValutazioneLezione
+ * 
+ * Gestisce l'inserimento della valutazione alla lezione.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/InserisciValutazioneLezione")
 public class InserisciValutazioneLezione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public InserisciValutazioneLezione() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -50,6 +62,9 @@ public class InserisciValutazioneLezione extends HttpServlet {
 
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -11,16 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import storage_layer.QuesitoDao;
-
+/**
+ * Servlet implementation class RicercaAq
+ * 
+ * Gestisce la ricerca delle asked question.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/RicercaAq")
 public class RicercaAq extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public RicercaAq() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -40,6 +52,9 @@ public class RicercaAq extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

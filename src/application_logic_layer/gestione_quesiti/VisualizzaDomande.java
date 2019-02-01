@@ -13,16 +13,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.QuesitoDao;
-
+/**
+ * Servlet implementation class VisualizzaDomande
+ * 
+ * Gestisce la visualizzazione delle domande fatte dagli studenti.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/VisualizzaDomande")
 public class VisualizzaDomande extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public VisualizzaDomande() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -44,6 +56,9 @@ public class VisualizzaDomande extends HttpServlet {
 
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

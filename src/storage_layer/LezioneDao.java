@@ -10,6 +10,14 @@ import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
 import application_logic_layer.gestione_lezioni.Lezione;
 
 public class LezioneDao {
+	
+	/**
+	 * @author AntonioVitiello
+	 * Permette l'inserimento di una lezione nel database
+	 * @param <lezione> oggetto lezione da inserire
+	 * @param <id_corso> id del corso in cui inserire la lezione
+	 * @throws SQLException
+	 */
 	public static void addLezione(Lezione lezione, int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -36,6 +44,14 @@ public class LezioneDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette l'inserimento della valutazione ad una lezione
+	 * @param <id_utente> id del'utente  che inserisce la valutazione
+	 * @param <id_lezione> id della lezione in cui inserire la valutazione
+	 * @param <valutazione> valutazione data alla lezione
+	 * @throws SQLException
+	 */
 	public static void addValutazioneLezione(int id_utente, int id_lezione, int valutazione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -60,6 +76,13 @@ public class LezioneDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette di restituire la media delle valutazioni di una lezione
+	 * @param <id_lezione> id della lezione d'interesse
+	 * @return media delle valutazioni di una lezione 
+	 * @throws SQLException
+	 */
 	public static double getMediaValutazioniById(int id_lezione) throws SQLException {
 		double media = 0;
 		Connection connection = null;
@@ -91,6 +114,13 @@ public class LezioneDao {
 		return media;
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette di ottenere una lezione desiderata dal database
+	 * @param <id_lezione> id della lezione che si vuole cercare
+	 * @return restituisce una lezione
+	 * @throws SQLException
+	 */
 	public static Lezione getLezioneById(int id_lezione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -128,6 +158,12 @@ public class LezioneDao {
 		return lezione;
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette la rimozione della lezione dal database
+	 * @param <id_lezione>  id della lezione da rimuovere
+	 * @throws SQLException
+	 */
 	public static void removeLezione(int id_lezione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -153,6 +189,13 @@ public class LezioneDao {
 		}
 	}
 
+	/**
+	 * @author FabioGrauso
+	 * Permette l'aggiornamento della valutazione di una lezione nel database
+	 * @param <id_lezione>  id della lezione da aggiornare
+	 * @param <valutazione> nuova valutazione assegnata alla lezione
+	 * @throws SQLException
+	 */
 	public static void updateValutazioneLezione(int id_lezione, double valutazione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -179,6 +222,13 @@ public class LezioneDao {
 		}
 	}
 
+	/**
+	 * @author AntonioVitiello
+	 * Permette di ottenere una lista intera delle lezioni che appartengono ad un corso
+	 * @param <id_corso> id del corso in cui si vogliono cercare le lezioni
+	 * @return restituisce una lista di lezioni
+	 * @throws SQLException
+	 */
 	public static ArrayList<Lezione> getListaLezioni(int id_corso) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

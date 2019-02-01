@@ -112,7 +112,7 @@
 					</div>
 					Prof:
 					<%
-						ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByCorso(corso.getId());
+						ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByIdCorso(corso.getId());
 										Iterator<Utente> iterator = docenti.iterator();
 										while (iterator.hasNext()) {
 											Utente docente = iterator.next();
@@ -144,7 +144,7 @@
 					</div>
 					Prof:
 					<%
-						ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByCorso(corso.getId());
+						ArrayList<Utente> docenti = CorsoInsegnamentoDao.getListaDocentiByIdCorso(corso.getId());
 									Iterator<Utente> iterator = docenti.iterator();
 									while (iterator.hasNext()) {
 										Utente docente = iterator.next();

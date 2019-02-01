@@ -13,15 +13,27 @@ import javax.servlet.http.HttpSession;
 
 import application_logic_layer.gestione_utente.Utente;
 import storage_layer.CorsoInsegnamentoDao;
-
+/**
+ * Servlet implementation class VisualizzaCorsi
+ * 
+ * Gestisce la visualizzazione dei corsi.
+ * @author FabioGrauso
+ * 
+ */
 @WebServlet("/VisualizzaCorsi")
 public class VisualizzaCorsi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 	public VisualizzaCorsi() {
 		super();
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -67,6 +79,9 @@ public class VisualizzaCorsi extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
