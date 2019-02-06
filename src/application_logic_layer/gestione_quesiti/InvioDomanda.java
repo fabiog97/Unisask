@@ -20,70 +20,70 @@ import storage_layer.QuesitoDao;
 import storage_layer.UtenteDao;
 /**
  * Servlet implementation class InvioDomanda
- * 
- * Gestisce l'invio della domanda al docente.
+ *
+ * <p>Gestisce l'invio della domanda al docente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/InvioDomanda")
 public class InvioDomanda extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public InvioDomanda() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("TEST");
-		try {
-			Utente user = (Utente) request.getSession().getAttribute("account");
+  /** @see HttpServlet#HttpServlet() */
+  public InvioDomanda() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-			int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
-			int id_utente = Integer.parseInt(request.getParameter("id_utente"));
-			GregorianCalendar gc = new GregorianCalendar();
-			String data_odierna = gc.get(Calendar.DAY_OF_MONTH) + "/" + gc.get(Calendar.MONTH) + "/"
-					+ gc.get(Calendar.YEAR);
-			System.out.println(gc.get(Calendar.MONTH));
-			System.out.println(data_odierna);
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    System.out.println("TEST");
+    try {
+      Utente user = (Utente) request.getSession().getAttribute("account");
 
-			Quesito quesito = new Quesito();
+      int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
+      int id_utente = Integer.parseInt(request.getParameter("id_utente"));
+      GregorianCalendar gc = new GregorianCalendar();
+      String data_odierna =
+          gc.get(Calendar.DAY_OF_MONTH)
+              + "/"
+              + gc.get(Calendar.MONTH)
+              + "/"
+              + gc.get(Calendar.YEAR);
+      System.out.println(gc.get(Calendar.MONTH));
+      System.out.println(data_odierna);
 
-			ArrayList<Utente> docenti = UtenteDao.getDocentiByLezioneId(id_lezione);
+      Quesito quesito = new Quesito();
 
-			Iterator<Utente> it = docenti.iterator();
+      ArrayList<Utente> docenti = UtenteDao.getDocentiByLezioneId(id_lezione);
 
-			while (it.hasNext()) {
-				Utente docente = it.next();
-				System.out.println(docente.toString());
-			}
-			quesito.setDocenti(docenti);
-			quesito.setDomanda(request.getParameter("domanda").toString());
-			quesito.setData(data_odierna);
-			QuesitoDao.addDomanda(quesito, id_lezione, id_utente);
+      Iterator<Utente> it = docenti.iterator();
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-					"/gestione_quesiti/NotificaInserimentoQuesitoDomanda.jsp?id_lezione=" + id_lezione);
-			dispatcher.forward(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+      while (it.hasNext()) {
+        Utente docente = it.next();
+        System.out.println(docente.toString());
+      }
+      quesito.setDocenti(docenti);
+      quesito.setDomanda(request.getParameter("domanda").toString());
+      quesito.setData(data_odierna);
+      QuesitoDao.addDomanda(quesito, id_lezione, id_utente);
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+      RequestDispatcher dispatcher =
+          getServletContext()
+              .getRequestDispatcher(
+                  "/gestione_quesiti/NotificaInserimentoQuesitoDomanda.jsp?id_lezione="
+                      + id_lezione);
+      dispatcher.forward(request, response);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    doGet(request, response);
+  }
 }

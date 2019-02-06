@@ -14,416 +14,405 @@ import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
 import application_logic_layer.gestione_utente.Utente;
 
 public class CorsoInsegnamentoDao {
-	
-	/**
-	 * @author AntonioVitiello
-	 * Permette la rimozione del corso dal database
-	 * @param <id_corso> id del corso da rimuovere
-	 * @return true	se il corso è stato cancellato correttamente
-	 * @return false	se il corso non è stato cancellato correttamente
-	 * @throws SQLException
-	 */
-	public static boolean removeCorso(int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
 
-		int result = 0;
-		String deleteSQL = "DELETE FROM corso WHERE id = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+  /**
+   * @author AntonioVitiello Permette la rimozione del corso dal database
+   * @param id_corso id del corso da rimuovere
+   * @return true se il corso è stato cancellato correttamente false altrimenti
+   * @throws SQLException Eccezione
+   */
+  public static boolean removeCorso(int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			preparedStatement.setInt(1, id_corso);
+    int result = 0;
+    String deleteSQL = "DELETE FROM corso WHERE id = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(deleteSQL);
 
-			result = preparedStatement.executeUpdate();
+      preparedStatement.setInt(1, id_corso);
 
-			System.out.println("removeCorso: " + preparedStatement.toString());
-			connection.commit();
+      result = preparedStatement.executeUpdate();
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return (result != 0);
-	}
+      System.out.println("removeCorso: " + preparedStatement.toString());
+      connection.commit();
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette l'iscrizione di un utente ad corso 
-	 * @param <id_corso> id del corso a cui iscriversi
-	 * @param <id_utente> id dell'utente che intende iscriversi
-	 * @return true	se l'utente si è iscritto correttamente al corso
-	 * @return false	se l'utente non si è iscritto correttamente al corso
-	 * @throws SQLException
-	 */
-	public static boolean iscrizioneCorso(int id_corso, int id_utente) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return (result != 0);
+  }
 
-		int result = 0;
+  /**
+   * @author AntonioVitiello Permette l'iscrizione di un utente ad corso
+   * @param id_corso id del corso a cui iscriversi
+   * @param id_utente id dell'utente che intende iscriversi
+   * @return true se l'utente si è iscritto correttamente al corso false altrimenti
+   * @throws SQLException Eccezione
+   */
+  public static boolean iscrizioneCorso(int id_corso, int id_utente) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO iscrive (id_utente, id_corso) VALUES (?, ?)";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, id_utente);
-			preparedStatement.setInt(2, id_corso);
+    int result = 0;
 
-			System.out.println("iscrizioneCorso: " + preparedStatement.toString());
-			result = preparedStatement.executeUpdate();
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return (result != 0);
-	}
+    String insertSQL = "INSERT INTO iscrive (id_utente, id_corso) VALUES (?, ?)";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement.setInt(1, id_utente);
+      preparedStatement.setInt(2, id_corso);
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette la disiscrizione di un'utente al corso
-	 * @param <id_corso> id del corso a cui disiscriversi
-	 * @param <id_utente> id dell'utente che intende disiscriversi
-	 * @return true	se l'utente si è disiscritto correttamente al corso
-	 * @return false	se l'utente non si è disiscritto correttamente al corso
-	 * @throws SQLException
-	 */
-	public static boolean disiscrizioneCorso(int id_utente, int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      System.out.println("iscrizioneCorso: " + preparedStatement.toString());
+      result = preparedStatement.executeUpdate();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return (result != 0);
+  }
 
-		int result = 0;
-		String deleteSQL = "DELETE FROM iscrive WHERE id_utente = ? AND id_corso = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+  /**
+   * @author AntonioVitiello Permette la disiscrizione di un'utente al corso
+   * @param id_corso id del corso a cui disiscriversi
+   * @param id_utente id dell'utente che intende disiscriversi
+   * @return true se l'utente si è disiscritto correttamente al corso false altrimenti
+   * @throws SQLException Eccezione
+   */
+  public static boolean disiscrizioneCorso(int id_utente, int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			preparedStatement.setInt(1, id_utente);
-			preparedStatement.setInt(2, id_corso);
+    int result = 0;
+    String deleteSQL = "DELETE FROM iscrive WHERE id_utente = ? AND id_corso = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(deleteSQL);
 
-			result = preparedStatement.executeUpdate();
+      preparedStatement.setInt(1, id_utente);
+      preparedStatement.setInt(2, id_corso);
 
-			System.out.println("disiscrizioneCorso: " + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return (result != 0);
-	}
+      result = preparedStatement.executeUpdate();
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette di ottenere una lista di tutti corsi presenti nel database
-	 * @return Lista di corsi d'insegnamento
-	 * @throws SQLException
-	 */
-	public static ArrayList<CorsoInsegnamento> getListaCorsi() throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      System.out.println("disiscrizioneCorso: " + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return (result != 0);
+  }
 
-		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-		String selectSQL = "SELECT * FROM corso";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+  /**
+   * @author AntonioVitiello Permette di ottenere una lista di tutti corsi presenti nel database
+   * @return Lista di corsi d'insegnamento
+   * @throws SQLException Eccezione
+   */
+  public static ArrayList<CorsoInsegnamento> getListaCorsi() throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				CorsoInsegnamento corso = new CorsoInsegnamento();
-				corso.setId(rs.getInt("id"));
-				corso.setNome(rs.getString("nome"));
-				corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
-				corso.setAnnoAccademico(rs.getString("anno_accademico"));
-				corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
-				corso.setSemestre(rs.getString("semestre"));
-				corsi.add(corso);
-			}
-			System.out.println("getListaCorsi:" + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return corsi;
-	}
+    ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
+    String selectSQL = "SELECT * FROM corso";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-	/**
-	 * @author FabioGrauso
-	 * Permette di ottenere il corso tramite il suo id
-	 * @param <id_corso> id del corso che si vuole veng restituito
-	 * @return restituisce un corso d'insegnamento
-	 * @throws SQLException
-	 */
-	public static CorsoInsegnamento getCorsoById(int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		CorsoInsegnamento corso = null;
-		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-		String selectSQL = "SELECT * FROM corso WHERE id = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+        CorsoInsegnamento corso = new CorsoInsegnamento();
+        corso.setId(rs.getInt("id"));
+        corso.setNome(rs.getString("nome"));
+        corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
+        corso.setAnnoAccademico(rs.getString("anno_accademico"));
+        corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
+        corso.setSemestre(rs.getString("semestre"));
+        corsi.add(corso);
+      }
+      System.out.println("getListaCorsi:" + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return corsi;
+  }
 
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				corso = new CorsoInsegnamento();
-				corso.setId(rs.getInt("id"));
-				corso.setNome(rs.getString("nome"));
-				corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
-				corso.setAnnoAccademico(rs.getString("anno_accademico"));
-				corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
-				corso.setSemestre(rs.getString("semestre"));
+  /**
+   * @author FabioGrauso Permette di ottenere il corso tramite il suo id
+   * @param id_corso id del corso che si vuole veng restituito
+   * @return restituisce un corso d'insegnamento
+   * @throws SQLException Eccezione
+   */
+  public static CorsoInsegnamento getCorsoById(int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    CorsoInsegnamento corso = null;
+    ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
+    String selectSQL = "SELECT * FROM corso WHERE id = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement.setInt(1, id_corso);
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+        corso = new CorsoInsegnamento();
+        corso.setId(rs.getInt("id"));
+        corso.setNome(rs.getString("nome"));
+        corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
+        corso.setAnnoAccademico(rs.getString("anno_accademico"));
+        corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
+        corso.setSemestre(rs.getString("semestre"));
+      }
+      System.out.println("getCorsoById:" + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return corso;
+  }
 
-			}
-			System.out.println("getCorsoById:" + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return corso;
-	}
+  /**
+   * @author AntonioVitiello Permette l'aggiunta di un corso nel database
+   * @param corso oggetto corso da aggiungere
+   * @return true se il corso è stato inserito correttamente false altrimenti
+   * @throws SQLException Eccezione
+   */
+  public static boolean addCorso(CorsoInsegnamento corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    PreparedStatement preparedStatement1 = null;
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette l'aggiunta di un corso nel database
-	 * @param <corso> oggetto corso da aggiungere
-	 * @return true	se il corso è stato inserito correttamente
-	 * @return false	se il corso non è stato inserito correttamente
-	 * @throws SQLException
-	 */
-	public static boolean addCorso(CorsoInsegnamento corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		PreparedStatement preparedStatement1 = null;
+    int id_corso = 0;
 
-		int id_corso = 0;
+    String insertCorsoSQL =
+        "INSERT INTO corso (nome, corso_di_laurea, anno_accademico, anno_di_studio, semestre, id_utente) VALUES (?, ?, ?, ?, ?, ?)";
 
-		String insertCorsoSQL = "INSERT INTO corso (nome, corso_di_laurea, anno_accademico, anno_di_studio, semestre, id_utente) VALUES (?, ?, ?, ?, ?, ?)";
+    String insertInsegnaSQL = "INSERT INTO insegna (id_utente, id_corso) VALUES (?, ?)";
+    int result1 = 0;
+    int result2 = 0;
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
 
-		String insertInsegnaSQL = "INSERT INTO insegna (id_utente, id_corso) VALUES (?, ?)";
-		int result1 = 0;
-		int result2 = 0;
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement =
+          connection.prepareStatement(insertCorsoSQL, Statement.RETURN_GENERATED_KEYS);
 
-			preparedStatement = connection.prepareStatement(insertCorsoSQL, Statement.RETURN_GENERATED_KEYS);
+      preparedStatement.setString(1, corso.getNome());
+      preparedStatement.setString(2, corso.getCorsoDiLaurea());
+      preparedStatement.setString(3, corso.getAnnoAccademico());
+      preparedStatement.setString(4, corso.getAnnoDiStudio());
+      preparedStatement.setString(5, corso.getSemestre());
+      preparedStatement.setInt(6, 1); // id amministratore
 
-			preparedStatement.setString(1, corso.getNome());
-			preparedStatement.setString(2, corso.getCorsoDiLaurea());
-			preparedStatement.setString(3, corso.getAnnoAccademico());
-			preparedStatement.setString(4, corso.getAnnoDiStudio());
-			preparedStatement.setString(5, corso.getSemestre());
-			preparedStatement.setInt(6, 1); // id amministratore
+      System.out.println("addCorso: " + preparedStatement.toString());
+      result1 = preparedStatement.executeUpdate();
 
-			System.out.println("addCorso: " + preparedStatement.toString());
-			result1 = preparedStatement.executeUpdate();
+      ResultSet rs = preparedStatement.getGeneratedKeys();
 
-			ResultSet rs = preparedStatement.getGeneratedKeys();
+      if (rs.next()) {
+        id_corso = rs.getInt(1);
+      }
+      rs.close();
 
-			if (rs.next()) {
-				id_corso = rs.getInt(1);
-			}
-			rs.close();
+      preparedStatement1 = connection.prepareStatement(insertInsegnaSQL);
 
-			preparedStatement1 = connection.prepareStatement(insertInsegnaSQL);
+      Iterator<Utente> it = corso.getDocenti().iterator();
+      while (it.hasNext()) {
+        Utente docente = (Utente) it.next();
+        preparedStatement1.setInt(1, docente.getId());
+        preparedStatement1.setInt(2, id_corso);
+        System.out.println("addInsegnaCorso: " + preparedStatement1.toString());
+        result2 = preparedStatement1.executeUpdate();
+      }
 
-			Iterator<Utente> it = corso.getDocenti().iterator();
-			while (it.hasNext()) {
-				Utente docente = (Utente) it.next();
-				preparedStatement1.setInt(1, docente.getId());
-				preparedStatement1.setInt(2, id_corso);
-				System.out.println("addInsegnaCorso: " + preparedStatement1.toString());
-				result2 = preparedStatement1.executeUpdate();
-			}
+      connection.commit();
 
-			connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return (result1 != 0 && result2 != 0);
+  }
 
-		}
+  /**
+   * @author FabioGrauso Permette di ottenere una lista dei corsi insegnati da un docente
+   * @param id_utente id del docente
+   * @return restituisce una lista di corsi d'insegnamento
+   * @throws SQLException Eccezione
+   */
+  public static ArrayList<CorsoInsegnamento> getListaCorsiInsegnanti(int id_utente)
+      throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-		finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return (result1 != 0 && result2 != 0);
+    ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
+    String selectSQL =
+        "select * from corso, (SELECT id_corso AS id_corso from insegna where id_utente= ? ) AS insegna where id = id_corso;";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-	}
+      preparedStatement.setInt(1, id_utente);
 
-	/**
-	 * @author FabioGrauso
-	 * Permette di ottenere una lista dei corsi insegnati da un docente
-	 * @param <id_utente> id del docente
-	 * @return restituisce una lista di corsi d'insegnamento
-	 * @throws SQLException
-	 */
-	public static ArrayList<CorsoInsegnamento> getListaCorsiInsegnanti(int id_utente) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      ResultSet rs = preparedStatement.executeQuery();
 
-		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-		String selectSQL = "select * from corso, (SELECT id_corso AS id_corso from insegna where id_utente= ? ) AS insegna where id = id_corso;";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+      System.out.println("getListaCorsiInsegnati:" + preparedStatement.toString());
 
-			preparedStatement.setInt(1, id_utente);
+      while (rs.next()) {
+        CorsoInsegnamento corso = new CorsoInsegnamento();
+        corso.setId(rs.getInt("id"));
+        corso.setNome(rs.getString("nome"));
+        corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
+        corso.setAnnoAccademico(rs.getString("anno_accademico"));
+        corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
+        corso.setSemestre(rs.getString("semestre"));
+        corsi.add(corso);
+        connection.commit();
+      }
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
 
-			ResultSet rs = preparedStatement.executeQuery();
+    return corsi;
+  }
 
-			System.out.println("getListaCorsiInsegnati:" + preparedStatement.toString());
+  /**
+   * @author FabioGrauso Permette di ottenere una lista dei docenti che insegnano in un determinato
+   *     corso
+   * @param id_corso id del corso a cui i docenti insegnano
+   * @return restituisce una lista di docenti
+   * @throws SQLException Eccezione
+   */
+  public static ArrayList<Utente> getListaDocentiByIdCorso(int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			while (rs.next()) {
-				CorsoInsegnamento corso = new CorsoInsegnamento();
-				corso.setId(rs.getInt("id"));
-				corso.setNome(rs.getString("nome"));
-				corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
-				corso.setAnnoAccademico(rs.getString("anno_accademico"));
-				corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
-				corso.setSemestre(rs.getString("semestre"));
-				corsi.add(corso);
-				connection.commit();
-			}
-		}
+    ArrayList<Utente> docenti = new ArrayList<Utente>();
+    String selectSQL =
+        "SELECT * FROM utente  WHERE id IN (SELECT id_utente  FROM insegna  WHERE id_corso = ?);";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-		finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			}
+      preparedStatement.setInt(1, id_corso);
 
-			finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
+      ResultSet rs = preparedStatement.executeQuery();
 
-		return corsi;
-	}
+      System.out.println("getListaDocentiByCorso:" + preparedStatement.toString());
 
-	/**
-	 * @author FabioGrauso
-	 * Permette di ottenere una lista dei docenti che insegnano in un determinato corso
-	 * @param <id_corso> id del corso a cui i docenti insegnano 
-	 * @return restituisce una lista di docenti
-	 * @throws SQLException
-	 */
-	public static ArrayList<Utente> getListaDocentiByIdCorso(int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      while (rs.next()) {
+        Utente user = new Utente();
+        user.setId(rs.getInt("id"));
+        user.setUsername(rs.getString("username"));
+        user.setNome(rs.getString("nome"));
+        user.setCognome(rs.getString("cognome"));
+        user.setEmail(rs.getString("email"));
+        user.setMatricola(rs.getString("matricola"));
+        user.setNazionalita(rs.getString("nazionalita"));
+        user.setPassword(rs.getString("password"));
+        user.setTipo(rs.getString("tipo"));
+        docenti.add(user);
+        connection.commit();
+      }
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
 
-		ArrayList<Utente> docenti = new ArrayList<Utente>();
-		String selectSQL = "SELECT * FROM utente  WHERE id IN (SELECT id_utente  FROM insegna  WHERE id_corso = ?);";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+    return docenti;
+  }
 
-			preparedStatement.setInt(1, id_corso);
+  /**
+   * @author AntonioVitiello Permette di ottenere una lista dei corsi in cui uno studente si è
+   *     iscritto
+   * @param id_utente id dello studente
+   * @return restituisce una lista di corsi d'insegnamento
+   * @throws SQLException Eccezione
+   */
+  public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente)
+      throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			ResultSet rs = preparedStatement.executeQuery();
+    ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
+    String selectSQL =
+        "SELECT *  FROM corso WHERE id IN ( SELECT id_corso FROM iscrive WHERE id_utente=(?));";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-			System.out.println("getListaDocentiByCorso:" + preparedStatement.toString());
+      preparedStatement.setInt(1, id_utente);
 
-			while (rs.next()) {
-				Utente user = new Utente();
-				user.setId(rs.getInt("id"));
-				user.setUsername(rs.getString("username"));
-				user.setNome(rs.getString("nome"));
-				user.setCognome(rs.getString("cognome"));
-				user.setEmail(rs.getString("email"));
-				user.setMatricola(rs.getString("matricola"));
-				user.setNazionalita(rs.getString("nazionalita"));
-				user.setPassword(rs.getString("password"));
-				user.setTipo(rs.getString("tipo"));
-				docenti.add(user);
-				connection.commit();
-			}
-		}
+      ResultSet rs = preparedStatement.executeQuery();
 
-		finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			}
+      System.out.println("getListaCorsiIscritti:" + preparedStatement.toString());
 
-			finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
+      while (rs.next()) {
+        CorsoInsegnamento corso = new CorsoInsegnamento();
+        corso.setId(rs.getInt("id"));
+        corso.setNome(rs.getString("nome"));
+        corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
+        corso.setAnnoAccademico(rs.getString("anno_accademico"));
+        corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
+        corso.setSemestre(rs.getString("semestre"));
+        corsi.add(corso);
+        connection.commit();
+      }
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
 
-		return docenti;
-	}
-
-	/**
-	 * @author AntonioVitiello
-	 * Permette di ottenere una lista dei corsi in cui uno studente si è iscritto
-	 * @param <id_utente> id dello studente
-	 * @return restituisce una lista di corsi d'insegnamento
-	 * @throws SQLException
-	 */
-	public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-		String selectSQL = "SELECT *  FROM corso WHERE id IN ( SELECT id_corso FROM iscrive WHERE id_utente=(?));";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-
-			preparedStatement.setInt(1, id_utente);
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			System.out.println("getListaCorsiIscritti:" + preparedStatement.toString());
-
-			while (rs.next()) {
-				CorsoInsegnamento corso = new CorsoInsegnamento();
-				corso.setId(rs.getInt("id"));
-				corso.setNome(rs.getString("nome"));
-				corso.setCorsoDiLaurea(rs.getString("corso_di_laurea"));
-				corso.setAnnoAccademico(rs.getString("anno_accademico"));
-				corso.setAnnoDiStudio(rs.getString("anno_di_studio"));
-				corso.setSemestre(rs.getString("semestre"));
-				corsi.add(corso);
-				connection.commit();
-			}
-		}
-
-		finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			}
-
-			finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-
-		return corsi;
-	}
+    return corsi;
+  }
 }

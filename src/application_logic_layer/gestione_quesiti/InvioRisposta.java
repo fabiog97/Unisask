@@ -14,54 +14,46 @@ import storage_layer.QuesitoDao;
 
 /**
  * Servlet implementation class InvioRisposta
- * 
- * Gestisce l'invio della risposta allo studente.
+ *
+ * <p>Gestisce l'invio della risposta allo studente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/InvioRisposta")
 public class InvioRisposta extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public InvioRisposta() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#HttpServlet() */
+  public InvioRisposta() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-		String risposta = request.getParameter("risposta").toString();
-		String id_quesito = request.getParameter("id_quesito").toString();
-		int id = Integer.parseInt(id_quesito);
-		Quesito quesito = null;
-		try {
-			quesito = (Quesito) QuesitoDao.getQuesitoById(id);
-			quesito.setRisposta(risposta);
-			QuesitoDao.addRisposta(quesito);
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaDomande");
-			dispatcher.forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    String risposta = request.getParameter("risposta").toString();
+    String id_quesito = request.getParameter("id_quesito").toString();
+    int id = Integer.parseInt(id_quesito);
+    Quesito quesito = null;
+    try {
+      quesito = (Quesito) QuesitoDao.getQuesitoById(id);
+      quesito.setRisposta(risposta);
+      QuesitoDao.addRisposta(quesito);
 
-	}
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaDomande");
+      dispatcher.forward(request, response);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    doGet(request, response);
+  }
 }

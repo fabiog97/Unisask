@@ -1,266 +1,271 @@
 package storage_layer;
 
+import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
+import application_logic_layer.gestione_lezioni.Lezione;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import application_logic_layer.gestione_corsi_insegnamento.CorsoInsegnamento;
-import application_logic_layer.gestione_lezioni.Lezione;
-
 public class LezioneDao {
-	
-	/**
-	 * @author AntonioVitiello
-	 * Permette l'inserimento di una lezione nel database
-	 * @param <lezione> oggetto lezione da inserire
-	 * @param <id_corso> id del corso in cui inserire la lezione
-	 * @throws SQLException
-	 */
-	public static void addLezione(Lezione lezione, int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String insertSQL = "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione_media, id_corso) VALUES (?, ?, ?, ?, ?)";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, lezione.getNome());
-			preparedStatement.setString(2, lezione.getData());
-			preparedStatement.setString(3, lezione.getDescrizione());
-			preparedStatement.setInt(4, 0);
-			preparedStatement.setInt(5, id_corso);
 
-			System.out.println("addLezione: " + preparedStatement.toString());
-			preparedStatement.executeUpdate();
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
+  /**
+   * @author AntonioVitiello Permette l'inserimento di una lezione nel database
+   * @param lezione oggetto lezione da inserire
+   * @param id_corso id del corso in cui inserire la lezione
+   * @throws SQLException Eccezione
+   */
+  public static void addLezione(Lezione lezione, int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    String insertSQL =
+        "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione_media, id_corso) VALUES (?, ?, ?, ?, ?)";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement.setString(1, lezione.getNome());
+      preparedStatement.setString(2, lezione.getData());
+      preparedStatement.setString(3, lezione.getDescrizione());
+      preparedStatement.setInt(4, 0);
+      preparedStatement.setInt(5, id_corso);
 
-	/**
-	 * @author FabioGrauso
-	 * Permette l'inserimento della valutazione ad una lezione
-	 * @param <id_utente> id del'utente  che inserisce la valutazione
-	 * @param <id_lezione> id della lezione in cui inserire la valutazione
-	 * @param <valutazione> valutazione data alla lezione
-	 * @throws SQLException
-	 */
-	public static void addValutazioneLezione(int id_utente, int id_lezione, int valutazione) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String insertSQL = "INSERT INTO valuta (id_utente, id_lezione, valutazione) VALUES (?, ?, ?)";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, id_utente);
-			preparedStatement.setInt(2, id_lezione);
-			preparedStatement.setInt(3, valutazione);
+      System.out.println("addLezione: " + preparedStatement.toString());
+      preparedStatement.executeUpdate();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+  }
 
-			System.out.println("addValutazioneLezione: " + preparedStatement.toString());
-			preparedStatement.executeUpdate();
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
+  /**
+   * @author FabioGrauso Permette l'inserimento della valutazione ad una lezione
+   * @param id_utente id del'utente che inserisce la valutazione
+   * @param id_lezione id della lezione in cui inserire la valutazione
+   * @param valutazione valutazione data alla lezione
+   * @throws SQLException Eccezione
+   */
+  public static void addValutazioneLezione(int id_utente, int id_lezione, int valutazione)
+      throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    String insertSQL = "INSERT INTO valuta (id_utente, id_lezione, valutazione) VALUES (?, ?, ?)";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement.setInt(1, id_utente);
+      preparedStatement.setInt(2, id_lezione);
+      preparedStatement.setInt(3, valutazione);
 
-	/**
-	 * @author FabioGrauso
-	 * Permette di restituire la media delle valutazioni di una lezione
-	 * @param <id_lezione> id della lezione d'interesse
-	 * @return media delle valutazioni di una lezione 
-	 * @throws SQLException
-	 */
-	public static double getMediaValutazioniById(int id_lezione) throws SQLException {
-		double media = 0;
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String selectSQL = "SELECT AVG(valutazione) AS MediaValutazione FROM valuta WHERE id_lezione = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id_lezione);
+      System.out.println("addValutazioneLezione: " + preparedStatement.toString());
+      preparedStatement.executeUpdate();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+  }
 
-			ResultSet rs = preparedStatement.executeQuery();
+  /**
+   * @author FabioGrauso Permette di restituire la media delle valutazioni di una lezione
+   * @param id_lezione id della lezione d'interesse
+   * @return media delle valutazioni di una lezione
+   * @throws SQLException Eccezione
+   */
+  public static double getMediaValutazioniById(int id_lezione) throws SQLException {
+    double media = 0;
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    String selectSQL =
+        "SELECT AVG(valutazione) AS MediaValutazione FROM valuta WHERE id_lezione = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement.setInt(1, id_lezione);
 
-			while (rs.next()) {
-				media = rs.getDouble("MediaValutazione");
-				connection.commit();
-			}
+      ResultSet rs = preparedStatement.executeQuery();
 
-			System.out.println("getMediaValutazioniById: " + preparedStatement.toString());
+      while (rs.next()) {
+        media = rs.getDouble("MediaValutazione");
+        connection.commit();
+      }
 
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return media;
-	}
+      System.out.println("getMediaValutazioniById: " + preparedStatement.toString());
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette di ottenere una lezione desiderata dal database
-	 * @param <id_lezione> id della lezione che si vuole cercare
-	 * @return restituisce una lezione
-	 * @throws SQLException
-	 */
-	public static Lezione getLezioneById(int id_lezione) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		Lezione lezione = new Lezione();
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return media;
+  }
 
-		String selectSQL = "SELECT * FROM lezione WHERE id = ?";
-		try {
+  /**
+   * @author AntonioVitiello Permette di ottenere una lezione desiderata dal database
+   * @param id_lezione id della lezione che si vuole cercare
+   * @return restituisce una lezione
+   * @throws SQLException Eccezione
+   */
+  public static Lezione getLezioneById(int id_lezione) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    Lezione lezione = new Lezione();
 
-			connection = DriverManagerConnectionPool.getConnection();
+    String selectSQL = "SELECT * FROM lezione WHERE id = ?";
+    try {
 
-			preparedStatement = connection.prepareStatement(selectSQL);
+      connection = DriverManagerConnectionPool.getConnection();
 
-			preparedStatement.setInt(1, id_lezione);
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-			ResultSet rs = preparedStatement.executeQuery();
-			System.out.println("RS DB" + rs);
-			while (rs.next()) {
-				lezione.setId(rs.getInt("id"));
-				lezione.setNome(rs.getString("nome"));
-				lezione.setData(rs.getString("data_lezione"));
-				lezione.setDescrizione(rs.getString("descrizione"));
-				lezione.setValutazione(rs.getString("valutazione_media"));
-				connection.commit();
-			}
-			System.out.println("getLezioneById:" + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return lezione;
-	}
+      preparedStatement.setInt(1, id_lezione);
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette la rimozione della lezione dal database
-	 * @param <id_lezione>  id della lezione da rimuovere
-	 * @throws SQLException
-	 */
-	public static void removeLezione(int id_lezione) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      ResultSet rs = preparedStatement.executeQuery();
+      System.out.println("RS DB" + rs);
+      while (rs.next()) {
+        lezione.setId(rs.getInt("id"));
+        lezione.setNome(rs.getString("nome"));
+        lezione.setData(rs.getString("data_lezione"));
+        lezione.setDescrizione(rs.getString("descrizione"));
+        lezione.setValutazione(rs.getString("valutazione_media"));
+        connection.commit();
+      }
+      System.out.println("getLezioneById:" + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return lezione;
+  }
 
-		String deleteSQL = "DELETE FROM lezione WHERE id = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+  /**
+   * @author AntonioVitiello Permette la rimozione della lezione dal database
+   * @param id_lezione id della lezione da rimuovere
+   * @throws SQLException eccezione
+   */
+  public static void removeLezione(int id_lezione) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			preparedStatement.setInt(1, id_lezione);
+    String deleteSQL = "DELETE FROM lezione WHERE id = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.executeUpdate();
+      preparedStatement.setInt(1, id_lezione);
 
-			System.out.println("removeLezione: " + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
+      preparedStatement.executeUpdate();
 
-	/**
-	 * @author FabioGrauso
-	 * Permette l'aggiornamento della valutazione di una lezione nel database
-	 * @param <id_lezione>  id della lezione da aggiornare
-	 * @param <valutazione> nuova valutazione assegnata alla lezione
-	 * @throws SQLException
-	 */
-	public static void updateValutazioneLezione(int id_lezione, double valutazione) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      System.out.println("removeLezione: " + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+  }
 
-		String updateSQL = "UPDATE lezione SET valutazione_media = ?  WHERE id = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(updateSQL);
+  /**
+   * @author FabioGrauso Permette l'aggiornamento della valutazione di una lezione nel database
+   * @param id_lezione id della lezione da aggiornare
+   * @param valutazione nuova valutazione assegnata alla lezione
+   * @throws SQLException Eccezione
+   */
+  public static void updateValutazioneLezione(int id_lezione, double valutazione)
+      throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			preparedStatement.setDouble(1, valutazione);
-			preparedStatement.setInt(2, id_lezione);
+    String updateSQL = "UPDATE lezione SET valutazione_media = ?  WHERE id = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.executeUpdate();
+      preparedStatement.setDouble(1, valutazione);
+      preparedStatement.setInt(2, id_lezione);
 
-			System.out.println("updateValutazioneLezione: " + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
+      preparedStatement.executeUpdate();
 
-	/**
-	 * @author AntonioVitiello
-	 * Permette di ottenere una lista intera delle lezioni che appartengono ad un corso
-	 * @param <id_corso> id del corso in cui si vogliono cercare le lezioni
-	 * @return restituisce una lista di lezioni
-	 * @throws SQLException
-	 */
-	public static ArrayList<Lezione> getListaLezioni(int id_corso) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+      System.out.println("updateValutazioneLezione: " + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+  }
 
-		ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
-		String selectSQL = "SELECT * FROM lezione WHERE id_corso = ?";
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+  /**
+   * @author AntonioVitiello Permette di ottenere una lista intera delle lezioni che appartengono ad
+   *     un corso
+   * @param id_corso id del corso in cui si vogliono cercare le lezioni
+   * @return restituisce una lista di lezioni
+   * @throws SQLException Eccezione
+   */
+  public static ArrayList<Lezione> getListaLezioni(int id_corso) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-			preparedStatement.setInt(1, id_corso);
+    ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
+    String selectSQL = "SELECT * FROM lezione WHERE id_corso = ?";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
 
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				Lezione lezione = new Lezione();
-				lezione.setId(rs.getInt("id"));
-				lezione.setNome(rs.getString("nome"));
-				lezione.setData(rs.getString("data_lezione"));
-				lezione.setDescrizione(rs.getString("descrizione"));
-				lezione.setValutazione(rs.getString("valutazione_media"));
-				lezioni.add(lezione);
-			}
-			System.out.println("getListaLezioni:" + preparedStatement.toString());
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return lezioni;
-	}
+      preparedStatement.setInt(1, id_corso);
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+        Lezione lezione = new Lezione();
+        lezione.setId(rs.getInt("id"));
+        lezione.setNome(rs.getString("nome"));
+        lezione.setData(rs.getString("data_lezione"));
+        lezione.setDescrizione(rs.getString("descrizione"));
+        lezione.setValutazione(rs.getString("valutazione_media"));
+        lezioni.add(lezione);
+      }
+      System.out.println("getListaLezioni:" + preparedStatement.toString());
+      connection.commit();
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        DriverManagerConnectionPool.releaseConnection(connection);
+      }
+    }
+    return lezioni;
+  }
 }

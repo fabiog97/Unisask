@@ -13,71 +13,62 @@ import javax.servlet.http.HttpServletResponse;
 import storage_layer.UtenteDao;
 /**
  * Servlet implementation class ModificaPassword
- * 
- * Gestisce la modifica della password dell'utente.
+ *
+ * <p>Gestisce la modifica della password dell'utente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/ModificaPassword")
 public class ModificaPassword extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ModificaPassword() {
-		super();
+  /** @see HttpServlet#HttpServlet() */
+  public ModificaPassword() {
+    super();
+  }
 
-	}
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    response.getWriter().append("Served at: ").append(request.getContextPath());
+  }
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    String vecchia_password = request.getParameter("vecchia_password");
+    String nuova_password = request.getParameter("nuova_password");
+    String username = request.getParameter("username");
 
-		String vecchia_password = request.getParameter("vecchia_password");
-		String nuova_password = request.getParameter("nuova_password");
-		String username = request.getParameter("username");
+    String generatedPassword = CryptWithMD5.cryptWithMD5(vecchia_password);
 
-		String generatedPassword = CryptWithMD5.cryptWithMD5(vecchia_password);
+    Utente user = null;
+    try {
+      user = UtenteDao.getUtenteByUsername(username);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
-		Utente user = null;
-		try {
-			user = UtenteDao.getUtenteByUsername(username);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (user.getPassword().equals(generatedPassword)) {
-			user.setPassword(CryptWithMD5.cryptWithMD5(nuova_password));
-			try {
-				UtenteDao.resetPassword(user);
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("/gestione_utente/NotificaModificaView.jsp");
-				dispatcher.forward(request, response);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			request.setAttribute("flag", "modifica");
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
-			dispatcher.forward(request, response);
-
-		}
-		doGet(request, response);
-	}
-
+    if (user.getPassword().equals(generatedPassword)) {
+      user.setPassword(CryptWithMD5.cryptWithMD5(nuova_password));
+      try {
+        UtenteDao.resetPassword(user);
+        RequestDispatcher dispatcher =
+            getServletContext().getRequestDispatcher("/gestione_utente/NotificaModificaView.jsp");
+        dispatcher.forward(request, response);
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    } else {
+      request.setAttribute("flag", "modifica");
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
+      dispatcher.forward(request, response);
+    }
+    doGet(request, response);
+  }
 }

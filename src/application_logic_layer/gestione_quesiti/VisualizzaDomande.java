@@ -15,54 +15,46 @@ import application_logic_layer.gestione_utente.Utente;
 import storage_layer.QuesitoDao;
 /**
  * Servlet implementation class VisualizzaDomande
- * 
- * Gestisce la visualizzazione delle domande fatte dagli studenti.
+ *
+ * <p>Gestisce la visualizzazione delle domande fatte dagli studenti.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/VisualizzaDomande")
 public class VisualizzaDomande extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public VisualizzaDomande() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  /** @see HttpServlet#HttpServlet() */
+  public VisualizzaDomande() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		System.out.println("TEST_doGet");
-		Utente utente = (Utente) request.getSession().getAttribute("account");
+    System.out.println("TEST_doGet");
+    Utente utente = (Utente) request.getSession().getAttribute("account");
 
-		try {
+    try {
 
-			ArrayList<Quesito> quesiti = QuesitoDao.getDomandeByIdUtente(utente.getId());
-			request.setAttribute("quesiti", quesiti);
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/gestione_quesiti/VisualizzaDomandeView.jsp");
-			dispatcher.forward(request, response);
+      ArrayList<Quesito> quesiti = QuesitoDao.getDomandeByIdUtente(utente.getId());
+      request.setAttribute("quesiti", quesiti);
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/gestione_quesiti/VisualizzaDomandeView.jsp");
+      dispatcher.forward(request, response);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    doGet(request, response);
+  }
 }

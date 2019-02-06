@@ -12,19 +12,18 @@ import storage_layer.DriverManagerConnectionPool;
 
 public class DriverManagerConnectionPoolTest {
 
-	@Test
-	public final void testGetConnection() {
-		try {
-			assertNotEquals(DriverManagerConnectionPool.getConnection(), null);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+  @Test
+  public final void testGetConnection() {
+    try {
+      assertNotEquals(DriverManagerConnectionPool.getConnection(), null);
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
-	@Test
-	public final void realeaseConnection() {
-		assertEquals(true, true);
-	}
-
+  @Test
+  public final void realeaseConnection() {
+    assertEquals(true, true);
+  }
 }

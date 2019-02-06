@@ -15,54 +15,46 @@ import application_logic_layer.gestione_utente.Utente;
 import storage_layer.QuesitoDao;
 /**
  * Servlet implementation class VisualizzaRisposte
- * 
- * Gestisce la visualizzazione delle risposte fatte dallo studente.
+ *
+ * <p>Gestisce la visualizzazione delle risposte fatte dallo studente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/VisualizzaRisposte")
 public class VisualizzaRisposte extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public VisualizzaRisposte() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  /** @see HttpServlet#HttpServlet() */
+  public VisualizzaRisposte() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		Utente user = (Utente) request.getSession().getAttribute("account");
+    Utente user = (Utente) request.getSession().getAttribute("account");
 
-		ArrayList<Quesito> quesiti;
+    ArrayList<Quesito> quesiti;
 
-		try {
-			quesiti = QuesitoDao.getRisposteByIdUtente(user.getId());
-			request.setAttribute("quesiti_risposti", quesiti);
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/gestione_quesiti/VisualizzaRisposteView.jsp");
-			dispatcher.forward(request, response);
+    try {
+      quesiti = QuesitoDao.getRisposteByIdUtente(user.getId());
+      request.setAttribute("quesiti_risposti", quesiti);
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/gestione_quesiti/VisualizzaRisposteView.jsp");
+      dispatcher.forward(request, response);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    doGet(request, response);
+  }
 }

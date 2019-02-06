@@ -13,46 +13,39 @@ import storage_layer.CorsoInsegnamentoDao;
 
 /**
  * Servlet implementation class EliminaCorso
- * 
- * Gestisce l'eliminazione del corso.
+ *
+ * <p>Gestisce l'eliminazione del corso.
+ *
  * @author AntonioVitiello
- * 
  */
 @WebServlet("/EliminaCorso")
 public class EliminaCorso extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public EliminaCorso() {
-		super();
-	}
+  /** @see HttpServlet#HttpServlet() */
+  public EliminaCorso() {
+    super();
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    try {
 
-			int id_corso = Integer.parseInt(request.getParameter("id_corso"));
+      int id_corso = Integer.parseInt(request.getParameter("id_corso"));
 
-			CorsoInsegnamentoDao.removeCorso(id_corso);
+      CorsoInsegnamentoDao.removeCorso(id_corso);
 
-			response.sendRedirect("./gestione_corsi_insegnamento/VisualizzaCorsiView.jsp");
-		} catch (Throwable theException) {
-			System.out.println(theException);
-		}
-	}
+      response.sendRedirect("./gestione_corsi_insegnamento/VisualizzaCorsiView.jsp");
+    } catch (Throwable theException) {
+      System.out.println(theException);
+    }
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		doGet(request, response);
-	}
-
+    doGet(request, response);
+  }
 }

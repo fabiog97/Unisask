@@ -13,52 +13,46 @@ import javax.servlet.http.HttpServletResponse;
 import storage_layer.QuesitoDao;
 /**
  * Servlet implementation class RicercaAq
- * 
- * Gestisce la ricerca delle asked question.
+ *
+ * <p>Gestisce la ricerca delle asked question.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/RicercaAq")
 public class RicercaAq extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RicercaAq() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  /** @see HttpServlet#HttpServlet() */
+  public RicercaAq() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		String ricerca = request.getParameter("ricerca");
+    String ricerca = request.getParameter("ricerca");
 
-		try {
+    try {
 
-			request.setAttribute("quesiti_ricercati", QuesitoDao.getQuesitiByricerca(ricerca));
+      request.setAttribute("quesiti_ricercati", QuesitoDao.getQuesitiByricerca(ricerca));
 
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/gestione_quesiti/VisualizzaAskedQuestionView.jsp");
-			dispatcher.forward(request, response);
+      RequestDispatcher dispatcher =
+          getServletContext()
+              .getRequestDispatcher("/gestione_quesiti/VisualizzaAskedQuestionView.jsp");
+      dispatcher.forward(request, response);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    doGet(request, response);
+  }
 }

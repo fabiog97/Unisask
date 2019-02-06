@@ -8,43 +8,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Logout
- * 
- * Gestisce il logout dell'utente.
+ *
+ * <p>Gestisce il logout dell'utente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/Logout")
 public class Logout extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Logout() {
-		super();
+  /** @see HttpServlet#HttpServlet() */
+  public Logout() {
+    super();
+  }
 
-	}
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    request.getSession().removeAttribute("account");
+    request.getSession().invalidate();
 
-		request.getSession().removeAttribute("account");
-		request.getSession().invalidate();
+    String redirectedPage = "/index.jsp";
+    response.sendRedirect(request.getContextPath() + redirectedPage);
+  }
 
-		String redirectedPage = "/index.jsp";
-		response.sendRedirect(request.getContextPath() + redirectedPage);
-	}
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doGet(request, response);
-	}
-
+    doGet(request, response);
+  }
 }

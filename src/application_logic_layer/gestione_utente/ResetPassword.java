@@ -26,112 +26,110 @@ import storage_layer.UtenteDao;
 
 /**
  * Servlet implementation class ResetPassword
- * 
- * Gestisce il reset della password dell'utente.
+ *
+ * <p>Gestisce il reset della password dell'utente.
+ *
  * @author FabioGrauso
- * 
  */
 @WebServlet("/ResetPassword")
 public class ResetPassword extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ResetPassword() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+  /** @see HttpServlet#HttpServlet() */
+  public ResetPassword() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    response.getWriter().append("Served at: ").append(request.getContextPath());
+  }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-		Utente user = new Utente();
-		String username = request.getParameter("username");
-		String email = request.getParameter("email");
+    Utente user = new Utente();
+    String username = request.getParameter("username");
+    String email = request.getParameter("email");
 
-		user.setEmail(email);
-		user.setUsername(username);
+    user.setEmail(email);
+    user.setUsername(username);
 
-		try {
-			if (UtenteDao.controlloResetPassword(user) == false) {
-				// Non esiste nessun utente con eamil e username specificato
-				request.setAttribute("flag", "reset");
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
-				dispatcher.forward(request, response);
-			} else {
+    try {
+      if (UtenteDao.controlloResetPassword(user) == false) {
+        // Non esiste nessun utente con eamil e username specificato
+        request.setAttribute("flag", "reset");
+        RequestDispatcher dispatcher =
+            getServletContext().getRequestDispatcher("/gestione_utente/NegatoResetView.jsp");
+        dispatcher.forward(request, response);
+      } else {
 
-				// Generazione password casuale
+        // Generazione password casuale
 
-				String password = "";
-				String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-				Random rnd = new Random(System.currentTimeMillis());
-				int LENGHT = 8;
+        String password = "";
+        String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rnd = new Random(System.currentTimeMillis());
+        int LENGHT = 8;
 
-				StringBuilder sb = new StringBuilder(LENGHT);
+        StringBuilder sb = new StringBuilder(LENGHT);
 
-				for (int i = 0; i < LENGHT; i++) {
-					sb.append(ALPHABET.charAt(rnd.nextInt(ALPHABET.length())));
-				}
+        for (int i = 0; i < LENGHT; i++) {
+          sb.append(ALPHABET.charAt(rnd.nextInt(ALPHABET.length())));
+        }
 
-				password = sb.toString();
+        password = sb.toString();
 
-				final String email_platform = "unisaskplatform@gmail.com";
-				final String pass_word = "Unisask2018";
+        final String email_platform = "unisaskplatform@gmail.com";
+        final String pass_word = "Unisask2018";
 
-				Properties props = new Properties();
-				props.put("mail.smtp.auth", "true");
-				props.put("mail.smtp.starttls.enable", "true");
-				props.put("mail.smtp.host", "smtp.gmail.com");
-				props.put("mail.smtp.port", "587");
-				Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(email_platform, pass_word);
-					}
-				});
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session =
+            Session.getInstance(
+                props,
+                new javax.mail.Authenticator() {
+                  protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(email_platform, pass_word);
+                  }
+                });
 
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(username));
-				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-				message.setSubject("Reset Password Unisask");
-				message.setText("Ciao " + username + ", \n" + "La tua nuova password è: " + password + "\n Grazie!");
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(username));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+        message.setSubject("Reset Password Unisask");
+        message.setText(
+            "Ciao " + username + ", \n" + "La tua nuova password è: " + password + "\n Grazie!");
 
-				String generatedPassword1 = CryptWithMD5.cryptWithMD5(password);
+        String generatedPassword1 = CryptWithMD5.cryptWithMD5(password);
 
-				user.setPassword(generatedPassword1);
+        user.setPassword(generatedPassword1);
 
-				UtenteDao.resetPassword(user);
+        UtenteDao.resetPassword(user);
 
-				Transport.send(message);
+        Transport.send(message);
 
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("/gestione_utente//NotificaResetView.jsp");
-				dispatcher.forward(request, response);
-			}
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        RequestDispatcher dispatcher =
+            getServletContext().getRequestDispatcher("/gestione_utente//NotificaResetView.jsp");
+        dispatcher.forward(request, response);
+      }
+    } catch (AddressException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (MessagingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
-		doGet(request, response);
-	}
+    doGet(request, response);
+  }
 }
