@@ -1,7 +1,7 @@
 package application_logic_layer.gestione_lezioni;
 
 /**
- * Oggetto Lezione che identifica una lezione
+ * Oggetto Lezione che identifica una lezione.
  *
  * @author AntonioVitiello
  */
@@ -12,7 +12,9 @@ public class Lezione {
   private String valutazione;
   private String nome;
 
-  /** Costruttore vuoto */
+  /** 
+   * Costruttore vuoto.
+   * */
   public Lezione() {
     id = -1;
     data = null;
@@ -22,7 +24,7 @@ public class Lezione {
   }
 
   /**
-   * Costruttore con parametri
+   * Costruttore con parametri.
    *
    * @param id indica il codice univoco
    * @param data indica la data in cui � stata effettuata la lezione
@@ -39,7 +41,7 @@ public class Lezione {
   }
 
   /**
-   * Restituisce il codice univoco della lezione
+   * Restituisce il codice univoco della lezione.
    *
    * @return id
    */
@@ -48,7 +50,7 @@ public class Lezione {
   }
 
   /**
-   * Setta il codice univoco alla lezione
+   * Setta il codice univoco alla lezione.
    *
    * @param id indica il nuovo ID
    */
@@ -57,7 +59,7 @@ public class Lezione {
   }
 
   /**
-   * Restituisce la data di inserimento della lezione
+   * Restituisce la data di inserimento della lezione.
    *
    * @return data
    */
@@ -66,7 +68,7 @@ public class Lezione {
   }
 
   /**
-   * Setta la data di inserimento alla lezione
+   * Setta la data di inserimento alla lezione.
    *
    * @param data indica la nuova data
    */
@@ -75,7 +77,7 @@ public class Lezione {
   }
 
   /**
-   * Restituisce la descrizione della lezione
+   * Restituisce la descrizione della lezione.
    *
    * @return descrizione
    */
@@ -84,7 +86,7 @@ public class Lezione {
   }
 
   /**
-   * Setta la descrizione alla lezione
+   * Setta la descrizione alla lezione.
    *
    * @param descrizione indica la nuova descrizione
    */
@@ -93,7 +95,7 @@ public class Lezione {
   }
 
   /**
-   * Restituisce la valutazione della lezione
+   * Restituisce la valutazione della lezione.
    *
    * @return valutazione
    */
@@ -102,7 +104,7 @@ public class Lezione {
   }
 
   /**
-   * Setta la valutazione alla lezione
+   * Setta la valutazione alla lezione.
    *
    * @param valutazione indica la nuova valutazione
    */
@@ -111,7 +113,7 @@ public class Lezione {
   }
 
   /**
-   * Restituisce il nome della lezione
+   * Restituisce il nome della lezione.
    *
    * @return nome
    */
@@ -120,7 +122,7 @@ public class Lezione {
   }
 
   /**
-   * Setta il nome alla lezione
+   * Setta il nome alla lezione.
    *
    * @param nome indica il nuovo nome
    */

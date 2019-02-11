@@ -1,5 +1,7 @@
 package application_logic_layer.gestione_corsi_insegnamento;
 
+import application_logic_layer.gestione_utente.Utente;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_logic_layer.gestione_utente.Utente;
 import storage_layer.CorsoInsegnamentoDao;
 /**
  * Servlet implementation class VisualizzaCorsi
@@ -23,12 +24,12 @@ import storage_layer.CorsoInsegnamentoDao;
 public class VisualizzaCorsi extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public VisualizzaCorsi() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
@@ -77,7 +78,7 @@ public class VisualizzaCorsi extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

@@ -17,6 +17,7 @@ import com.mysql.jdbc.Statement;
 public class QuesitoDao {
 
   /**
+   * addDomanda.
    * @author AntonioVitiello Permette l'inserimento di una domanda nel database
    * @param quesito oggetto quesito da inserire
    * @param id_lezione id della lezione che contiene il quesito
@@ -29,13 +30,14 @@ public class QuesitoDao {
     int id_quesito = 0;
     PreparedStatement preparedStatement = null;
     PreparedStatement preparedStatement1 = null;
-    String insertSQL =
-        "INSERT INTO quesito (domanda, risposta, data_quesito, id_lezione, id_utente, completo) VALUES (?, ?, ?, ?, ?, ?)";
-    String insertRiceveSQL = "INSERT INTO riceve (id_utente, id_quesito) VALUES (?, ?)";
+    final String insert_sql =
+        "INSERT INTO quesito (domanda, risposta, data_quesito, id_lezione,"
+        + " id_utente, completo) VALUES (?, ?, ?, ?, ?, ?)";
+    String insertRiceveSql = "INSERT INTO riceve (id_utente, id_quesito) VALUES (?, ?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
+      preparedStatement = connection.prepareStatement(insert_sql, Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setString(1, quesito.getDomanda());
       preparedStatement.setString(2, quesito.getRisposta());
       preparedStatement.setString(3, quesito.getData());
@@ -53,7 +55,7 @@ public class QuesitoDao {
       }
       rs.close();
 
-      preparedStatement1 = connection.prepareStatement(insertRiceveSQL);
+      preparedStatement1 = connection.prepareStatement(insertRiceveSql);
 
       Iterator<Utente> it = quesito.getDocenti().iterator();
 
@@ -80,6 +82,7 @@ public class QuesitoDao {
   }
 
   /**
+   * addRisposta.
    * @author AntonioVitiello Permette l'inserimento della risposta nel database
    * @param quesito oggetto quesito
    * @throws SQLException Eccezione
@@ -87,10 +90,10 @@ public class QuesitoDao {
   public static void addRisposta(Quesito quesito) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String insertSQL = "UPDATE quesito SET completo = 1, risposta = ? WHERE id = ?";
+    final String insert_sql = "UPDATE quesito SET completo = 1, risposta = ? WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement = connection.prepareStatement(insert_sql);
       preparedStatement.setString(1, quesito.getRisposta());
       preparedStatement.setInt(2, quesito.getId());
 
@@ -109,6 +112,7 @@ public class QuesitoDao {
   }
 
   /**
+   * removeQuesito.
    * @author AntonioVitiello Permette la rimozione del quesito dal database
    * @param id_quesito id del quesito da rimuovere
    * @throws SQLException Eccezione
@@ -117,10 +121,10 @@ public class QuesitoDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String deleteSQL = "DELETE FROM quesito WHERE id = ?";
+    final String delete_sql = "DELETE FROM quesito WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
 
       preparedStatement.setInt(1, id_quesito);
 
@@ -140,6 +144,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getAllRisposte.
    * @author FabioGrauso Permette di ottenere una lista di tutte le risposte presenti nel database
    * @return restituisce una lista di quesiti
    * @throws SQLException Eccezione
@@ -149,10 +154,10 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL = "SELECT * FROM quesito WHERE completo = 1";
+    final String select_sql = "SELECT * FROM quesito WHERE completo = 1";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
@@ -178,6 +183,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getCountDomandeByIdLezione.
    * @author FabioGrauso Permette di ottenere il numero di domande fatte ad una lezione
    * @param id_lezione id della lezione che hai i quesiti
    * @return restituisce il numero di quesiti
@@ -188,11 +194,11 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
     int count = 0;
 
-    String selectSQL =
+    final String select_sql =
         "SELECT COUNT(id) AS conteggio FROM quesito WHERE id_lezione = ? AND completo = 0;";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
       preparedStatement.setInt(1, id_lezione);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -215,6 +221,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getCountDomandeByIdCorso.
    * @author FabioGrauso Permette di ottenere il numero di domande che ha un corso
    * @param id_corso id del corso
    * @return restituisce un numero di quesiti
@@ -225,11 +232,12 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
     int count = 0;
 
-    String selectSQL =
-        "SELECT COUNT(id) AS conteggio FROM quesito WHERE completo = 0 AND  id_lezione IN (SELECT id FROM lezione WHERE id_corso = ?);";
+    String select_sql =
+        "SELECT COUNT(id) AS conteggio FROM quesito WHERE completo = 0"
+        + " AND id_lezione IN (SELECT id FROM lezione WHERE id_corso = ?);";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
       preparedStatement.setInt(1, id_corso);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -252,6 +260,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getRisposteByLezione.
    * @author FabioGrauso Permette di ottenere le risposte date a un quesito di una determina lezione
    * @param id_lezione id della lezione d'interesse
    * @return restituisce una lista di quesiti
@@ -262,10 +271,10 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL = "SELECT * FROM quesito WHERE id_lezione = ? AND completo = 1";
+    final String select_sql = "SELECT * FROM quesito WHERE id_lezione = ? AND completo = 1";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_lezione);
 
@@ -293,6 +302,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getRisposteByIdUtente.
    * @author FabioGrauso Permette di ottenere le risposte date ad uno studente
    * @param id_utente id dell'utente d'interesse
    * @return restituisce una lista di quesiti
@@ -303,10 +313,10 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL = "SELECT * FROM quesito WHERE id_utente = ? AND completo = 1";
+    final String select_sql = "SELECT * FROM quesito WHERE id_utente = ? AND completo = 1";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_utente);
 
@@ -335,6 +345,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getDomandeByIdUtente.
    * @author FabioGrauso Permette di ottenere le domande che riceve un docente
    * @param id_utente id del docente
    * @return restituisce una lista di quesiti
@@ -345,11 +356,12 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL =
-        "SELECT * FROM quesito WHERE completo = 0 AND id IN (SELECT id_quesito FROM riceve WHERE id_utente = ?)";
+    final String select_sql =
+        "SELECT * FROM quesito WHERE completo = 0 AND"
+        + " id IN (SELECT id_quesito FROM riceve WHERE id_utente = ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_utente);
 
@@ -377,6 +389,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getDomandeByLezioneIdUtente.
    * @author FabioGrauso Permette di ottenere le domande che riceve un docente per una determinata
    *     lezione
    * @param id_lezione id della lezione d'interesse
@@ -391,11 +404,12 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL =
-        "SELECT * FROM quesito WHERE completo = 0 AND id_lezione = ? AND id IN (SELECT id_quesito FROM riceve WHERE id_utente = ?)";
+    final String select_sql =
+        "SELECT * FROM quesito WHERE completo = 0 AND"
+        + " id_lezione = ? AND id IN (SELECT id_quesito FROM riceve WHERE id_utente = ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_lezione);
       preparedStatement.setInt(2, id_utente);
@@ -424,6 +438,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getCorsoByIdQuesito.
    * @author FabioGrauso Permette di ottenere il corso di appartenenza di un determinato quesito
    * @param id_quesito id del quesito d'interesse
    * @return restituisce un corso d'insegnamento
@@ -435,11 +450,13 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
     CorsoInsegnamento corso = null;
 
-    String selectSQL =
-        "SELECT * from corso WHERE id IN (SELECT id_corso FROM lezione WHERE id IN (SELECT id_lezione FROM quesito WHERE id = ?));";
+    final String select_sql =
+        "SELECT * from corso WHERE id IN"
+        + " (SELECT id_corso FROM lezione WHERE"
+        + " id IN (SELECT id_lezione FROM quesito WHERE id = ?));";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_quesito);
 
@@ -464,6 +481,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getQuesitoById.
    * @author FabioGrauso Permette di ottenere un quesito tramite il suo id
    * @param id_quesito id del quesito che si vuole ricercare
    * @return quesito restituito
@@ -475,10 +493,10 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
     Quesito quesito = null;
 
-    String selectSQL = "SELECT * FROM quesito WHERE id = ?;";
+    final String select_sql = "SELECT * FROM quesito WHERE id = ?;";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_quesito);
 
@@ -504,6 +522,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getLezioneByIdQuesito.
    * @author FabioGrauso Permette di ottenere una lezione tramite l'id di un quesito
    * @param id_quesito id del quesito
    * @return lezione restituita
@@ -515,11 +534,11 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
     Lezione lezione = null;
 
-    String selectSQL =
+    final String select_sql =
         "select * from lezione WHERE id IN (SELECT id_lezione from quesito WHERE id = ?);";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_quesito);
       System.out.println("TEST2");
@@ -547,6 +566,7 @@ public class QuesitoDao {
   }
 
   /**
+   * getQuesitiByricerca.
    * @author FabioGrauso Permette di ottenere una lista di quesiti contenente una determinata parola
    * @param ricerca parola da ricercare
    * @return restituisce una lista di quesiti
@@ -557,15 +577,15 @@ public class QuesitoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Quesito> quesiti = new ArrayList<Quesito>();
-    String selectSQL =
+    final String select_sql =
         "SELECT * FROM quesito WHERE completo = 1 AND domanda LIKE '%"
             + ricerca
-            + "%' AND risposta LIKE '%"
+            + "%' OR risposta LIKE '%"
             + ricerca
             + "%'";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       // preparedStatement.setString(1, ricerca);
       // preparedStatement.setString(2, ricerca);

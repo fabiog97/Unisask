@@ -23,19 +23,19 @@ import storage_layer.LezioneDao;
 public class VisualizzaLezioni extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public VisualizzaLezioni() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
-    String id_corso = request.getParameter("id_corso");
-    String nome_corso = request.getParameter("nome_corso");
+    final String id_corso = request.getParameter("id_corso");
+    final String nome_corso = request.getParameter("nome_corso");
     int idCorso = Integer.parseInt(id_corso);
 
     try {
@@ -53,7 +53,7 @@ public class VisualizzaLezioni extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub

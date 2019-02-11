@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class LezioneDao {
 
   /**
+   * getMediaValutazioniById.
    * @author AntonioVitiello Permette l'inserimento di una lezione nel database
    * @param lezione oggetto lezione da inserire
    * @param id_corso id del corso in cui inserire la lezione
@@ -20,11 +21,12 @@ public class LezioneDao {
   public static void addLezione(Lezione lezione, int id_corso) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String insertSQL =
-        "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione_media, id_corso) VALUES (?, ?, ?, ?, ?)";
+    final String insert_sql =
+        "INSERT INTO lezione (nome, data_lezione, descrizione, valutazione_media,"
+        + " id_corso) VALUES (?, ?, ?, ?, ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement = connection.prepareStatement(insert_sql);
       preparedStatement.setString(1, lezione.getNome());
       preparedStatement.setString(2, lezione.getData());
       preparedStatement.setString(3, lezione.getDescrizione());
@@ -46,6 +48,7 @@ public class LezioneDao {
   }
 
   /**
+   * getMediaValutazioniById.
    * @author FabioGrauso Permette l'inserimento della valutazione ad una lezione
    * @param id_utente id del'utente che inserisce la valutazione
    * @param id_lezione id della lezione in cui inserire la valutazione
@@ -56,10 +59,11 @@ public class LezioneDao {
       throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String insertSQL = "INSERT INTO valuta (id_utente, id_lezione, valutazione) VALUES (?, ?, ?)";
+    final String insert_sql = "INSERT INTO valuta (id_utente,"
+        + " id_lezione, valutazione) VALUES (?, ?, ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement = connection.prepareStatement(insert_sql);
       preparedStatement.setInt(1, id_utente);
       preparedStatement.setInt(2, id_lezione);
       preparedStatement.setInt(3, valutazione);
@@ -79,6 +83,7 @@ public class LezioneDao {
   }
 
   /**
+   * getMediaValutazioniById.
    * @author FabioGrauso Permette di restituire la media delle valutazioni di una lezione
    * @param id_lezione id della lezione d'interesse
    * @return media delle valutazioni di una lezione
@@ -88,11 +93,11 @@ public class LezioneDao {
     double media = 0;
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    String selectSQL =
+    final String select_sql =
         "SELECT AVG(valutazione) AS MediaValutazione FROM valuta WHERE id_lezione = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
       preparedStatement.setInt(1, id_lezione);
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -118,6 +123,7 @@ public class LezioneDao {
   }
 
   /**
+   * getLezioneById.
    * @author AntonioVitiello Permette di ottenere una lezione desiderata dal database
    * @param id_lezione id della lezione che si vuole cercare
    * @return restituisce una lezione
@@ -128,12 +134,12 @@ public class LezioneDao {
     PreparedStatement preparedStatement = null;
     Lezione lezione = new Lezione();
 
-    String selectSQL = "SELECT * FROM lezione WHERE id = ?";
+    final String select_sql = "SELECT * FROM lezione WHERE id = ?";
     try {
 
       connection = DriverManagerConnectionPool.getConnection();
 
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_lezione);
 
@@ -162,6 +168,7 @@ public class LezioneDao {
   }
 
   /**
+   * removeLezione.
    * @author AntonioVitiello Permette la rimozione della lezione dal database
    * @param id_lezione id della lezione da rimuovere
    * @throws SQLException eccezione
@@ -170,10 +177,10 @@ public class LezioneDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String deleteSQL = "DELETE FROM lezione WHERE id = ?";
+    final String delete_sql = "DELETE FROM lezione WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
 
       preparedStatement.setInt(1, id_lezione);
 
@@ -193,6 +200,7 @@ public class LezioneDao {
   }
 
   /**
+   * updateValutazioneLezione.
    * @author FabioGrauso Permette l'aggiornamento della valutazione di una lezione nel database
    * @param id_lezione id della lezione da aggiornare
    * @param valutazione nuova valutazione assegnata alla lezione
@@ -203,10 +211,10 @@ public class LezioneDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String updateSQL = "UPDATE lezione SET valutazione_media = ?  WHERE id = ?";
+    final String update_sql = "UPDATE lezione SET valutazione_media = ?  WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(updateSQL);
+      preparedStatement = connection.prepareStatement(update_sql);
 
       preparedStatement.setDouble(1, valutazione);
       preparedStatement.setInt(2, id_lezione);
@@ -227,6 +235,7 @@ public class LezioneDao {
   }
 
   /**
+   * getListaLezioni.
    * @author AntonioVitiello Permette di ottenere una lista intera delle lezioni che appartengono ad
    *     un corso
    * @param id_corso id del corso in cui si vogliono cercare le lezioni
@@ -238,10 +247,10 @@ public class LezioneDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
-    String selectSQL = "SELECT * FROM lezione WHERE id_corso = ?";
+    final String select_sql = "SELECT * FROM lezione WHERE id_corso = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_corso);
 

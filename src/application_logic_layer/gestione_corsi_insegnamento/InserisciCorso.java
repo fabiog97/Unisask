@@ -1,5 +1,7 @@
 package application_logic_layer.gestione_corsi_insegnamento;
 
+import application_logic_layer.gestione_utente.Utente;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_logic_layer.gestione_utente.Utente;
 import storage_layer.CorsoInsegnamentoDao;
 import storage_layer.UtenteDao;
 /**
@@ -27,12 +28,12 @@ import storage_layer.UtenteDao;
 public class InserisciCorso extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public InserisciCorso() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -57,7 +58,7 @@ public class InserisciCorso extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     CorsoInsegnamento corso = new CorsoInsegnamento();
@@ -65,18 +66,18 @@ public class InserisciCorso extends HttpServlet {
     corso.setNome(request.getParameter("nomeCorso"));
     corso.setCorsoDiLaurea(request.getParameter("itemCorsoDiLaurea"));
 
-    String[] docenti_scelti = request.getParameterValues("itemDocenti");
+    final String[] docenti_scelti = request.getParameterValues("itemDocenti");
     ArrayList<Utente> docenti = new ArrayList<Utente>();
 
     for (int i = 0; i < docenti_scelti.length; i++) {
-      String docente_scelto = docenti_scelti[i];
+      final String docente_scelto = docenti_scelti[i];
       String[] splitted = docente_scelto.split(" ");
       String nomeDocente = splitted[0];
       String cognomeDocente = splitted[1];
 
       try {
-        Collection<Utente> docentiDB = UtenteDao.getAllDocenti();
-        Iterator<Utente> it = docentiDB.iterator();
+        final Collection<Utente> docenti_db = UtenteDao.getAllDocenti();
+        Iterator<Utente> it = docenti_db.iterator();
         while (it.hasNext()) {
           Utente docente = (Utente) it.next();
           if (docente.getNome().equals(nomeDocente)

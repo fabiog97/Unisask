@@ -22,24 +22,24 @@ import storage_layer.UtenteDao;
 public class ModificaPassword extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /**servlet. @see HttpServlet#HttpServlet() */
   public ModificaPassword() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.getWriter().append("Served at: ").append(request.getContextPath());
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    String vecchia_password = request.getParameter("vecchia_password");
-    String nuova_password = request.getParameter("nuova_password");
+    final String vecchia_password = request.getParameter("vecchia_password");
+    final String nuova_password = request.getParameter("nuova_password");
     String username = request.getParameter("username");
 
     String generatedPassword = CryptWithMD5.cryptWithMD5(vecchia_password);

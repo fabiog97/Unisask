@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Connector per il database
+ * Connector per il database.
  *
  * @author FabioGrauso & AntonioVitiello
  */
@@ -25,13 +25,10 @@ public class DriverManagerConnectionPool {
   }
 
   /**
-   * Inizializza le connessioni
-   *
-   * @return
-   * @throws SQLException
+   * Inizializza le connessioni.
    * @author FabioGrauso & AntonioVitiello
    */
-  private static synchronized Connection createDBConnection() throws SQLException {
+  private static synchronized Connection createDbConnection() throws SQLException {
     Connection newConnection = null;
     String ip = "localhost";
     String port = "3306";
@@ -47,7 +44,11 @@ public class DriverManagerConnectionPool {
     newConnection.setAutoCommit(false);
     return newConnection;
   }
-
+  
+  /**
+   * Funzione che restituisce la connessione.
+   * @return
+   */
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
 
@@ -64,14 +65,14 @@ public class DriverManagerConnectionPool {
         connection = getConnection();
       }
     } else {
-      connection = createDBConnection();
+      connection = createDbConnection();
     }
 
     return connection;
   }
 
   /**
-   * Rilascia la connessione
+   * Rilascia la connessione.
    *
    * @param connection rappresenta la connessione rilasciata e ri-aggiunta al pool di connessioni.
    * @author FabioGrauso & AntonioVitiello

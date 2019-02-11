@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Classe per la codifica delle password in MD5
+ * Classe per la codifica delle password in MD5.
  *
  * @author FabioGrauso
  */
@@ -12,6 +12,10 @@ public class CryptWithMD5 {
 
   private static MessageDigest md;
 
+  /**
+   * Funzione che cripta la stringa passata.
+   * @return
+   */
   public static String cryptWithMD5(String pass) {
     try {
       md = MessageDigest.getInstance("MD5");
@@ -28,7 +32,7 @@ public class CryptWithMD5 {
       }
       return sb.toString();
     } catch (NoSuchAlgorithmException ex) {
-
+      ex.printStackTrace();
     }
     return null;
   }

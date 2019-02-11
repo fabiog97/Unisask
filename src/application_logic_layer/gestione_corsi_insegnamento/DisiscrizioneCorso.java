@@ -21,6 +21,7 @@ public class DisiscrizioneCorso extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /** @see
+   * Servlet.
    * HttpServlet#HttpServlet()
    * */
   public DisiscrizioneCorso() {
@@ -28,13 +29,15 @@ public class DisiscrizioneCorso extends HttpServlet {
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** @see 
+   * Servlet.
+   * HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     try {
-      int id_corso = Integer.parseInt(request.getParameter("id_corso"));
-      int id_utente = Integer.parseInt(request.getParameter("id_utente"));
+      final int id_corso = Integer.parseInt(request.getParameter("id_corso"));
+      final int id_utente = Integer.parseInt(request.getParameter("id_utente"));
 
       CorsoInsegnamentoDao.disiscrizioneCorso(id_utente, id_corso);
 
@@ -45,7 +48,7 @@ public class DisiscrizioneCorso extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub

@@ -1,13 +1,10 @@
 package storage_layer;
 
 import application_logic_layer.gestione_utente.Utente;
-
 import com.mysql.jdbc.Statement;
-
 import java.sql.Connection;
-
-
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ import java.util.LinkedList;
 public class UtenteDao {
 
   /**
+   * registraUtente.
    * @author FabioGrauso Permette la registrazione di un utente nel database
    * @param utente oggetto utente da registrare
    * @param codice codice di verfica registrazione
@@ -32,14 +30,15 @@ public class UtenteDao {
 
     int id_utente = 0;
 
-    String insertSQL =
-        "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita, matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    final String insert_sql =
+        "INSERT INTO utente (username, password, tipo, nome, cognome, email, nazionalita,"
+            + "matricola) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    String controllo_username = "SELECT * FROM utente WHERE username = ?";
+    final String controllo_username = "SELECT * FROM utente WHERE username = ?";
 
-    String controllo_matricola = "SELECT * FROM utente WHERE matricola = ?";
+    final String controllo_matricola = "SELECT * FROM utente WHERE matricola = ?";
 
-    String insertSQL1 = "INSERT INTO codici_conferma (codice, id_utente) VALUES (?, ?)";
+    final String insert_sql1 = "INSERT INTO codici_conferma (codice, id_utente) VALUES (?, ?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -49,14 +48,14 @@ public class UtenteDao {
       preparedStatement2.setString(1, utente.getUsername());
       preparedStatement3.setString(1, utente.getMatricola());
 
-      
       System.out.println("controllo_username: " + preparedStatement2.toString());
       System.out.println("controllo_matricola: " + preparedStatement3.toString());
       ResultSet result_set1 = preparedStatement2.executeQuery();
       ResultSet result_set2 = preparedStatement3.executeQuery();
 
       if ((result_set1.next() == false) && (result_set2.next() == false)) {
-        preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement =
+            connection.prepareStatement(insert_sql, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, utente.getUsername());
         preparedStatement.setString(2, utente.getPassword());
         preparedStatement.setString(3, utente.getTipo());
@@ -77,7 +76,7 @@ public class UtenteDao {
         }
         rs.close();
 
-        preparedStatement1 = connection.prepareStatement(insertSQL1);
+        preparedStatement1 = connection.prepareStatement(insert_sql1);
         preparedStatement1.setInt(1, codice);
         preparedStatement1.setInt(2, id_utente);
 
@@ -102,16 +101,16 @@ public class UtenteDao {
   }
 
   /**
+   * aggiornaUtente.
    * @author FabioGrauso Permette di aggiornare la tipologia di un utente a secondo del dominio
    *     passato
    * @param id_utente id dell'utente che si vuole aggiornare
    * @param dominio stringa di dominio appartenente all'emai dell'utente
    * @return true se l'utente è stato aggiornato con successo false altrimenti
-   * @throws SQLException
    */
   public static boolean aggiornaUtente(int id_utente, String dominio) throws SQLException {
-    String dominio_docenti = "unisa.it";
-    String dominio_studenti = "studenti.unisa.it";
+    final String dominio_docenti = "unisa.it";
+    final String dominio_studenti = "studenti.unisa.it";
     String tipo;
 
     if (dominio.equals(dominio_docenti)) {
@@ -127,11 +126,11 @@ public class UtenteDao {
 
     int result = 0;
 
-    String updateSQL = "UPDATE utente SET tipo= ? WHERE id = ?";
+    final String update_sql = "UPDATE utente SET tipo= ? WHERE id = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(updateSQL);
+      preparedStatement = connection.prepareStatement(update_sql);
       preparedStatement.setString(1, tipo);
       preparedStatement.setInt(2, id_utente);
 
@@ -152,6 +151,7 @@ public class UtenteDao {
   }
 
   /**
+   * verificaCodice.
    * @author FabioGrauso Permette di verificare il codice di conferma di un determinato utente
    * @param id_utente id dell'utente che si vuole aggiornare
    * @return codice di conferma
@@ -162,12 +162,12 @@ public class UtenteDao {
     Utente utente = new Utente();
     PreparedStatement preparedStatement = null;
 
-    String selectSQL = "SELECT codice FROM codici_conferma WHERE id_utente= ?";
+    final String select_sql = "SELECT codice FROM codici_conferma WHERE id_utente= ?";
     int codice_conferma = 0;
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_utente);
 
@@ -192,6 +192,7 @@ public class UtenteDao {
   }
 
   /**
+   * deleteCodiceUtente.
    * @author FabioGrauso Permette di eliminare il codice di conferma dal database
    * @param codice codice che si vuole eliminare
    * @return true se il codice è stato eliminato con successo false se il codice non è stato
@@ -204,11 +205,11 @@ public class UtenteDao {
 
     int result = 0;
 
-    String deleteSQL = "DELETE FROM codici_conferma WHERE codice = ?";
+    final String delete_sql = "DELETE FROM codici_conferma WHERE codice = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
       preparedStatement.setInt(1, codice);
 
       System.out.println("deleteCodiceUtente: " + preparedStatement.toString());
@@ -228,10 +229,10 @@ public class UtenteDao {
   }
 
   /**
+   * login.
    * @author FabioGrauso Permette di controllare le credenziali di accesso di un utente
    * @param utente oggetto utente che vuole accedere al sistema
    * @return restituisce l'utente
-   * @throws SQLException
    */
   public static Utente login(Utente utente) throws SQLException {
 
@@ -240,11 +241,11 @@ public class UtenteDao {
 
     Utente user = new Utente();
 
-    String selectSQL = "SELECT * FROM utente WHERE username = ? AND password = ?";
+    final String select_sql = "SELECT * FROM utente WHERE username = ? AND password = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setString(1, utente.getUsername());
       preparedStatement.setString(2, utente.getPassword());
@@ -280,10 +281,10 @@ public class UtenteDao {
   }
 
   /**
+   * getDocentiByLezioneId.
    * @author FabioGrauso Permette di ottenere una lista dei docenti che insegnano in una lezione
    * @param id_lezione id della lezione d'interesse
    * @return restituisce una lista di utente
-   * @throws SQLException
    */
   public static ArrayList<Utente> getDocentiByLezioneId(int id_lezione) throws SQLException {
 
@@ -291,12 +292,13 @@ public class UtenteDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String selectSQL =
-        "SELECT *  FROM utente WHERE id IN( SELECT id_utente FROM insegna WHERE id_corso IN (SELECT id FROM corso WHERE id IN (SELECT id_corso FROM lezione WHERE id = ?)));";
+    final String select_sql =
+        "SELECT *  FROM utente WHERE id IN( SELECT id_utente FROM insegna WHERE id_corso"
+        + " IN (SELECT id FROM corso WHERE id IN (SELECT id_corso FROM lezione WHERE id = ?)));";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_lezione);
 
@@ -333,6 +335,7 @@ public class UtenteDao {
   }
 
   /**
+   * controlloResetPassword.
    * @author FabioGrauso Permette di controllare se l'username e l'email inserite per il reset hanno
    *     una corrispondenza nel database
    * @param utente oggetto utente che vuole resettare la password
@@ -344,11 +347,11 @@ public class UtenteDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String selectSQL = "SELECT * FROM utente WHERE username = ? AND email = ?";
+    final String select_sql = "SELECT * FROM utente WHERE username = ? AND email = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setString(1, utente.getUsername());
       preparedStatement.setString(2, utente.getEmail());
@@ -374,6 +377,7 @@ public class UtenteDao {
   }
 
   /**
+   * resetPassword.
    * @author FabioGrauso Permette di resettare una password di un utente
    * @param user oggetto utente che vuole resettare la password
    * @throws SQLException Eccezione
@@ -382,11 +386,11 @@ public class UtenteDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String updateSQL = "UPDATE utente SET password= ? WHERE username = ?";
+    final String update_sql = "UPDATE utente SET password= ? WHERE username = ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(updateSQL);
+      preparedStatement = connection.prepareStatement(update_sql);
       preparedStatement.setString(1, user.getPassword());
       preparedStatement.setString(2, user.getUsername());
 
@@ -406,6 +410,7 @@ public class UtenteDao {
   }
 
   /**
+   * getUtenteByUsername.
    * @author FabioGrauso Permette di ottenere un utente mediante il suo username
    * @param username username dell'utente che si vuole ottenere
    * @return restituisce un utente
@@ -416,11 +421,11 @@ public class UtenteDao {
     Utente utente = new Utente();
     PreparedStatement preparedStatement = null;
 
-    String selectSQL = "SELECT * FROM utente WHERE username= ?";
+    final String select_sql = "SELECT * FROM utente WHERE username= ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setString(1, username);
 
@@ -454,6 +459,7 @@ public class UtenteDao {
   }
 
   /**
+   * getUtenteById.
    * @author FabioGrauso Permette di ottenere un utente mediante il suo id
    * @param id username dell'utente che si vuole ottenere
    * @return restituisce un utente
@@ -464,11 +470,11 @@ public class UtenteDao {
     Utente utente = new Utente();
     PreparedStatement preparedStatement = null;
 
-    String selectSQL = "SELECT * FROM utente WHERE id= ?";
+    final String select_sql = "SELECT * FROM utente WHERE id= ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id);
 
@@ -504,6 +510,7 @@ public class UtenteDao {
   }
 
   /**
+   * deleteUtenteById.
    * @author FabioGrauso Permette di eliminare un utente mediante il suo id
    * @param id id dell'utente che si vuole eliminare
    * @throws SQLException Eccezione
@@ -512,11 +519,11 @@ public class UtenteDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    String deleteSQL = "DELETE FROM utente WHERE id= ?";
+    final String delete_sql = "DELETE FROM utente WHERE id= ?";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
 
       preparedStatement.setInt(1, id);
 
@@ -537,6 +544,7 @@ public class UtenteDao {
   }
 
   /**
+   * getAllDocenti.
    * @author FabioGrauso Permette di ottenere una lista di tutti i docenti presenti sul database
    * @return restituisce una lista di utenti
    * @throws SQLException eccezione
@@ -547,11 +555,11 @@ public class UtenteDao {
 
     Collection<Utente> docenti = new LinkedList<Utente>();
 
-    String selectSQL = "SELECT * FROM utente WHERE tipo='docente'";
+    final String select_sql = "SELECT * FROM utente WHERE tipo='docente'";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatament = connection.prepareStatement(selectSQL);
+      preparedStatament = connection.prepareStatement(select_sql);
 
       System.out.println("getAllDocenti:" + preparedStatament.toString());
 

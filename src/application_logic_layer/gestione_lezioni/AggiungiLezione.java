@@ -23,19 +23,19 @@ import storage_layer.LezioneDao;
 public class AggiungiLezione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public AggiungiLezione() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
       Lezione lezione = new Lezione();
 
-      int id_corso = Integer.valueOf(request.getParameter("id_corso"));
+      final int id_corso = Integer.valueOf(request.getParameter("id_corso"));
       lezione.setNome(request.getParameter("nomeLezione"));
       lezione.setData(request.getParameter("dataLezione"));
       lezione.setDescrizione(request.getParameter("argomentoLezione"));
@@ -53,7 +53,7 @@ public class AggiungiLezione extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doGet(request, response);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import application_logic_layer.gestione_utente.Utente;
 
 /**
- * Oggetto Quesito che identifica un quesito
+ * Oggetto Quesito che identifica un quesito.
  *
  * @author AntonioVitiello
  */
@@ -16,7 +16,7 @@ public class Quesito {
   private String domanda;
   private ArrayList<Utente> docenti;
 
-  /** Costruttore vuoto */
+  /** Costruttore vuoto. */
   public Quesito() {
     id = -1;
     risposta = null;
@@ -26,7 +26,7 @@ public class Quesito {
   }
 
   /**
-   * Costruttore con parametri
+   * Costruttore con parametri.
    *
    * @param id indica il codice univoco
    * @param risposta indica la risposta data al quesito
@@ -42,7 +42,7 @@ public class Quesito {
   }
 
   /**
-   * Restituisce il codice univoco del quesito
+   * Restituisce il codice univoco del quesito.
    *
    * @return id
    */
@@ -51,7 +51,7 @@ public class Quesito {
   }
 
   /**
-   * Setta il codice univoco al quesito
+   * Setta il codice univoco al quesito.
    *
    * @param id indica il nuovo ID
    */
@@ -60,7 +60,7 @@ public class Quesito {
   }
 
   /**
-   * Restituisce la risposta data al quesito
+   * Restituisce la risposta data al quesito.
    *
    * @return risposta
    */
@@ -69,7 +69,7 @@ public class Quesito {
   }
 
   /**
-   * Setta la risposta al quesito
+   * Setta la risposta al quesito.
    * @param risposta indica la nuova risposta
    */
   public void setRisposta(String risposta) {
@@ -77,7 +77,7 @@ public class Quesito {
   }
 
   /**
-   * Restituisce la data del quesito
+   * Restituisce la data del quesito.
    *
    * @return data
    */
@@ -86,7 +86,7 @@ public class Quesito {
   }
 
   /**
-   * Setta la data al quesito
+   * Setta la data al quesito.
    *
    * @param data indica la nuova data
    */
@@ -95,7 +95,7 @@ public class Quesito {
   }
 
   /**
-   * Restituisce la domanda del quesito
+   * Restituisce la domanda del quesito.
    *
    * @return domanda
    */
@@ -104,7 +104,7 @@ public class Quesito {
   }
 
   /**
-   * Setta la domanda al quesito
+   * Setta la domanda al quesito.
    *
    * @param domanda indica la nuova domanda
    */
@@ -113,7 +113,7 @@ public class Quesito {
   }
 
   /**
-   * Restituisce la lista dei docenti che ricevono i quesiti
+   * Restituisce la lista dei docenti che ricevono i quesiti.
    *
    * @return docenti
    */
@@ -122,7 +122,7 @@ public class Quesito {
   }
 
   /**
-   * Setta la lista di docenti che devono ricevere i quesiti
+   * Setta la lista di docenti che devono ricevere i quesiti.
    *
    * @param docenti indica la nuova lista di docenti
    */

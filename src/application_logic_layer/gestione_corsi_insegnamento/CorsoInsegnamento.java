@@ -5,7 +5,7 @@ import application_logic_layer.gestione_utente.Utente;
 import java.util.ArrayList;
 
 /**
- * Oggetto Corso che identifica un corso d'insegnamento
+ * Oggetto Corso che identifica un corso d'insegnamento.
  *
  * @author AntonioVitiello
  */
@@ -18,6 +18,10 @@ public class CorsoInsegnamento {
   private String nome;
   private ArrayList<Utente> docenti;
 
+  /**
+   * CorsoInsegnamento.
+   * 
+   */
   public CorsoInsegnamento() {
     id = -1;
     annoAccademico = null;
@@ -29,8 +33,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Costruttore con parametri
-   *
+   * Costruttore con parametri.
    * @param id indica il codice univoco
    * @param annoAccademico indica in quale anno accademico � situato il corso
    * @param corsoDiLaurea indica in quale corso di laurea � situato il corso
@@ -58,7 +61,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce il codice univoco del corso
+   * Restituisce il codice univoco del corso.
    *
    * @return id
    */
@@ -67,7 +70,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta il codice univoco al corso
+   * Setta il codice univoco al corso.
    *
    * @param id indica il nuovo ID
    */
@@ -76,7 +79,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce l'anno accademico del corso
+   * Restituisce l'anno accademico del corso.
    *
    * @return annoAccademico
    */
@@ -85,7 +88,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta l'anno accademico al corso
+   * Setta l'anno accademico al corso.
    *
    * @param annoAccademico indica il nuovo anno Accademico
    */
@@ -94,7 +97,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce il corso di laurea del corso
+   * Restituisce il corso di laurea del corso.
    *
    * @return corsoDiLaurea
    */
@@ -103,7 +106,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta il corso di laurea al corso
+   * Setta il corso di laurea al corso.
    *
    * @param corsoDiLaurea indica il nuovo corso di Laurea
    */
@@ -112,7 +115,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce l'anno di studio del corso
+   * Restituisce l'anno di studio del corso.
    *
    * @return annoDiStudio
    */
@@ -121,7 +124,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta l'anno di studio al corso
+   * Setta l'anno di studio al corso.
    *
    * @param annoDiStudio indica il nuovo anno di Studio
    */
@@ -130,7 +133,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce il semestre del corso
+   * Restituisce il semestre del corso.
    *
    * @return semestre
    */
@@ -139,7 +142,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta il semestre al corso
+   * Setta il semestre al corso.
    *
    * @param semestre indica il nuovo semestre
    */
@@ -148,7 +151,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce il nome del corso
+   * Restituisce il nome del corso.
    *
    * @return nome
    */
@@ -157,7 +160,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta il nome al corso
+   * Setta il nome al corso.
    *
    * @param nome indica il nuovo nome
    */
@@ -166,7 +169,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Restituisce la lista dei docenti che gestiscono il corso
+   * Restituisce la lista dei docenti che gestiscono il corso.
    *
    * @return docenti
    */
@@ -175,7 +178,7 @@ public class CorsoInsegnamento {
   }
 
   /**
-   * Setta la lista di docenti al corso
+   * Setta la lista di docenti al corso.
    *
    * @param docenti indica la nuova lista di docenti
    */

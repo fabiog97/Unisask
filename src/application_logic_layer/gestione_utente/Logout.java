@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 public class Logout extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /**servlet. @see HttpServlet#HttpServlet() */
   public Logout() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -33,7 +33,7 @@ public class Logout extends HttpServlet {
     response.sendRedirect(request.getContextPath() + redirectedPage);
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

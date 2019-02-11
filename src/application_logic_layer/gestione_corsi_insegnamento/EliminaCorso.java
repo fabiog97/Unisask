@@ -22,17 +22,17 @@ import storage_layer.CorsoInsegnamentoDao;
 public class EliminaCorso extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public EliminaCorso() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
 
-      int id_corso = Integer.parseInt(request.getParameter("id_corso"));
+      final int id_corso = Integer.parseInt(request.getParameter("id_corso"));
 
       CorsoInsegnamentoDao.removeCorso(id_corso);
 
@@ -42,7 +42,7 @@ public class EliminaCorso extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

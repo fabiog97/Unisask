@@ -23,25 +23,25 @@ import storage_layer.LezioneDao;
 public class EliminaLezione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public EliminaLezione() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     ArrayList<Lezione> lezioni = new ArrayList<Lezione>();
 
     try {
-      int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
+      final int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
       LezioneDao.removeLezione(id_lezione);
 
-      String id_corso = request.getParameter("id_corso");
+      final String id_corso = request.getParameter("id_corso");
       int id = Integer.parseInt(id_corso);
-      String nome_corso = request.getParameter("nome_corso");
+      final String nome_corso = request.getParameter("nome_corso");
 
       lezioni = LezioneDao.getListaLezioni(id);
       request.setAttribute("lezioni", lezioni);
@@ -59,7 +59,7 @@ public class EliminaLezione extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

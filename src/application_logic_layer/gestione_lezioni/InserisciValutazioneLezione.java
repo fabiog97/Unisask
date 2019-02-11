@@ -1,5 +1,7 @@
 package application_logic_layer.gestione_lezioni;
 
+import application_logic_layer.gestione_utente.Utente;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -10,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_logic_layer.gestione_utente.Utente;
 import storage_layer.LezioneDao;
+
 /**
  * Servlet implementation class InserisciValutazioneLezione
  *
@@ -23,18 +25,18 @@ import storage_layer.LezioneDao;
 public class InserisciValutazioneLezione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /**servlet. @see HttpServlet#HttpServlet() */
   public InserisciValutazioneLezione() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     try {
-      int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
+      final int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
       Utente utente = (Utente) request.getSession().getAttribute("account");
 
       int val = Integer.parseInt(request.getParameter("rate"));
@@ -59,7 +61,7 @@ public class InserisciValutazioneLezione extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

@@ -1,7 +1,7 @@
 package application_logic_layer.gestione_utente;
 
 /**
- * Oggetto Utente che identifica un utente
+ * Oggetto Utente che identifica un utente.
  *
  * @author AntonioVitiello
  */
@@ -16,7 +16,7 @@ public class Utente {
   private String username;
   private String tipo;
 
-  /** Costruttore vuoto */
+  /** Costruttore vuoto. */
   public Utente() {
     id = 0;
     nome = null;
@@ -30,7 +30,7 @@ public class Utente {
   }
 
   /**
-   * Costruttore con parametri
+   * Costruttore con parametri.
    *
    * @param nome indica il codice univoco
    * @param cognome indica la risposta data al quesito
@@ -62,7 +62,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce l'id dell'utente
+   * Restituisce l'id dell'utente.
    *
    * @return nome
    */
@@ -71,7 +71,7 @@ public class Utente {
   }
 
   /**
-   * Setta id dell'utente
+   * Setta id dell'utente.
    *
    * @param id indica il nuovo id
    */
@@ -80,7 +80,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce il nome dell'utente
+   * Restituisce il nome dell'utente.
    *
    * @return nome
    */
@@ -89,7 +89,7 @@ public class Utente {
   }
 
   /**
-   * Setta nome dell'utente
+   * Setta nome dell'utente.
    *
    * @param nome indica il nuovo nome
    */
@@ -98,7 +98,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce il cognome dell'utente
+   * Restituisce il cognome dell'utente.
    *
    * @return cognome
    */
@@ -107,7 +107,7 @@ public class Utente {
   }
 
   /**
-   * Setta cognome dell'utente
+   * Setta cognome dell'utente.
    *
    * @param cognome indica il nuovo cognome
    */
@@ -116,7 +116,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce la matricola dell'utente
+   * Restituisce la matricola dell'utente.
    *
    * @return matricola
    */
@@ -125,7 +125,7 @@ public class Utente {
   }
 
   /**
-   * Setta matricola dell'utente
+   * Setta matricola dell'utente.
    *
    * @param matricola indica la nuova matricola
    */
@@ -134,7 +134,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce l'email dell'utente
+   * Restituisce l'email dell'utente.
    *
    * @return email
    */
@@ -143,7 +143,7 @@ public class Utente {
   }
 
   /**
-   * Setta email dell'utente
+   * Setta email dell'utente.
    *
    * @param email indica la nuova email
    */
@@ -152,7 +152,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce la nazionalit� dell'utente
+   * Restituisce la nazionalit� dell'utente.
    *
    * @return nazionalita
    */
@@ -161,7 +161,7 @@ public class Utente {
   }
 
   /**
-   * Setta nazionalita dell'utente
+   * Setta nazionalita dell'utente.
    *
    * @param nazionalita indica la nuova nazionalit�
    */
@@ -170,7 +170,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce la password dell'utente
+   * Restituisce la password dell'utente.
    *
    * @return password
    */
@@ -179,7 +179,7 @@ public class Utente {
   }
 
   /**
-   * Setta password dell'utente
+   * Setta password dell'utente.
    *
    * @param password indica la nuova password
    */
@@ -188,7 +188,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce l'username dell'utente
+   * Restituisce l'username dell'utente.
    *
    * @return username
    */
@@ -197,7 +197,7 @@ public class Utente {
   }
 
   /**
-   * Setta username dell'utente
+   * Setta username dell'utente.
    *
    * @param username indica il nuovo username
    */
@@ -206,7 +206,7 @@ public class Utente {
   }
 
   /**
-   * Restituisce il tipo dell'utente
+   * Restituisce il tipo dell'utente.
    *
    * @return nome
    */
@@ -215,7 +215,7 @@ public class Utente {
   }
 
   /**
-   * Setta il tipo dell'utente
+   * Setta il tipo dell'utente.
    *
    * @param tipo indica il nuovo tipo
    */

@@ -23,6 +23,9 @@ public class UtenteDaoTest {
 
   Connection connection = null;
 
+  /**
+   * setUp.
+   */
   @Before
   public void setUp() throws SQLException {
     PreparedStatement preparedStatement = null;
@@ -88,7 +91,7 @@ public class UtenteDaoTest {
     try {
       UtenteDao.registraUtente(utente, codice);
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
 
     Utente result = UtenteDao.getUtenteById(1);
@@ -115,7 +118,7 @@ public class UtenteDaoTest {
     try {
       UtenteDao.registraUtente(utente, codice);
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
 
     Utente result = UtenteDao.getUtenteById(1);
@@ -141,7 +144,7 @@ public class UtenteDaoTest {
     try {
       UtenteDao.registraUtente(utente, codice);
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
 
     Utente result = UtenteDao.getUtenteById(1);
@@ -169,7 +172,7 @@ public class UtenteDaoTest {
     try {
       UtenteDao.registraUtente(utente, codice);
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
 
     Utente result = UtenteDao.getUtenteById(1);
@@ -185,21 +188,21 @@ public class UtenteDaoTest {
     setUp();
     Utente utente = new Utente();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     utente = UtenteDao.getUtenteByUsername("maria98");
     String email = utente.getEmail();
-    String dominio = email.substring(email.indexOf("@")+1);
+    String dominio = email.substring(email.indexOf("@") + 1);
     boolean result = UtenteDao.aggiornaUtente(utente.getId(), dominio);
 
     assertTrue(result);
@@ -213,18 +216,18 @@ public class UtenteDaoTest {
     setUp();
     Utente utente = new Utente();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
 
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
     utente = UtenteDao.getUtenteByUsername("maria98");
 
     int result = UtenteDao.verificaCodice(utente.getId());
@@ -239,18 +242,18 @@ public class UtenteDaoTest {
     System.out.println("TestDeleteCodiceUtente");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
 
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     boolean result = UtenteDao.deleteCodiceUtente(8912);
     assertTrue(result);
@@ -263,18 +266,18 @@ public class UtenteDaoTest {
     System.out.println("TestDeleteCodiceUtente");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
 
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     boolean result = UtenteDao.deleteCodiceUtente(8112);
     assertFalse(result);
@@ -288,17 +291,17 @@ public class UtenteDaoTest {
     setUp();
     Utente utente = new Utente();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     utente.setUsername("maria98");
     ;
@@ -318,17 +321,17 @@ public class UtenteDaoTest {
     setUp();
     Utente utente = new Utente();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     utente.setUsername("maria98");
     utente.setPassword("fabiog");
@@ -347,17 +350,17 @@ public class UtenteDaoTest {
     setUp();
     Utente utente = new Utente();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso1@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso1@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     utente.setUsername("maria");
     utente.setPassword("0123456789");
@@ -435,20 +438,20 @@ public class UtenteDaoTest {
     System.out.println("TestControlloResetPassword");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
-    utenteDB.setEmail("grauso@studenti.unisa.it");
-    boolean result = UtenteDao.controlloResetPassword(utenteDB);
+    utentedb.setEmail("grauso@studenti.unisa.it");
+    boolean result = UtenteDao.controlloResetPassword(utentedb);
 
     assertFalse(result);
 
@@ -461,23 +464,23 @@ public class UtenteDaoTest {
     System.out.println("TestResetPassword");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
-    String nuova_password = "mariamariamaria";
+    final String nuova_password = "mariamariamaria";
 
-    utenteDB.setPassword(nuova_password);
+    utentedb.setPassword(nuova_password);
 
-    UtenteDao.resetPassword(utenteDB);
+    UtenteDao.resetPassword(utentedb);
 
     Utente result = UtenteDao.getUtenteById(1);
 
@@ -492,21 +495,21 @@ public class UtenteDaoTest {
     System.out.println("TestResetPassword");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     Utente result = UtenteDao.getUtenteByUsername("maria98");
 
-    assertEquals(utenteDB.getUsername(), result.getUsername());
+    assertEquals(utentedb.getUsername(), result.getUsername());
 
     UtenteDao.deleteUtenteById(1);
   }
@@ -516,22 +519,85 @@ public class UtenteDaoTest {
     System.out.println("TestResetPassword");
     setUp();
 
-    Utente utenteDB = new Utente();
-    utenteDB.setNome("Mariantonietta");
-    utenteDB.setCognome("Rauzzino");
-    utenteDB.setTipo("non_verificato");
-    utenteDB.setUsername("maria98");
-    utenteDB.setMatricola("0512104491");
-    utenteDB.setEmail("f.grauso@studenti.unisa.it");
-    utenteDB.setPassword("0123456789");
-    utenteDB.setNazionalita("Italiana");
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
     int codice = 8912;
-    UtenteDao.registraUtente(utenteDB, codice);
+    UtenteDao.registraUtente(utentedb, codice);
 
     Utente result = UtenteDao.getUtenteByUsername("prova");
 
     assertNull(result.getUsername());
 
+    UtenteDao.deleteUtenteById(1);
+  }
+
+  @Test
+  public final void testBranchRegistraUtente() throws SQLException {
+
+    setUp();
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
+    int codice = 8912;
+
+    assertTrue(UtenteDao.registraUtente(utentedb, codice));
+    assertFalse(UtenteDao.registraUtente(utentedb, codice));
+    UtenteDao.deleteUtenteById(1);
+  }
+
+  @Test
+  public final void testBranchDeleteCodiceUtente() throws SQLException {
+    setUp();
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
+    int codice = 8912;
+
+    UtenteDao.registraUtente(utentedb, codice);
+
+    assertTrue(UtenteDao.deleteCodiceUtente(8912));
+    assertFalse(UtenteDao.deleteCodiceUtente(8912));
+    UtenteDao.deleteUtenteById(1);
+  }
+
+  @Test
+  public final void testBranchControlloResetPassword() throws SQLException {
+    setUp();
+    Utente utentedb = new Utente();
+    utentedb.setNome("Mariantonietta");
+    utentedb.setCognome("Rauzzino");
+    utentedb.setTipo("non_verificato");
+    utentedb.setUsername("maria98");
+    utentedb.setMatricola("0512104491");
+    utentedb.setEmail("f.grauso@studenti.unisa.it");
+    utentedb.setPassword("0123456789");
+    utentedb.setNazionalita("Italiana");
+    int codice = 8912;
+
+    UtenteDao.registraUtente(utentedb, codice);
+
+    assertTrue(UtenteDao.controlloResetPassword(utentedb));
+    utentedb.setUsername("test");
+    assertFalse(UtenteDao.controlloResetPassword(utentedb));
     UtenteDao.deleteUtenteById(1);
   }
 }

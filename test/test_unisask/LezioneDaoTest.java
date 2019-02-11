@@ -24,6 +24,10 @@ public class LezioneDaoTest {
 
   Connection connection = null;
 
+  /**
+   * setUp.
+   * @throws Exception
+   */
   @Before
   public void setUp() throws Exception {
     PreparedStatement preparedStatement = null;
@@ -40,6 +44,9 @@ public class LezioneDaoTest {
     connection.commit();
   }
 
+  /**
+   * tearDown.
+   */
   @After
   public void tearDown() throws Exception {
     PreparedStatement preparedStatement = null;
@@ -157,7 +164,7 @@ public class LezioneDaoTest {
     try {
       LezioneDao.addLezione(lezione, 1);
     } catch (Exception e) {
-
+      e.printStackTrace();
     } finally {
       ArrayList<Lezione> lezioni = LezioneDao.getListaLezioni(1);
 

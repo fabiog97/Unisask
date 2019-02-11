@@ -27,6 +27,9 @@ public class QuesitoDaoTest {
 
   Connection connection = null;
 
+  /**
+   * setUp.
+   */
   @Before
   public void setUp() throws Exception {
     PreparedStatement preparedStatement = null;
@@ -48,6 +51,9 @@ public class QuesitoDaoTest {
     connection.commit();
   }
 
+  /**
+   * tearDown.
+   */
   @After
   public void tearDown() throws Exception {
     PreparedStatement preparedStatement = null;

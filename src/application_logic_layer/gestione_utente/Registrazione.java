@@ -33,22 +33,22 @@ import storage_layer.UtenteDao;
 public class Registrazione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /**servlet. @see HttpServlet#HttpServlet() */
   public Registrazione() {
     super();
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doPost(request, response);
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  /**servlet. @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    response.setContentType("text/html");
+    // response.setContentType("text/html");
 
     Utente user = new Utente();
 
@@ -138,14 +138,12 @@ public class Registrazione extends HttpServlet {
                   + " \n Grazie!");
 
           Transport.send(message);
-
-          RequestDispatcher dispatcher =
-              getServletContext()
-                  .getRequestDispatcher("/gestione_utente/NotificaRegistrazioneView.jsp");
-          dispatcher.forward(request, response);
+          request
+              .getRequestDispatcher("/gestione_utente/NotificaRegistrazioneView.jsp")
+              .forward(request, response);
 
         } catch (Exception e) {
-
+          e.printStackTrace();
         }
       }
     } catch (SQLException e1) {

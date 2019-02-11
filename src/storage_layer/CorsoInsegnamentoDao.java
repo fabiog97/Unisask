@@ -16,6 +16,7 @@ import application_logic_layer.gestione_utente.Utente;
 public class CorsoInsegnamentoDao {
 
   /**
+   * removeCorso.
    * @author AntonioVitiello Permette la rimozione del corso dal database
    * @param id_corso id del corso da rimuovere
    * @return true se il corso è stato cancellato correttamente false altrimenti
@@ -26,10 +27,10 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
 
     int result = 0;
-    String deleteSQL = "DELETE FROM corso WHERE id = ?";
+    String delete_sql = "DELETE FROM corso WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
 
       preparedStatement.setInt(1, id_corso);
 
@@ -51,6 +52,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * iscrizioneCorso.
    * @author AntonioVitiello Permette l'iscrizione di un utente ad corso
    * @param id_corso id del corso a cui iscriversi
    * @param id_utente id dell'utente che intende iscriversi
@@ -63,10 +65,10 @@ public class CorsoInsegnamentoDao {
 
     int result = 0;
 
-    String insertSQL = "INSERT INTO iscrive (id_utente, id_corso) VALUES (?, ?)";
+    final String insert_sql = "INSERT INTO iscrive (id_utente, id_corso) VALUES (?, ?)";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement = connection.prepareStatement(insert_sql);
       preparedStatement.setInt(1, id_utente);
       preparedStatement.setInt(2, id_corso);
 
@@ -86,6 +88,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * disiscrizioneCorso.
    * @author AntonioVitiello Permette la disiscrizione di un'utente al corso
    * @param id_corso id del corso a cui disiscriversi
    * @param id_utente id dell'utente che intende disiscriversi
@@ -97,10 +100,10 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
 
     int result = 0;
-    String deleteSQL = "DELETE FROM iscrive WHERE id_utente = ? AND id_corso = ?";
+    final String delete_sql = "DELETE FROM iscrive WHERE id_utente = ? AND id_corso = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(deleteSQL);
+      preparedStatement = connection.prepareStatement(delete_sql);
 
       preparedStatement.setInt(1, id_utente);
       preparedStatement.setInt(2, id_corso);
@@ -122,6 +125,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * getListaCorsi.
    * @author AntonioVitiello Permette di ottenere una lista di tutti corsi presenti nel database
    * @return Lista di corsi d'insegnamento
    * @throws SQLException Eccezione
@@ -131,10 +135,10 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-    String selectSQL = "SELECT * FROM corso";
+    final String select_sql = "SELECT * FROM corso";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
@@ -162,6 +166,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * getCorsoById.
    * @author FabioGrauso Permette di ottenere il corso tramite il suo id
    * @param id_corso id del corso che si vuole veng restituito
    * @return restituisce un corso d'insegnamento
@@ -172,10 +177,10 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
     CorsoInsegnamento corso = null;
     ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-    String selectSQL = "SELECT * FROM corso WHERE id = ?";
+    final String select_sql = "SELECT * FROM corso WHERE id = ?";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
       preparedStatement.setInt(1, id_corso);
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
@@ -202,6 +207,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * addCorso.
    * @author AntonioVitiello Permette l'aggiunta di un corso nel database
    * @param corso oggetto corso da aggiungere
    * @return true se il corso è stato inserito correttamente false altrimenti
@@ -214,17 +220,19 @@ public class CorsoInsegnamentoDao {
 
     int id_corso = 0;
 
-    String insertCorsoSQL =
-        "INSERT INTO corso (nome, corso_di_laurea, anno_accademico, anno_di_studio, semestre, id_utente) VALUES (?, ?, ?, ?, ?, ?)";
+    String insertCorsoSql =
+        "INSERT INTO corso"
+        + " (nome, corso_di_laurea, anno_accademico, anno_di_studio, semestre, id_utente)"
+        + "  VALUES (?, ?, ?, ?, ?, ?)";
 
-    String insertInsegnaSQL = "INSERT INTO insegna (id_utente, id_corso) VALUES (?, ?)";
+    String insertInsegnaSql = "INSERT INTO insegna (id_utente, id_corso) VALUES (?, ?)";
     int result1 = 0;
     int result2 = 0;
     try {
       connection = DriverManagerConnectionPool.getConnection();
 
       preparedStatement =
-          connection.prepareStatement(insertCorsoSQL, Statement.RETURN_GENERATED_KEYS);
+          connection.prepareStatement(insertCorsoSql, Statement.RETURN_GENERATED_KEYS);
 
       preparedStatement.setString(1, corso.getNome());
       preparedStatement.setString(2, corso.getCorsoDiLaurea());
@@ -243,7 +251,7 @@ public class CorsoInsegnamentoDao {
       }
       rs.close();
 
-      preparedStatement1 = connection.prepareStatement(insertInsegnaSQL);
+      preparedStatement1 = connection.prepareStatement(insertInsegnaSql);
 
       Iterator<Utente> it = corso.getDocenti().iterator();
       while (it.hasNext()) {
@@ -269,6 +277,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * getListaCorsiInsegnanti.
    * @author FabioGrauso Permette di ottenere una lista dei corsi insegnati da un docente
    * @param id_utente id del docente
    * @return restituisce una lista di corsi d'insegnamento
@@ -280,11 +289,12 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-    String selectSQL =
-        "select * from corso, (SELECT id_corso AS id_corso from insegna where id_utente= ? ) AS insegna where id = id_corso;";
+    final String select_sql =
+        "select * from corso, (SELECT id_corso AS id_corso from insegna where id_utente= ? ) "
+        + "AS insegna where id = id_corso;";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_utente);
 
@@ -317,6 +327,7 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * getListaDocentiByIdCorso.
    * @author FabioGrauso Permette di ottenere una lista dei docenti che insegnano in un determinato
    *     corso
    * @param id_corso id del corso a cui i docenti insegnano
@@ -328,11 +339,11 @@ public class CorsoInsegnamentoDao {
     PreparedStatement preparedStatement = null;
 
     ArrayList<Utente> docenti = new ArrayList<Utente>();
-    String selectSQL =
+    final String select_sql =
         "SELECT * FROM utente  WHERE id IN (SELECT id_utente  FROM insegna  WHERE id_corso = ?);";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_corso);
 
@@ -368,23 +379,23 @@ public class CorsoInsegnamentoDao {
   }
 
   /**
+   * getListaCorsiIscritti.
    * @author AntonioVitiello Permette di ottenere una lista dei corsi in cui uno studente si è
    *     iscritto
    * @param id_utente id dello studente
    * @return restituisce una lista di corsi d'insegnamento
    * @throws SQLException Eccezione
    */
-  public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente)
-      throws SQLException {
+  public static ArrayList<CorsoInsegnamento> getListaCorsiIscritti(int id_utente) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
     ArrayList<CorsoInsegnamento> corsi = new ArrayList<CorsoInsegnamento>();
-    String selectSQL =
+    final String select_sql =
         "SELECT *  FROM corso WHERE id IN ( SELECT id_corso FROM iscrive WHERE id_utente=(?));";
     try {
       connection = DriverManagerConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(select_sql);
 
       preparedStatement.setInt(1, id_utente);
 

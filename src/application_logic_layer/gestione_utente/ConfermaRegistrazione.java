@@ -23,13 +23,13 @@ import storage_layer.UtenteDao;
 public class ConfermaRegistrazione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public ConfermaRegistrazione() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -43,20 +43,20 @@ public class ConfermaRegistrazione extends HttpServlet {
 
       System.out.println(user.toString());
 
-      int codice_DB = UtenteDao.verificaCodice(user.getId());
+      final int codice_db = UtenteDao.verificaCodice(user.getId());
 
-      System.out.println("Codice conferma DB: " + codice_DB);
+      System.out.println("Codice conferma DB: " + codice_db);
 
       System.out.println("Codice conferma Get: " + codice);
 
       String email = user.getEmail();
       String dominio = email.substring(email.indexOf("@") + 1);
 
-      UtenteDao.deleteCodiceUtente(codice_DB);
+      UtenteDao.deleteCodiceUtente(codice_db);
 
       if (username.equals(user.getUsername())) {
 
-        if (codice_DB == codice) {
+        if (codice_db == codice) {
 
           UtenteDao.aggiornaUtente(user.getId(), dominio);
 
@@ -84,7 +84,7 @@ public class ConfermaRegistrazione extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub

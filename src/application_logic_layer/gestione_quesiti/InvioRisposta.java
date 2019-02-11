@@ -23,18 +23,18 @@ import storage_layer.QuesitoDao;
 public class InvioRisposta extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public InvioRisposta() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     String risposta = request.getParameter("risposta").toString();
-    String id_quesito = request.getParameter("id_quesito").toString();
+    final String id_quesito = request.getParameter("id_quesito").toString();
     int id = Integer.parseInt(id_quesito);
     Quesito quesito = null;
     try {
@@ -50,7 +50,7 @@ public class InvioRisposta extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub

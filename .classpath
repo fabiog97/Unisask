@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/junit-tools.jar"/>
+	<classpathentry kind="lib" path="/Users/Fabio/Downloads/mockito-all-1.9.1-20110911.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

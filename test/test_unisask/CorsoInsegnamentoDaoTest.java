@@ -22,6 +22,9 @@ public class CorsoInsegnamentoDaoTest {
 
   Connection connection = null;
 
+  /**
+   * setUp.
+   */
   @Before
   public void setUp() throws Exception {
     PreparedStatement preparedStatement = null;
@@ -34,6 +37,9 @@ public class CorsoInsegnamentoDaoTest {
     connection.commit();
   }
 
+  /**
+   * tearDown.
+   */
   @After
   public void tearDown() throws Exception {
     PreparedStatement preparedStatement = null;
@@ -356,7 +362,7 @@ public class CorsoInsegnamentoDaoTest {
     try {
       result = CorsoInsegnamentoDao.addCorso(corso);
     } catch (Exception e) {
-
+      e.printStackTrace();
     } finally {
       assertTrue(result);
     }
@@ -493,7 +499,7 @@ public class CorsoInsegnamentoDaoTest {
 
     int flag = 0;
     while (it.hasNext()) {
-      CorsoInsegnamento corso_ins = (CorsoInsegnamento) it.next();
+      final CorsoInsegnamento corso_ins = (CorsoInsegnamento) it.next();
       if (flag == 0) {
         assertEquals(corso_ins.getNome(), corso.getNome());
       } else {
@@ -575,7 +581,6 @@ public class CorsoInsegnamentoDaoTest {
     setUp();
 
     CorsoInsegnamento corso = new CorsoInsegnamento();
-   
 
     Utente utente = new Utente();
 
@@ -601,15 +606,9 @@ public class CorsoInsegnamentoDaoTest {
     corso.setAnnoDiStudio("Primo");
     corso.setDocenti(docenti);
 
-
-
     CorsoInsegnamentoDao.addCorso(corso);
-  
-
     CorsoInsegnamento result = CorsoInsegnamentoDao.getCorsoById(1);
-
     assertEquals(result.getNome(), corso.getNome());
-
     CorsoInsegnamentoDao.removeCorso(1);
     CorsoInsegnamentoDao.removeCorso(2);
     tearDown();

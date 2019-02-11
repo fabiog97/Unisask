@@ -1,5 +1,7 @@
 package application_logic_layer.gestione_quesiti;
 
+import application_logic_layer.gestione_utente.Utente;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import application_logic_layer.gestione_utente.Utente;
+
 import storage_layer.QuesitoDao;
 import storage_layer.UtenteDao;
 /**
@@ -29,23 +31,23 @@ import storage_layer.UtenteDao;
 public class InvioDomanda extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /** @see HttpServlet#HttpServlet() */
+  /** servlet.@see HttpServlet#HttpServlet() */
   public InvioDomanda() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     System.out.println("TEST");
     try {
       Utente user = (Utente) request.getSession().getAttribute("account");
 
-      int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
-      int id_utente = Integer.parseInt(request.getParameter("id_utente"));
+      final int id_lezione = Integer.parseInt(request.getParameter("id_lezione"));
+      final int id_utente = Integer.parseInt(request.getParameter("id_utente"));
       GregorianCalendar gc = new GregorianCalendar();
-      String data_odierna =
+      final String data_odierna =
           gc.get(Calendar.DAY_OF_MONTH)
               + "/"
               + gc.get(Calendar.MONTH)
@@ -80,7 +82,7 @@ public class InvioDomanda extends HttpServlet {
     }
   }
 
-  /** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
+  /** servlet.@see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub

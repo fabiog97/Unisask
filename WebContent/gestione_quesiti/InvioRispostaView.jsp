@@ -22,6 +22,25 @@
 <link rel="SHORTCUT ICON" href="./images/LOGO_Unisask.png">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Unisask</title>
+<script>
+	function validateForm() {
+
+		var risposta = document.forms["InvioRisposta"]["risposta"].value;
+		
+		
+		if (risposta == '') {
+			alert("Il campo risposta non raggiunge la lunghezza minima");
+			return false;
+		}
+		
+		if(risposta.length > 6555){
+			alert("Il campo risposta supera la lunghezza massima");
+			return false;
+		}
+
+	}
+</script>
+
 </head>
 <body>
 
@@ -70,12 +89,13 @@
 				<p><%=domanda%></p>
 
 				<form name="InvioRisposta"
-					action="../InvioRisposta?id_quesito=<%=id%>" method="post">
+					action="../InvioRisposta?id_quesito=<%=id%>" method="post"
+					onsubmit="return validateForm()">
 					<h5>Risposta</h5>
 					<p>
 						<textarea rows="7" cols="50" name="risposta"></textarea>
 					</p>
-					<input class="tastoRispondi" type="submit" value="Invia risposta">
+					<button type="submit" class="tastoRispondi">Invio Risposta</button>
 				</form>
 			</div>
 
